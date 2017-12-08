@@ -1,0 +1,113 @@
+/*-------------------------------------------------------------------------------------
+  Styles for adrianmato.com, by @adrianmg
+
+   _       __     __                             __
+  | |     / /__  / /________  ____ ___  ___     / /
+  | | /| / / _ \/ / ___/ __ \/ __ `__ \/ _ \   / /
+  | |/ |/ /  __/ / /__/ /_/ / / / / / /  __/  /_/
+  |__/|__/\___/_/\___/\____/_/ /_/ /_/\___/  (_)
+
+  These styles are not minimized because we all love to learn and I inspected
+  lots of CSS from many sites, so it's fair to let you steal/copy/learn,
+  in fact I commented and clarified this CSS to help you :)
+  ------------------------------------------------------------------------------------- */
+
+
+/**
+ * Reset some basic elements
+ */
+* { padding: 0; margin: 0; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+html { font-size: 62.5%; }
+
+body, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, hr,
+dl, dd, ol, ul, figure {
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ * Trick to expand 100% height if needed
+ */
+html, body { height: 100%; }
+
+/**
+ * Basic styling
+ */
+body {
+  font: $base-font-weight $base-font-size $base-font-family;
+  color: $text-color;
+  background-color: $background-color;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -webkit-font-feature-settings: "kern" 1;
+     -moz-font-feature-settings: "kern" 1;
+       -o-font-feature-settings: "kern" 1;
+          font-feature-settings: "kern" 1;
+  font-kerning: normal;
+}
+
+/**
+ * Set `margin-bottom` to maintain vertical rhythm
+ */
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre,
+ul, ol, dl, figure,
+%vertical-rhythm {
+  margin-bottom: .4rem;
+}
+
+/**
+ * Headers
+ */
+h1, h2, h3 {
+  color: $title-color;
+}
+
+/**
+ * Lists
+ */
+ul{
+  list-style-type: none;
+  list-style-position: inside;
+}
+
+/**
+ * Links
+ */
+a {
+  color: $brand-color;
+  text-decoration: none;
+  -webkit-transition: all .25s ease-in-out;
+          transition: all .25s ease-in-out;
+
+  &:visited {
+    color: darken($brand-color, 15%);
+  }
+
+  &:hover {
+    color: $text-color;
+    text-decoration: underline;
+  }
+}
+
+/**
+ * Clearfix
+ */
+%clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/**
+ * Helpers
+ */
+ .h-absolute {
+  position: absolute;
+ }
+
+ .h-padleft {
+  padding-left: $base-padding;
+ }
