@@ -1,9 +1,78 @@
 /**
  * Basics
  */
+
 body {
-  padding: 0 4.0rem;
+  padding: 0 2.4rem;
+  animation: fadeIn 1.2s;
 }
+
+img {
+  max-width: 100%;
+}
+
+@keyframes fadeIn {
+  from {  opacity:0; }
+  to {    opacity:1; }
+}
+
+
+/**
+ * Bio: intro
+ */
+
+.bio-intro {
+  max-width: $base-max-width;
+  margin: 20vh auto 0;
+  padding-bottom: 20vh;
+  font-size: 2.0rem;
+}
+
+.bio-intro-desc {
+  max-width: 73.2rem;
+}
+
+.bio-intro-desc h1 {
+  font-size: 7.2rem;
+  font-weight: 500;
+  margin-bottom: 1.1rem;
+
+}
+
+.bio-intro-desc h2 {
+  font-size: 2.0rem;
+  line-height: 3.2rem;
+  color: $brand-color;
+  margin-bottom: 1.6rem;
+}
+
+.bio-intro-desc p {
+  line-height: 2.8rem;
+  margin-bottom: 1.6rem
+}
+
+/**
+ * Bio: navigation
+ */
+
+.bio-intro-nav {
+  margin-top: 7.6rem;
+  display: inline-block;
+}
+
+.bio-intro-nav li {
+  display: inline-block;
+  margin-right: 2.4rem;
+}
+
+.bio-intro-nav a {
+  color: $text-color;
+  text-decoration: none;
+}
+.bio-intro-nav a:hover {
+  color: $brand-color;
+}
+
 
 /**
  * Projects Grid
@@ -11,7 +80,7 @@ body {
 
 .projects-grid {
   display: grid;
-  max-width: 120.0rem;
+  max-width: $base-max-width;
   grid-row-gap: 22.0rem;
   margin: 9.6rem auto 0;
 }
@@ -24,14 +93,12 @@ body {
 }
 
 .projects-grid__project-description h2 {
-  font-size: 2.4rem;
+  font-size: $base-font-size;
   line-height: 2.8rem;
-  font-weight: 400;
   margin-bottom: .7rem;
 }
 
 .projects-grid__project-description h3 {
-  font-weight: 400;
   font-size: 1.5rem;
   line-height: 2.0rem;
   margin-bottom: 1.0rem;
@@ -50,7 +117,7 @@ body {
 }
 
 .projects-grid__project-preview:hover img {
-  opacity: .8;
+  opacity: .85;
   transform: translateY(-.6%);
 }
 
@@ -76,47 +143,10 @@ body {
 
 
 
-/**
- * Projects
- */
-.projects {
-  margin-top: 9.6rem;
-  padding-top: 4.0rem;
-}
-.project {
-  margin-bottom: 16.1rem;
-  padding: 0 $base-padding;
-  // padding: 0 5.7%;
-}
-.project-description {
-  max-width: 54.0rem;
-  margin-bottom: 5.7rem;
-  font-size: 1.5rem;
-  line-height: 2.4rem;
-}
-.project-description h2{
-  font-size: 2.4rem;
-  line-height: 2.8rem;
-  font-weight: 400;
-  margin-bottom: .7rem;
-}
-.project-description h3{
-  font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 2.0rem;
-  margin-bottom: 1.0rem;
-}
-.image-container {
-  width: 100%;
-  margin: 0 auto;
-  text-align: center;
-}
-img { width: 100%; }
 
 
-/**
- * Media queries
- */
+
+
 // @media (max-width: 768px) {
 //   body {
 //     font-size: 1.8rem;

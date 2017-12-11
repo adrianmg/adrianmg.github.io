@@ -2,19 +2,19 @@
 
 // Define defaults for each variable.
 
-$base-font-family: "Roboto", sans-serif !default;
-$base-font-size:   2.4rem !default;
-$base-font-weight: 400 !default;
-$small-font-size:  $base-font-size * 0.875 !default;
-$base-line-height: 1 !default;
+$base-font-family:  "Roboto", sans-serif !default;
+$base-font-size:    2.4rem !default;
+$base-font-weight:  400 !default;
+$small-font-size:   $base-font-size * 0.875 !default;
+$base-line-height:  1 !default;
 
-$text-color:       #969AA8 !default;
-$background-color: #1B1E26 !default;
-$brand-color:      #FFBFCB !default;
-$title-color:      #F3F5FD !default;
-// $brand-color:      #63b1bf !default;
+$text-color:        #969AA8 !default;
+$background-color:  #1B1E26 !default;
+$brand-color:       #FFBFCB !default;
+$title-color:       #F3F5FD !default;
 
-$base-padding:			3.4em !default;
+$base-padding:      3.4em !default;
+$base-max-width:    120.0rem !default;
 
 // Import partials.
 @import
