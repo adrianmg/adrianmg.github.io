@@ -1,66 +1,53 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}">
-  {% include head.html %}
-  <body>
+<html lang="{{ page.lang | default: site.lang | default: " en " }}">
+{% include head.html %}
 
-    <div class="bio-intro">
+<body>
 
-      <!-- <div class="bio-intro-desc">
-        <h1>Adri&aacute;n Mato.</h1>
-        <h2>Product & Interaction Designer at Microsoft.</h2>
-        <p>
-          I've been designing digital products for 10+ years on web/mobile/TV.
-        </p>
-        <p>
-          I started my career as a Software Developer until I realized my passion for Design.
-          I love combining those different skills creating products that fulfill a clear purpose.
-        </p>
-        <p>
-          I believe in listening, studying, understanding problems and collaborating
-          with other people as a process to define coherent systems that transform complexity into simple solutions.
-        </p>
-        <p>
-          I understand Design as a way of solving problems. Form follows function
-          and function follows form, they can't be detached. Good Design is simple,
-          understandable, honest, scalable, beautiful and most importantly, invisible.
-        </p>
-      </div> -->
-
-      <div class="bio-intro-desc">
-        <h1>Adri&aacute;n Mato.</h1>
-        <h2>Product & Interaction Designer at Microsoft.</h2>
-        <p>
-          Designing digital products for the last 10+ years on web/mobile/TV.
-        </p>
-        <p>
-          My career started as a Software Developer but it soon became clear that
-          my true passion was Design. I love combining both skillsets to create products
-          that fulfill a clear purpose.
-        </p>
-        <p>
-          I understand Design as a way of solving problems. Listening, studying,
-          understanding problems and collaborating with others in order to
-          create coherent systems that transform complexity into simple solutions.
-        </p>
-        <p>
-          Good Design is simple, understandable, honest and, most importantly, invisible.
-          Because form follows function and function follows form, and so one
-          can't be without the other.
-        </p>
-      </div>
-
-      <ul class="bio-intro-nav">
-        <li><a href="#projects">Work</a></li>
-        <li><a href="http://dribbble.com/adrianmg">Dribbble</a></li>
-        <li><a href="http://linkedin.com/in/adrianmg">LinkedIn</a></li>
-        <li><a href="mailto:hello@adrianmato.com">Contact</a></li>
-      </ul>
-
+  <div class="bio-intro">
+    <div class="bio-intro-desc">
+      <h1>Adri&aacute;n Mato.</h1>
+      <h2>Product Designer at Microsoft.</h2>
+      <p>
+        Designing digital products on web/mobile/TV for the last
+        <span id="years">10</span>+ years.
+      </p>
+      <p>
+        My career started as a Software Developer but it soon became clear that my true passion was Design. I love combining both
+        skillsets to create products that fulfill a clear purpose.
+      </p>
+      <p>
+        I understand Design as a way of solving problems. Listening, studying and understanding problems while collaborating with
+        others in order to create coherent systems that transform complexity into simple solutions.
+      </p>
+      <p>
+        Good Design is simple, honest and, most importantly, invisible. Form follows function and function follows form, and so one
+        can't be without the other.
+      </p>
     </div>
 
-    {% include projects.html %}
+    <ul class="bio-intro-nav">
+      <li>
+        <a href="#projects">Work</a>
+      </li>
+      <li>
+        <a href="http://dribbble.com/adrianmg">Dribbble</a>
+      </li>
+      <li>
+        <a href="http://linkedin.com/in/adrianmg">LinkedIn</a>
+      </li>
+      <li>
+        <a href="mailto:hello@adrianmato.com">Contact</a>
+      </li>
+    </ul>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/assets/js/s.js"></script>
-  </body>
+  </div>
+
+  {% include projects.html %}
+
+  <!-- @todo: remove jquery dependancies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/assets/js/s.js"></script>
+</body>
+
 </html>
