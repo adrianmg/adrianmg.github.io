@@ -24,32 +24,36 @@ img {
 
 .bio-intro {
   max-width: $base-max-width;
-  margin: 18vh auto 0;
-  padding-bottom: 20vh;
-  font-size: 2.0rem;
+  height: 100%;
+  margin: 0 auto;
+  font-size: 2.2rem;
+  position: relative;
 }
 
 .bio-intro-desc {
   max-width: 68.0rem;
+  position: absolute;
+  top: 24%;
 }
 
 .bio-intro-desc h1 {
   font-size: 7.2rem;
-  font-weight: 500;
-  margin-bottom: 1.1rem;
-
+  font-weight: 400;
+  font-family: $base-font-serif;
+  margin-bottom: .6rem;
 }
 
 .bio-intro-desc h2 {
-  font-size: 2.0rem;
-  line-height: 3.2rem;
+  font-size: 2.8rem;
+  line-height: 2.4rem;
   color: $brand-color;
-  margin-bottom: 1.6rem;
+  margin-bottom: 3.6rem;
+  font-family: $base-font-serif;
 }
 
 .bio-intro-desc p {
-  line-height: 2.8rem;
-  margin-bottom: 1.6rem
+  line-height: 3.0rem;
+  margin-bottom: 2.0rem
 }
 
 /**
