@@ -24,22 +24,23 @@ img {
 
 .bio-intro {
   max-width: $base-max-width;
-  height: 100%;
+  height: 100vh;
   margin: 0 auto;
-  font-size: 2.0rem;
+  font-size: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
 }
 
 .bio-intro-desc {
-  max-width: 68.8rem;
-  position: absolute;
-  top: 24%;
+  max-width: 68.0rem;
+  position: relative;
 }
 
 .bio-intro-desc h1 {
   font-size: 7.2rem;
   font-weight: 600;
-  // font-family: $base-font-serif;
   margin-bottom: .6rem;
 }
 
@@ -47,7 +48,7 @@ img {
   font-size: 2.8rem;
   line-height: 2.4rem;
   color: $brand-color;
-  margin-bottom: 3.6rem;
+  margin-bottom: 3.4rem;
   font-family: $base-font-serif;
 }
 
@@ -61,18 +62,28 @@ img {
  */
 
 .bio-intro-nav {
-  margin-top: 7.6rem;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  margin-top: 4.8rem;
   display: inline-block;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .bio-intro-nav li {
   display: inline-block;
   margin-right: 2.4rem;
 }
+.bio-intro-nav li:last-child {
+  margin-right: 0;
+}
 
 .bio-intro-nav a {
   color: $text-color;
   text-decoration: none;
+  padding: 1.2rem;
+  margin: -1.34rem;
 }
 .bio-intro-nav a:hover {
   color: $brand-color;
