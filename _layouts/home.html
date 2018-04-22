@@ -2,7 +2,7 @@
 <html lang="{{ page.lang | default: site.lang | default: " en " }}">
 {% include head.html %}
 
-<body>
+<body onload="showScrollHint(4)">
 
   <div class="bio-intro">
     <div class="bio-intro-desc">
@@ -24,6 +24,11 @@
     </div>
 
     {% include navigation.html %}
+
+    <svg class="bio-intro-scroll" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 18.23l5.584-5.584 1.365 1.365-8.041 8.04-7.857-7.856 1.377-1.376L10 18.391V1h2v17.23z" fill-rule="evenodd"/>
+    </svg>
+    
 
   </div>
 
