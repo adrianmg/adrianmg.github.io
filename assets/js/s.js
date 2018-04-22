@@ -9,9 +9,7 @@ if (yearsExperience !== null) {
 }
 
 // Scroll to work/projects
-const projectsLink = document.querySelector(
-  ".bio-intro-nav [href='#projects']"
-);
+const projectsLink = document.querySelector(".navigation [href='#projects']");
 
 projectsLink.addEventListener("click", function(e) {
   scrollToItem(document.querySelector("#projects"), 500);
