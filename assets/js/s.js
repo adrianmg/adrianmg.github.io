@@ -1,22 +1,50 @@
 /*
-  HOME
+HOME
 */
+let arrow = document.querySelector(".bio-intro-scroll");
+const arrowTreshold = 100; // when stops being visible
+const experience = document.querySelector("#years");
+const navWork = document.querySelector(".navigation [href='#work']");
 
-// Years of experience
-const yearsExperience = document.querySelector("#years");
-if (yearsExperience !== null) {
-  yearsExperience.textContent = new Date().getFullYear() - 2007;
+// years of experience
+if (experience !== null) {
+  experience.textContent = new Date().getFullYear() - 2007;
 }
 
-// Scroll to work
-const workLink = document.querySelector(".navigation [href='#work']");
-
-workLink.addEventListener("click", function(e) {
+// click on navigation 'work' and scroll
+navWork.addEventListener("click", function(e) {
   scrollToItem(document.querySelector("#work"), 500);
 
   e.preventDefault();
   return false;
 });
+
+// scroll hint
+function showScrollHint(seconds) {
+  if (arrow && document.scrollingElement.scrollTop <= arrowTreshold) {
+    setTimeout(function() {
+      arrow.classList.add("visible");
+    }, seconds * 1000);
+  }
+}
+
+// hide scroll hint
+document.addEventListener("scroll", scrollHandler);
+
+function scrollHandler() {
+  let scroll = document.scrollingElement.scrollTop;
+
+  if (scroll >= arrowTreshold && arrow) {
+    arrow.classList.remove("visible");
+
+    document.removeEventListener("scroll", scrollHandler);
+    // remove element after transition (avoid dealing with event handling + transitionend)
+    setTimeout(function() {
+      arrow.parentNode.removeChild(arrow);
+      arrow = false;
+    }, 400);
+  }
+}
 
 /*
   HELPERS

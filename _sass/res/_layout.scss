@@ -4,19 +4,39 @@
 
 body {
   padding: 0 4.8rem;
-  animation:          fadeIn 1.6s;
-  -moz-animation:     fadeIn 1.6s;
-  -webkit-animation:  fadeIn 1.6s;
+  animation: fadeIn 1.6s;
+  -moz-animation: fadeIn 1.6s;
+  -webkit-animation: fadeIn 1.6s;
 }
 
-@keyframes          fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@-moz-keyframes     fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@-webkit-keyframes  fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 img {
   max-width: 100%;
 }
-
 
 /**
  * Bio: intro
@@ -34,14 +54,14 @@ img {
 }
 
 .bio-intro-desc {
-  max-width: 68.0rem;
+  max-width: 68rem;
   position: relative;
 }
 
 .bio-intro-desc h1 {
   font-size: 7.2rem;
   font-weight: 600;
-  margin-bottom: .6rem;
+  margin-bottom: 0.6rem;
 }
 
 .bio-intro-desc h2 {
@@ -54,11 +74,54 @@ img {
 
 .bio-intro-desc p {
   line-height: 2.8rem;
-  margin-bottom: 1.8rem
+  margin-bottom: 1.8rem;
 }
 
 /**
- * Bio: navigation
+ * Bio: scroll hint
+ */
+
+.bio-intro-scroll {
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: $text-color;
+  visibility: hidden;
+  opacity: 0;
+  transition: all .2s ease-in-out;
+  position: fixed;
+  bottom: 5.6rem;
+}
+.bio-intro-scroll.visible {
+  visibility: visible;
+  opacity: 1;
+  animation-name: bio-intro-scroll;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes bio-intro-scroll {
+  20% {
+    // opacity: 1;
+  }
+  45%  {
+    transform: translateY(0);
+  }
+  50%  {
+    // opacity: 1;
+    transform: translateY(.5rem);
+  }
+  65%  {
+    // opacity: 1;
+    transform:translateY(0);
+  }
+  75% {
+    // opacity: 1;
+  }
+}
+
+/**
+ * Navigation
  */
 
 .navigation {
@@ -80,7 +143,6 @@ img {
   color: $brand-color;
 }
 
-
 /**
  * Work Grid
  */
@@ -88,12 +150,12 @@ img {
 .work-grid {
   display: grid;
   max-width: $base-max-width;
-  grid-row-gap: 22.0rem;
+  grid-row-gap: 22rem;
   margin: 9.6rem auto 0;
 }
 
 .work-grid__project-description {
-  max-width: 54.0rem;
+  max-width: 54rem;
   margin-bottom: 5.7rem;
   font-size: 1.5rem;
   line-height: 2.4rem;
@@ -102,13 +164,13 @@ img {
 .work-grid__project-description h2 {
   font-size: $base-font-size;
   line-height: 2.8rem;
-  margin-bottom: .7rem;
+  margin-bottom: 0.7rem;
 }
 
 .work-grid__project-description h3 {
   font-size: 1.5rem;
-  line-height: 2.0rem;
-  margin-bottom: 1.0rem;
+  line-height: 2rem;
+  margin-bottom: 1rem;
 }
 
 .work-grid__project-preview {
@@ -118,14 +180,14 @@ img {
 
 .work-grid__project-preview img {
   display: block;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   z-index: 2;
   border-radius: 2px;
 }
 
 .work-grid__project-preview:hover img {
-  opacity: .85;
-  transform: translateY(-.6%);
+  opacity: 0.85;
+  transform: translateY(-0.6%);
 }
 
 .work-grid__project-preview--collage {
@@ -141,18 +203,6 @@ img {
 .work-grid__project-preview--collage__item img {
   display: block;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 // @media (max-width: 768px) {
 //   body {
