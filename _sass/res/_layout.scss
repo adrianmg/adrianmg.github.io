@@ -61,93 +61,84 @@ img {
  * Bio: navigation
  */
 
-.bio-intro-nav {
-  font-size: 1.4rem;
+.navigation {
+  font-size: 1.5rem;
   text-transform: uppercase;
   margin-top: 4.8rem;
-  display: inline-block;
   position: absolute;
   top: 0;
   right: 0;
+  display: flex;
 }
 
-.bio-intro-nav li {
-  display: inline-block;
-  margin-right: 2.4rem;
-}
-.bio-intro-nav li:last-child {
-  margin-right: 0;
-}
-
-.bio-intro-nav a {
+.navigation a {
   color: $text-color;
   text-decoration: none;
   padding: 1.2rem;
-  margin: -1.34rem;
 }
-.bio-intro-nav a:hover {
+.navigation a:hover {
   color: $brand-color;
 }
 
 
 /**
- * Projects Grid
+ * Work Grid
  */
 
-.projects-grid {
+.work-grid {
   display: grid;
   max-width: $base-max-width;
   grid-row-gap: 22.0rem;
   margin: 9.6rem auto 0;
 }
 
-.projects-grid__project-description {
+.work-grid__project-description {
   max-width: 54.0rem;
   margin-bottom: 5.7rem;
   font-size: 1.5rem;
   line-height: 2.4rem;
 }
 
-.projects-grid__project-description h2 {
+.work-grid__project-description h2 {
   font-size: $base-font-size;
   line-height: 2.8rem;
   margin-bottom: .7rem;
 }
 
-.projects-grid__project-description h3 {
+.work-grid__project-description h3 {
   font-size: 1.5rem;
   line-height: 2.0rem;
   margin-bottom: 1.0rem;
 }
 
-.projects-grid__project-preview {
+.work-grid__project-preview {
   position: relative;
   display: block;
 }
 
-.projects-grid__project-preview img {
+.work-grid__project-preview img {
   display: block;
   transition: all .3s ease;
   z-index: 2;
   border-radius: 2px;
 }
 
-.projects-grid__project-preview:hover img {
+.work-grid__project-preview:hover img {
   opacity: .85;
   transform: translateY(-.6%);
 }
 
-.projects-grid__project-preview--collage {
+.work-grid__project-preview--collage {
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-gap: 2.4rem;
 }
 
-.projects-grid__project-preview--collage__item:first-child {
+.work-grid__project-preview--collage__item:first-child {
   grid-row: 1/3;
 }
 
-.projects-grid__project-preview--collage__item img {
+.work-grid__project-preview--collage__item img {
   display: block;
 }
 

@@ -8,11 +8,11 @@ if (yearsExperience !== null) {
   yearsExperience.textContent = new Date().getFullYear() - 2007;
 }
 
-// Scroll to work/projects
-const projectsLink = document.querySelector(".navigation [href='#projects']");
+// Scroll to work
+const workLink = document.querySelector(".navigation [href='#work']");
 
-projectsLink.addEventListener("click", function(e) {
-  scrollToItem(document.querySelector("#projects"), 500);
+workLink.addEventListener("click", function(e) {
+  scrollToItem(document.querySelector("#work"), 500);
 
   e.preventDefault();
   return false;
