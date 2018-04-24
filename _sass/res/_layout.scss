@@ -4,28 +4,10 @@
 
 body {
   padding: 0 4.8rem;
-  animation: fadeIn 1.6s;
-  -moz-animation: fadeIn 1.6s;
-  -webkit-animation: fadeIn 1.6s;
+  animation: body-animation 1.6s;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@-moz-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@-webkit-keyframes fadeIn {
+@keyframes body-animation {
   from {
     opacity: 0;
   }
@@ -36,6 +18,42 @@ body {
 
 img {
   max-width: 100%;
+}
+
+/**
+ * Navigation
+ */
+
+ .navigation {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  margin-top: 4.8rem;
+  margin-right: -1.2rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  animation: navigation-animation .8s ease;
+}
+
+@keyframes navigation-animation {
+  from {
+    top: 1.2rem;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.navigation a {
+  color: $text-color;
+  text-decoration: none;
+  padding: 1.2rem;
+}
+.navigation a:hover {
+  color: $brand-color;
 }
 
 /**
@@ -56,6 +74,18 @@ img {
 .bio-intro-desc {
   max-width: 68rem;
   position: relative;
+  animation: bio-intro-desc-animation .8s ease-out;
+}
+
+@keyframes bio-intro-desc-animation {
+  from {
+    top: 2.0rem;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 .bio-intro-desc h1 {
@@ -118,29 +148,6 @@ img {
   75% {
     // opacity: 1;
   }
-}
-
-/**
- * Navigation
- */
-
-.navigation {
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  margin-top: 4.8rem;
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: flex;
-}
-
-.navigation a {
-  color: $text-color;
-  text-decoration: none;
-  padding: 1.2rem;
-}
-.navigation a:hover {
-  color: $brand-color;
 }
 
 /**
