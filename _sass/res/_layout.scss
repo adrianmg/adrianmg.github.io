@@ -151,63 +151,63 @@ img {
 }
 
 /**
- * Work Grid
+ * Home: Work Grid
  */
 
-.work-grid {
+.home-work-grid {
   display: grid;
   max-width: $base-max-width;
   grid-row-gap: 22rem;
   margin: 9.6rem auto 0;
 }
 
-.work-grid__project-description {
+.home-work-grid__project-description {
   max-width: 54rem;
   margin-bottom: 5.7rem;
   font-size: 1.5rem;
   line-height: 2.4rem;
 }
 
-.work-grid__project-description h2 {
+.home-work-grid__project-description h2 {
   font-size: $base-font-size;
   line-height: 2.8rem;
   margin-bottom: 0.7rem;
 }
 
-.work-grid__project-description h3 {
+.home-work-grid__project-description h3 {
   font-size: 1.5rem;
   line-height: 2rem;
   margin-bottom: 1rem;
 }
 
-.work-grid__project-preview {
+.home-work-grid__project-preview {
   position: relative;
   display: block;
 }
 
-.work-grid__project-preview img {
+.home-work-grid__project-preview img {
   display: block;
   transition: all 0.3s ease;
   z-index: 2;
   border-radius: 2px;
 }
 
-.work-grid__project-preview:hover img {
+.home-work-grid__project-preview:hover img {
   opacity: 0.85;
   transform: translateY(-0.6%);
 }
 
-.work-grid__project-preview--collage {
+.home-work-grid__project-preview--collage {
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-gap: 2.4rem;
 }
 
-.work-grid__project-preview--collage__item:first-child {
+.home-work-grid__project-preview--collage__item:first-child {
   grid-row: 1/3;
 }
 
-.work-grid__project-preview--collage__item img {
+.home-work-grid__project-preview--collage__item img {
   display: block;
 }
 
