@@ -4,7 +4,7 @@ HOME
 let arrow = document.querySelector(".home-intro-scroll");
 const arrowTreshold = 100; // when stops being visible
 const experience = document.querySelector("#years");
-const navWork = document.querySelector(".navigation [href='#home-work']");
+const navWork = document.querySelector(".home-navigation [href='#home-work']");
 
 // years of experience
 if (experience !== null) {

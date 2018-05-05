@@ -1,5 +1,5 @@
 /**
- * Basics
+ * BASICS
  */
 
 body {
@@ -20,96 +20,55 @@ img {
   max-width: 100%;
 }
 
-/**
- * Navigation
- */
-
- .navigation {
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  margin-top: 4.8rem;
-  margin-right: -1.2rem;
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: flex;
-  animation: navigation-animation .8s ease;
-}
-
-@keyframes navigation-animation {
-  from {
-    top: 1.2rem;
-    opacity: 0;
-  }
-  to {
-    top: 0;
-    opacity: 1;
-  }
-}
-
-.navigation a {
-  color: $text-color;
-  text-decoration: none;
-  padding: 1.2rem;
-}
-.navigation a:hover {
-  color: $brand-color;
-}
 
 /**
- * Bio: intro
+ * HOME: Intro
  */
 
 .home-intro {
   max-width: $base-max-width;
   height: 100vh;
   margin: 0 auto;
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
 }
 
-.home-intro-desc {
-  max-width: 68rem;
+.home-intro-bio {
+  max-width: 66rem;
   position: relative;
+  bottom: 6%;
   animation: home-intro-desc-animation .8s ease-out;
 }
 
-@keyframes home-intro-desc-animation {
-  from {
-    top: 2.0rem;
-    opacity: 0;
-  }
-  to {
-    top: 0;
-    opacity: 1;
-  }
-}
-
-.home-intro-desc h1 {
-  font-size: 7.2rem;
+.home-intro-bio h1 {
+  font-size: 4.0rem;
+  line-height: 4.8rem;
   font-weight: 600;
   margin-bottom: 0.6rem;
 }
 
-.home-intro-desc h2 {
-  font-size: 2.8rem;
-  line-height: 2.4rem;
+.home-intro-bio h2 {
+  font-size: 2.4rem;
+  line-height: 3.2rem;
   color: $brand-color;
-  margin-bottom: 3.4rem;
+  margin-bottom: 2.2rem;
   font-family: $base-font-serif;
 }
 
-.home-intro-desc p {
+.home-intro-bio p {
   line-height: 2.8rem;
-  margin-bottom: 1.8rem;
+  margin-bottom: 2.0rem;
 }
 
-/**
- * Home: work scroll hint
- */
+@keyframes home-intro-desc-animation {
+  from {
+    bottom: 4%;
+    opacity: 0;
+  }
+}
 
 .home-intro-scroll {
   width: 1.6rem;
@@ -119,8 +78,10 @@ img {
   opacity: 0;
   transition: all .2s ease-in-out;
   position: fixed;
-  bottom: 5.6rem;
+  bottom: 5.2rem;
+  right: 4.8rem;
 }
+
 .home-intro-scroll.visible {
   visibility: visible;
   opacity: 1;
@@ -150,8 +111,39 @@ img {
   }
 }
 
+.home-navigation {
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 2.8rem;
+  text-transform: uppercase;
+  display: flex;
+  margin: 0 0 0 -1.4rem;
+  position: absolute;
+  bottom: 5.2rem;
+  left: 0;
+  animation: navigation-animation .8s ease;
+}
+
+.home-navigation a {
+  color: $text-color;
+  text-decoration: none;
+  padding: 1.4rem;
+}
+
+.home-navigation a:hover {
+  color: $brand-color;
+}
+
+@keyframes navigation-animation {
+  from {
+    bottom: 6.2rem;
+    opacity: 0;
+  }
+}
+
+
 /**
- * Home: Work Grid
+ * HOME: Work
  */
 
 .home-work-grid {
