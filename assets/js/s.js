@@ -4,7 +4,10 @@ HOME
 let arrow = document.querySelector(".home-intro-scroll");
 const arrowTreshold = 100; // when stops being visible
 const experience = document.querySelector("#years");
-const navWork = document.querySelector(".home-navigation [href='#home-work']");
+const workAnchor = "#home-work";
+const navWork = document.querySelector(
+  `.home-navigation [href='${workAnchor}']`
+);
 
 // years of experience
 if (experience !== null) {
@@ -13,7 +16,9 @@ if (experience !== null) {
 
 // click on navigation 'work' and scroll
 navWork.addEventListener("click", function(e) {
-  scrollToItem(document.querySelector("#home-work"), 500);
+  scrollToItem(document.querySelector(workAnchor), 500);
+
+  history.pushState({}, "", workAnchor);
 
   e.preventDefault();
   return false;
