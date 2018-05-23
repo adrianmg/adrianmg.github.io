@@ -150,12 +150,18 @@ img {
   display: grid;
   max-width: $base-max-width;
   grid-row-gap: 22rem;
-  margin: 19.8rem auto 0;
+  margin: 0 auto;
+}
+
+.home-work-grid__anchor {
+  height: 2.0rem;
+  display: block;
+  margin-top: 17.8rem;
 }
 
 .home-work-grid__project-description {
   max-width: 54rem;
-  margin-bottom: 5.7rem;
+  margin-bottom: 6.1rem;
   font-size: 1.5rem;
   line-height: 2.4rem;
 }
@@ -169,7 +175,7 @@ img {
 .home-work-grid__project-description h3 {
   font-size: 1.5rem;
   line-height: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.4rem;
 }
 
 .home-work-grid__project-preview {
@@ -179,15 +185,15 @@ img {
 
 .home-work-grid__project-preview img {
   display: block;
-  transition: all 0.3s ease;
+  // transition: all 0.3s ease;
   z-index: 2;
   border-radius: 2px;
 }
 
-.home-work-grid__project-preview:hover img {
-  opacity: 0.85;
-  transform: translateY(-0.6%);
-}
+// .home-work-grid__project-preview:hover img {
+//   opacity: 0.85;
+//   transform: translateY(-0.6%);
+// }
 
 .home-work-grid__project-preview--collage {
   display: grid;
