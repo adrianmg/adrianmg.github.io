@@ -8,6 +8,8 @@
 # For technical reasons, this file is *NOT* reloaded automatically when you use
 # 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 
+livereload: true
+
 # Site settings
 # These are used to personalize your new site. If you look in the HTML files,
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
@@ -28,7 +30,7 @@ markdown: kramdown
 #theme: minima
 gems:
   - jekyll-feed
-  #- jekyll-autoprefixer
+  - jekyll-autoprefixer
 exclude:
   - Gemfile
   - Gemfile.lock
