@@ -51,7 +51,7 @@ function scrollHandler() {
 */
 
 // Scrolling function from A -> B (modified from: https://bit.ly/2H3JKMV)
-function scrollToItem(destination, duration = 200) {
+function scrollToItem(destination, duration = 500) {
   const start = window.pageYOffset;
   const startTime =
     "now" in window.performance ? performance.now() : new Date().getTime();
