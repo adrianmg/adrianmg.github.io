@@ -28,7 +28,9 @@ navWork.addEventListener("click", function(e) {
 function showScrollHint(seconds) {
   if (arrow && document.scrollingElement.scrollTop <= arrowTreshold) {
     setTimeout(function() {
-      arrow.classList.add("visible");
+      if (arrow) {
+        arrow.classList.add("visible");
+      }
     }, seconds * 1000);
   }
 }
@@ -88,6 +90,9 @@ function scrollToItem(destination, duration = 500) {
   function scroll() {
     const now =
       "now" in window.performance ? performance.now() : new Date().getTime();
+
+    console.log(duration);
+
     const time = Math.min(1, (now - startTime) / duration);
     const timeFunction = 0.5 * (1 - Math.cos(Math.PI * time));
     window.scroll(
