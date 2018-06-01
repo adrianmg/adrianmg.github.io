@@ -16,7 +16,7 @@ if (experience !== null) {
 
 // click on navigation 'work' and scroll
 navWork.addEventListener("click", function(e) {
-  scrollToItem(document.querySelector(workAnchor), 500);
+  scrollToItem(document.querySelector(workAnchor), 800);
 
   history.pushState({}, "", workAnchor);
 
@@ -90,8 +90,6 @@ function scrollToItem(destination, duration = 500) {
   function scroll() {
     const now =
       "now" in window.performance ? performance.now() : new Date().getTime();
-
-    console.log(duration);
 
     const time = Math.min(1, (now - startTime) / duration);
     const timeFunction = 0.5 * (1 - Math.cos(Math.PI * time));
