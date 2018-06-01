@@ -1,5 +1,6 @@
 .sass-cache
 _site
 .DS_Store
+.salivereload
 
 .vscode/settings.json
