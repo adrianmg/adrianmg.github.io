@@ -149,7 +149,7 @@ img {
 .home-work-grid {
   display: grid;
   max-width: $base-max-width;
-  grid-row-gap: 22rem;
+  grid-row-gap: 20.2rem;
   margin: 0 auto;
 }
 
@@ -158,7 +158,6 @@ img {
   display: block;
   margin-top: 17.8rem;
 }
-
 .home-work-grid__project-description {
   max-width: 54rem;
   margin-bottom: 6.1rem;
@@ -178,16 +177,18 @@ img {
   margin-bottom: 1.4rem;
 }
 
-.home-work-grid__project-preview {
-  position: relative;
-  display: block;
+.home-work-grid__project-screenshot {
+  margin-bottom: 13.2rem;
+  // position: relative;
+  // display: block;
 }
 
-.home-work-grid__project-preview img {
+.home-work-grid__project-screenshot:last-of-type {
+  margin-bottom: 0;
+}
+
+.home-work-grid__project-screenshot img {
   display: block;
-  // transition: all 0.3s ease;
-  z-index: 2;
-  border-radius: 2px;
 }
 
 // .home-work-grid__project-preview:hover img {
