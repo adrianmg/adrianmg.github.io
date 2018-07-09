@@ -27,7 +27,7 @@ img {
 
 .home-intro {
   max-width: $base-max-width;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
   font-size: 1.8rem;
   display: flex;
@@ -208,6 +208,27 @@ img {
 
 .home-work-grid__project-preview--collage__item img {
   display: block;
+}
+
+
+/**
+ * MEDIA QUERIES:
+ */
+
+@media (max-height: 500px) {
+  .home-intro {
+    height: auto;
+    min-height: auto;
+    margin: 3.2rem auto 0;
+  }
+  .home-navigation {
+    margin-top: 2.4rem;
+    position: relative;
+    bottom: auto;
+  }
+  .home-intro-scroll {
+    display: none;
+  }
 }
 
 // @media (max-width: 768px) {
