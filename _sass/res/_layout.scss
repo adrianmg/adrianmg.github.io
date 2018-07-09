@@ -27,7 +27,7 @@ img {
 
 .home-intro {
   max-width: $base-max-width;
-  min-height: 100vh;
+  height: 100vh;
   margin: 0 auto;
   font-size: 1.8rem;
   display: flex;
@@ -220,15 +220,27 @@ img {
     height: auto;
     min-height: auto;
     margin: 3.2rem auto 0;
+    animation: none;
   }
   .home-navigation {
-    margin-top: 2.4rem;
+    margin-top: 2.0rem;
     position: relative;
     bottom: auto;
+    flex-direction: column;
   }
   .home-intro-scroll {
     display: none;
   }
+  .home-work-grid {
+    grid-row-gap: 10.2rem;
+    margin: 0 auto 13.2rem;
+  }
+  .home-work-grid__project-screenshot {
+    margin-bottom: 6.4rem;
+  }
+}
+@media (max-height: 500px) and (min-width: 560px) {
+  .home-navigation { flex-direction: row; }
 }
 
 // @media (max-width: 768px) {
