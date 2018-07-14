@@ -27,30 +27,33 @@ img {
 
 .home-intro {
   max-width: $base-max-width;
-  height: 100vh;
   margin: 0 auto;
   font-size: 1.8rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
 }
 
 .home-intro-bio {
-  max-width: 66rem;
-  position: relative;
-  bottom: 6%;
-  animation: home-intro-desc-animation .8s ease-out;
+  // @todo: mediaquery required to avoid overlapping
+  min-height: 91vh;
+  display: flex;
+  align-items: center;
+  // animation: home-intro-desc-animation .8s ease-out;
 }
 
-.home-intro-bio h1 {
+.home-intro-bio-desc {
+  max-width: 66rem;
+  // @todo: mediaquery required to avoid overlapping
+  bottom: 1.5vh;
+  position: relative;
+}
+
+.home-intro-bio-desc h1 {
   font-size: 4.0rem;
   line-height: 4.8rem;
   font-weight: 600;
   margin-bottom: 0.6rem;
 }
 
-.home-intro-bio h2 {
+.home-intro-bio-desc h2 {
   font-size: 2.4rem;
   line-height: 3.2rem;
   color: $brand-color;
@@ -58,9 +61,32 @@ img {
   font-family: $base-font-serif;
 }
 
-.home-intro-bio p {
+.home-intro-bio-desc p {
   line-height: 2.8rem;
   margin-bottom: 2.0rem;
+}
+
+.home-navigation {
+  min-height: 9vh;
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 2.8rem;
+  text-transform: uppercase;
+  margin-left: -1.4rem;
+}
+
+.home-navigation li {
+  display: inline-block;
+}
+
+.home-navigation a {
+  color: $text-color;
+  text-decoration: none;
+  padding: 2.0rem 1.4rem;
+}
+
+.home-navigation a:hover {
+  color: $brand-color;
 }
 
 @keyframes home-intro-desc-animation {
@@ -70,26 +96,26 @@ img {
   }
 }
 
-.home-intro-scroll {
-  width: 1.6rem;
-  height: 1.6rem;
-  fill: $text-color;
-  visibility: hidden;
-  opacity: 0;
-  transition: all .2s ease-in-out;
-  position: fixed;
-  bottom: 5.2rem;
-  right: 4.8rem;
-}
+// .home-intro-scroll {
+//   width: 1.6rem;
+//   height: 1.6rem;
+//   fill: $text-color;
+//   visibility: hidden;
+//   opacity: 0;
+//   transition: all .2s ease-in-out;
+//   position: fixed;
+//   bottom: 5.2rem;
+//   right: 4.8rem;
+// }
 
-.home-intro-scroll.visible {
-  visibility: visible;
-  opacity: 1;
-  animation-name: home-intro-scroll;
-  animation-duration: 2.5s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
+// .home-intro-scroll.visible {
+//   visibility: visible;
+//   opacity: 1;
+//   animation-name: home-intro-scroll;
+//   animation-duration: 2.5s;
+//   animation-iteration-count: infinite;
+//   animation-timing-function: ease-in-out;
+// }
 
 @keyframes home-intro-scroll {
   20% {
@@ -109,29 +135,6 @@ img {
   75% {
     // opacity: 1;
   }
-}
-
-.home-navigation {
-  font-size: 1.4rem;
-  font-weight: 600;
-  line-height: 2.8rem;
-  text-transform: uppercase;
-  display: flex;
-  margin: 0 0 0 -1.4rem;
-  position: absolute;
-  bottom: 6.0rem;
-  left: 0;
-  animation: navigation-animation .8s ease;
-}
-
-.home-navigation a {
-  color: $text-color;
-  text-decoration: none;
-  padding: 2.0rem 1.4rem;
-}
-
-.home-navigation a:hover {
-  color: $brand-color;
 }
 
 @keyframes navigation-animation {
@@ -215,33 +218,34 @@ img {
  * MEDIA QUERIES:
  */
 
-@media (max-height: 500px) {
-  .home-intro {
-    height: auto;
-    min-height: auto;
-    margin: 3.2rem auto 0;
-    animation: none;
-  }
-  .home-navigation {
-    margin-top: 2.0rem;
-    position: relative;
-    bottom: auto;
-    flex-direction: column;
-  }
-  .home-intro-scroll {
-    display: none;
-  }
-  .home-work-grid {
-    grid-row-gap: 10.2rem;
-    margin: 0 auto 13.2rem;
-  }
-  .home-work-grid__project-screenshot {
-    margin-bottom: 6.4rem;
-  }
-}
-@media (max-height: 500px) and (min-width: 560px) {
-  .home-navigation { flex-direction: row; }
-}
+// @media (max-height: 500px) {
+//   .home-intro {
+//     height: auto;
+//     min-height: auto;
+//     margin: 3.2rem auto 0;
+//     animation: none;
+//   }
+//   .home-navigation {
+//     margin-top: 2.0rem;
+//     position: relative;
+//     bottom: auto;
+//     flex-direction: column;
+//   }
+//   .home-intro-scroll {
+//     display: none;
+//   }
+//   .home-work-grid {
+//     grid-row-gap: 10.2rem;
+//     margin: 0 auto 13.2rem;
+//   }
+//   .home-work-grid__project-screenshot {
+//     margin-bottom: 6.4rem;
+//   }
+// }
+// @media (max-height: 500px) and (min-width: 560px) {
+//   .home-navigation { flex-direction: row; }
+//   body { background: red; }
+// }
 
 // @media (max-width: 768px) {
 //   body {
