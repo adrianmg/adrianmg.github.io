@@ -3,21 +3,14 @@ HOME
 */
 let arrow = document.querySelector(".home-intro-scroll");
 const arrowTreshold = 100; // when stops being visible
-const experience = document.querySelector("#years");
 const workAnchor = "#home-work";
 const navWork = document.querySelector(
   `.home-navigation [href='${workAnchor}']`
 );
 
-// years of experience
-if (experience !== null) {
-  experience.textContent = new Date().getFullYear() - 2007;
-}
-
 // click on navigation 'work' and scroll
 navWork.addEventListener("click", function(e) {
   scrollToItem(document.querySelector(workAnchor), 800);
-
   history.pushState({}, "", workAnchor);
 
   e.preventDefault();
