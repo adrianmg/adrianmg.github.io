@@ -150,10 +150,8 @@ img {
  */
 
 .home-work-grid {
-  display: grid;
   max-width: $base-max-width;
-  grid-row-gap: 20.2rem;
-  margin: 0 auto 13.2rem;
+  margin: 0 auto;
 }
 
 .home-work-grid__anchor {
@@ -161,6 +159,11 @@ img {
   display: block;
   margin-top: 17.8rem;
 }
+
+.home-work-grid__project {
+  margin-bottom: 20.2rem;
+}
+
 .home-work-grid__project-description {
   max-width: 54rem;
   margin-bottom: 6.1rem;
@@ -182,8 +185,6 @@ img {
 
 .home-work-grid__project-screenshot {
   margin-bottom: 13.2rem;
-  // position: relative;
-  // display: block;
 }
 
 .home-work-grid__project-screenshot:last-of-type {
@@ -193,11 +194,6 @@ img {
 .home-work-grid__project-screenshot img {
   display: block;
 }
-
-// .home-work-grid__project-preview:hover img {
-//   opacity: 0.85;
-//   transform: translateY(-0.6%);
-// }
 
 .home-work-grid__project-preview--collage {
   display: grid;
@@ -218,74 +214,3 @@ img {
  * MEDIA QUERIES:
  */
 
-// @media (max-height: 500px) {
-//   .home-intro {
-//     height: auto;
-//     min-height: auto;
-//     margin: 3.2rem auto 0;
-//     animation: none;
-//   }
-//   .home-navigation {
-//     margin-top: 2.0rem;
-//     position: relative;
-//     bottom: auto;
-//     flex-direction: column;
-//   }
-//   .home-intro-scroll {
-//     display: none;
-//   }
-//   .home-work-grid {
-//     grid-row-gap: 10.2rem;
-//     margin: 0 auto 13.2rem;
-//   }
-//   .home-work-grid__project-screenshot {
-//     margin-bottom: 6.4rem;
-//   }
-// }
-// @media (max-height: 500px) and (min-width: 560px) {
-//   .home-navigation { flex-direction: row; }
-//   body { background: red; }
-// }
-
-// @media (max-width: 768px) {
-//   body {
-//     font-size: 1.8rem;
-//   }
-//   .home {
-//     padding: 0 1.4em 2em;
-//   }
-//   .home-inner br {
-//     display: none;
-//   }
-//   .home-inner h1 {
-//     font-size: 4rem;
-//   }
-//   .home-inner p {
-//     line-height: 3.0rem;
-//   }
-//   .project {
-//     padding: 0 1.4em 2em;
-//   }
-// }
-//
-// @media (max-height: 400px) {
-//   .home-inner {
-//     top: 36%;
-//     -webkit-transform: translateY(-36%);
-//             transform: translateY(-36%);
-//   }
-//   .home-menu { bottom: 20%; }
-// }
-//
-// // @media (min-width: 769px) {
-// //   body {
-// //     font-size: 2.4rem;
-// //   }
-// //   .home h1 {
-// //     font-size: 7.2rem;
-// //     margin-bottom: 2.1rem;
-// //   }
-// //   .home {
-// //     padding: 3.6em;
-// //   }
-// // }
