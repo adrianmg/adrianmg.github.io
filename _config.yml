@@ -24,7 +24,6 @@ url: "http://adrianmato.com" # the base hostname & protocol for your site, e.g. 
 twitter_username: adrianmg
 linkedin_username: adrianmg
 github_username:  adrianmg
-instagram_username:  adrianmato
 
 # Build settings
 markdown: kramdown
