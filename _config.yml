@@ -27,6 +27,7 @@ github_username:  adrianmg
 
 # Build settings
 markdown: kramdown
+incremental: true
 
 #theme: minima
 plugins:
