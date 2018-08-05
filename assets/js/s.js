@@ -1,3 +1,13 @@
+// Safari Mobile browser fix for navigation
+if (iosInnerHeight() !== window.innerHeight) {
+  document.body.classList.add("ios");
+}
+// Lazy Load of images
+var lazyLoad = new LazyLoad({
+  elements_selector: ".lazy",
+  threshold: 800
+});
+
 /*
 HOME
 */
@@ -7,11 +17,6 @@ const workAnchor = "#home-work";
 const navWork = document.querySelector(
   `.home-navigation [href='${workAnchor}']`
 );
-
-// Safari Mobile browser fix for navigation
-if (iosInnerHeight() !== window.innerHeight) {
-  document.body.classList.add("ios");
-}
 
 // click on navigation 'work' and scroll
 navWork.addEventListener("click", function(e) {

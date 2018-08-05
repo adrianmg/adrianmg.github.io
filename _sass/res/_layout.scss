@@ -209,6 +209,10 @@ img {
   display: block;
 }
 
+.home-work-grid__project img:not([src]) { // lazy load: prevents img without src to appear
+  visibility: hidden;
+}
+
 
 /**
  * MEDIA QUERIES:
@@ -227,3 +231,4 @@ img {
 @media screen and (max-width: 320px) { // mobile-S (body-font 20px)
   html { font-size: 52.12%; }
 }
+@-moz-document url-prefix() { img:-moz-loading { visibility: hidden; } } // fixes Firefox anomaly during image load
