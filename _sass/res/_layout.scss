@@ -224,6 +224,9 @@ img {
   .home-work-grid__project-screenshot { margin-bottom: 5.2rem; }
   .home-work-grid__project { margin-bottom: 11.2rem; }
   .home-work-grid__project-description { margin-bottom: 4.1rem; }
+  .home-navigation { margin-left: -1.2rem; }
+  .home-navigation a { padding: 2.0rem 1.2rem; }
+  .home-intro-scroll.visible { display: none; }
 }
 @media screen and (max-width: 360px) { // mobile-M (body-font 22px)
   html { font-size: 57.25%; }
