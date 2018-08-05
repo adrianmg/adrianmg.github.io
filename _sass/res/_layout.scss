@@ -221,6 +221,7 @@ img {
 @media screen and (max-width: 380px) { // mobile-L (body-font ?)
   html { font-size: 59.85%; }
   body.ios .home-intro-bio { min-height: 80vh; } // mobile-safari iOS
+  body.ios-iphonex .home-intro-bio { min-height: 77vh; } // mobile-safari iOS iPhoneX
   .home-work-grid__project-screenshot { margin-bottom: 5.2rem; }
   .home-work-grid__project { margin-bottom: 11.2rem; }
   .home-work-grid__project-description { margin-bottom: 4.1rem; }

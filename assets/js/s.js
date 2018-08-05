@@ -1,6 +1,10 @@
 // Safari Mobile browser fix for navigation
-if (iosInnerHeight() !== window.innerHeight) {
+let innerheight = iosInnerHeight();
+if (innerheight !== window.innerHeight) {
   document.body.classList.add("ios");
+  if (innerheight >= 699) {
+    document.body.classList.add("ios-iphonex"); // iPhone X requires different style
+  }
 }
 // Lazy Load of images
 var lazyLoad = new LazyLoad({
