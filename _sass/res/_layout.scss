@@ -214,15 +214,12 @@ img {
  * MEDIA QUERIES:
  */
 
-@media screen and (-webkit-min-device-pixel-ratio: 2) { // mobile-safari
-  // @todo
-}
-
 @media screen and (max-width: 380px) { // mobile-L (body-font ?)
   html { font-size: 59.85%; }
-  .home-intro-bio { min-height: 86vh; }
   .home-work-grid__project-screenshot { margin-bottom: 6.4rem; }
   .home-work-grid__project { margin-bottom: 12.0rem; }
+  // mobile-safari iOS
+  body.ios .home-intro-bio { min-height: 80vh; }
 }
 @media screen and (max-width: 360px) { // mobile-M (body-font 22px)
   html { font-size: 57.25%; }

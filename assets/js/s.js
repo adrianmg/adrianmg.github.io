@@ -8,6 +8,11 @@ const navWork = document.querySelector(
   `.home-navigation [href='${workAnchor}']`
 );
 
+// Safari Mobile browser fix for navigation
+if (iosInnerHeight() !== window.innerHeight) {
+  document.body.classList.add("ios");
+}
+
 // click on navigation 'work' and scroll
 navWork.addEventListener("click", function(e) {
   scrollToItem(document.querySelector(workAnchor), 800);
