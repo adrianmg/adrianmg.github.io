@@ -216,11 +216,10 @@ img {
 
 @media screen and (max-width: 380px) { // mobile-L (body-font ?)
   html { font-size: 59.85%; }
+  body.ios .home-intro-bio { min-height: 80vh; } // mobile-safari iOS
   .home-work-grid__project-screenshot { margin-bottom: 5.6rem; }
   .home-work-grid__project { margin-bottom: 12.0rem; }
-  // mobile-safari iOS
-  body.ios .home-intro-bio { min-height: 80vh; }
-}
+  .home-work-grid__project-description { margin-bottom: 4.1rem; }
 @media screen and (max-width: 360px) { // mobile-M (body-font 22px)
   html { font-size: 57.25%; }
 }
