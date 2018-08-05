@@ -3,7 +3,7 @@
  */
 
 body {
-  padding: 0 2.4rem;
+  padding: 0 4.8rem;
   animation: body-animation 1.6s;
 }
 
@@ -218,6 +218,10 @@ img {
  * MEDIA QUERIES:
  */
 
+ @media screen and (max-width: 430px){ // mobile-XL
+  body { padding: 0 2.4rem; }
+  .home-intro-scroll.visible { display: none; }
+ }
 @media screen and (max-width: 380px) { // mobile-L (body-font ?)
   html { font-size: 59.85%; }
   body.ios .home-intro-bio { min-height: 80vh; } // mobile-safari iOS
@@ -227,7 +231,6 @@ img {
   .home-work-grid__project-description { margin-bottom: 4.1rem; }
   .home-navigation { margin-left: -1.2rem; }
   .home-navigation a { padding: 2.0rem 1.2rem; }
-  .home-intro-scroll.visible { display: none; }
 }
 @media screen and (max-width: 360px) { // mobile-M (body-font 22px)
   html { font-size: 57.25%; }
