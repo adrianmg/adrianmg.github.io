@@ -3,7 +3,7 @@
  */
 
 body {
-  padding: 0 4.8rem;
+  padding: 0 5.6rem;
   animation: body-animation 1.6s;
 }
 
@@ -218,10 +218,13 @@ img {
  * MEDIA QUERIES:
  */
 
- @media screen and (max-width: 430px){ // mobile-XL
+@media screen and (max-width: 620px){ // mobile-XXL
+  body { padding: 0 3.2rem; }
+}
+@media screen and (max-width: 460px){ // mobile-XL
   body { padding: 0 2.4rem; }
   .home-intro-scroll.visible { display: none; }
- }
+}
 @media screen and (max-width: 380px) { // mobile-L (body-font ?)
   html { font-size: 59.85%; }
   body.ios .home-intro-bio { min-height: 80vh; } // mobile-safari iOS
@@ -234,6 +237,7 @@ img {
 }
 @media screen and (max-width: 360px) { // mobile-M (body-font 22px)
   html { font-size: 57.25%; }
+  body { padding: 0 1.6rem; }
 }
 @media screen and (max-width: 320px) { // mobile-S (body-font 20px)
   html { font-size: 52.12%; }
