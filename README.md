@@ -2,4 +2,4 @@
 
 *Personal website based on Jekyll theme.*
 
-![](https://adrianmg.github.io/preview.png)
+![](http://adrianmg.github.io/preview.png)
