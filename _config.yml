@@ -25,6 +25,7 @@ instagram_username: adrianmato
 
 # Custom Settings
 timezone: America/Los_Angeles
+permalink: /:categories/:title:output_ext
 
 # Build settings
 markdown: kramdown
