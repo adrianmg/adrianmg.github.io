@@ -89,35 +89,6 @@ img {
   color: $brand-color;
 }
 
-.home-navigation a:before {
-  content: '';
-  position: absolute;
-  // width: 80%;
-  // width: 80px;
-  height: 80px;
-  bottom: 1.2rem;
-  top: 1.0rem;
-  left: 0rem;
-  right: 0rem;
-  margin: 0 auto;
-  background-color: $brand-color;
-  visibility: hidden;
-  // transform: scale(0);
-  // transform: rotateY(0);
-  transition: all 0.1s ease-in-out 0s;
-  opacity: .5;
-  border-radius: 30px;
-}
-
-.home-navigation a:hover:before {
-  visibility: visible;
-  // transform: scale(1);
-  transform: rotateZ(999200deg);
-  transition: all 1.3s ease-in-out 0s;
-  opacity: .1;
-  border-radius: 99px;
-  
-}
 
 @keyframes home-intro-desc-animation {
   from {
