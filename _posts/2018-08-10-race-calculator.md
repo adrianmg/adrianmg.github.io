@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Race Calculator"
+title: "Running Race Calculator "
 date: 2018-08-10 22:30:00
 categories: [blog, worklog]
 summary: "
