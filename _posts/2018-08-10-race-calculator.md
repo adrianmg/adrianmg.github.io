@@ -22,7 +22,7 @@ When thinking about the visual execution of new projects I always start with the
 
 I’d keep you posted!
 
-![Type ramp for race calculator]({{ "/assets/images/posts/2018/race-calculator-02.png" | absolute_url }})
+![Type ramp for race calculator]({{ "/assets/images/posts/2018/race-calculator-02.png" | relative_url }})
 
 ### August 10, 2018 at 22:30
 {:.anchor }
@@ -31,4 +31,4 @@ I’m trying to map the basic elements that would be needed in order to have the
 
 I’m sharing some rough sketches of the process from my notebook:
 
-![Notebook sketch race calculator]({{ "/assets/images/posts/2018/race-calculator-01.jpg" | absolute_url }})
+![Notebook sketch race calculator]({{ "/assets/images/posts/2018/race-calculator-01.jpg" | relative_url }})
