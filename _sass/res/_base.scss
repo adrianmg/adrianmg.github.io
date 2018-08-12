@@ -82,7 +82,7 @@ a {
           transition: all .25s ease-in-out;
 
   &:visited {
-    color: darken($brand-color, 15%);
+    color: $brand-color;
   }
 
   &:hover {
