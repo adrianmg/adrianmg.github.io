@@ -1,0 +1,44 @@
+---
+layout: default
+---
+<div class="post">
+<article>
+  <header>
+    <div class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">
+      {%- assign date_format = date_format | default: "%B %-d, %Y" -%}
+      {{ page.date | date: date_format }}
+      </time>
+    </div>
+
+    {% if page.title %}
+    <h1>{{ page.title }}</h1>
+    {% endif %}
+  
+    {% if page.summary %}
+    <div class='post-summary' markdown="1">{{ page.summary | markdownify }}</div>
+    {% endif %}
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  <footer class="post-content-signature">
+    {% if site.twitter_username %}
+    —<a itemprop="name" href="https://twitter.com/{{ site.twitter_username }}">{{ site.author }}</a>
+    {% endif %}
+  </footer>
+</article>
+</div>
+
+<script type="text/javascript" src="/assets/js/anchor.min.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+  anchors.options = {
+    placement: 'left',
+    class: 'anchor'
+  }
+  anchors.add('.anchor');
+});
+</script>
