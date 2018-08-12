@@ -11,26 +11,25 @@
 livereload: true
 
 # Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
 title: Adrián Mato – Product Designer in San Francisco
 email: hello@adrianmato.com
 description: > # this means to ignore newlines until "baseurl:"
   Designing and building tools for developers at Microsoft.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://adrianmato.com" # the base hostname & protocol for your site, e.g. http://example.com
+author: Adrián Mato
 twitter_username: adrianmg
 linkedin_username: adrianmg
 github_username:  adrianmg
 instagram_username: adrianmato
 
+# Custom Settings
+timezone: America/Los_Angeles
+
 # Build settings
 markdown: kramdown
 incremental: true
 
-#theme: minima
 plugins:
   - jekyll-feed
   - jekyll-autoprefixer
