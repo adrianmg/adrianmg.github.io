@@ -46,6 +46,37 @@ body {
   scroll-behavior: smooth;
 }
 
+
+/**
+ * Fonts
+ */
+%font-xl { // H1
+  font-size: 3.8rem;
+  line-height: 4.8rem;
+  font-weight: 600;
+}
+
+%font-l { // H2
+  font-size: 2.4rem;
+  line-height: 3.2rem;
+}
+
+%font-body {
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+}
+
+%font-s {
+  font-size: 1.4rem;
+  line-height: 2.0rem;
+}
+
+%font-xs {
+  font-size: 1.2rem;
+  line-height: 2.4rem;
+}
+
+
 /**
  * Set `margin-bottom` to maintain vertical rhythm
  */
@@ -54,7 +85,9 @@ p, blockquote, pre,
 ul, ol, dl, figure,
 %vertical-rhythm {
   margin-bottom: .4rem;
+  // margin-bottom: 1em;
 }
+
 
 /**
  * Headers
@@ -64,6 +97,7 @@ h1, h2, h3 {
   font-weight: 400;
 }
 
+
 /**
  * Lists
  */
@@ -71,6 +105,7 @@ ul{
   list-style-type: none;
   list-style-position: inside;
 }
+
 
 /**
  * Links
@@ -91,6 +126,7 @@ a {
   }
 }
 
+
 /**
  * Clearfix
  */
@@ -99,6 +135,7 @@ a {
   display: table;
   clear: both;
 }
+
 
 /**
  * Helpers
