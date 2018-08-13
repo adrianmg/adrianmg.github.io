@@ -235,17 +235,11 @@ img {
   margin: 2.4rem 0 2.0rem;
 }
 
-.post h3 .anchor {
-  color: $brand-color;
-  text-decoration: none;
-  margin-left: -1.1em !important;
-}
-
 .post a {
   color: $text-color;
   text-decoration: none;
   position: relative;
-  padding: .1rem 0;
+  padding: .2rem 0;
   -webkit-transition: all .1s ease-in-out;
           transition: all .1s ease-in-out;
 }
@@ -253,7 +247,7 @@ img {
   content: '';
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: .2rem;
   left: 0;
   right: 0;
   border-bottom: 1px solid rgba($color: $text-color, $alpha: .6);
@@ -262,7 +256,20 @@ img {
 }
 .post a:hover:before {
   border-bottom-color: rgba($color: $brand-color, $alpha: .5);
-  background: rgba($color: $brand-color, $alpha: .1);
+  background: rgba($color: $brand-color, $alpha: .08);
+}
+
+.post h3 .anchor {
+  color: $title-color;
+  text-decoration: none;
+  margin-left: -1.1em !important;
+  padding: 0;
+}
+.post h3 .anchor:before {
+  border: none;
+  display: none;
+  -webkit-transition: none;
+          transition: none;
 }
 
 .post a:hover {
@@ -315,6 +322,9 @@ img {
 }
 .post-content-signature a {
   color: $text-color;
+}
+.post-content-signature a:before {
+  border: none;
 }
 
 
