@@ -24,10 +24,11 @@ layout: default
     {{ content }}
   </div>
 
-  <footer class="post-content-signature">
-    {% if site.twitter_username %}
-    —<a itemprop="name" href="https://twitter.com/{{ site.twitter_username }}">{{ site.author }}</a>
-    {% endif %}
+  <footer class="post-footer">
+    <div class="post-footer-signature">
+      Written &hearts; by <a itemprop="name" href="/">{{ site.author }}</a>
+    </div>
+    <div class="post-footer-back"><a href="{{ site.baseurl_blog }}">← Blog</a></div>
   </footer>
 </article>
 </div>
