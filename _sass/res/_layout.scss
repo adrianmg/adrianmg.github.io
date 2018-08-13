@@ -338,6 +338,7 @@ img {
 @media screen and (max-width: 480px){ // mobile-XL
   body { padding: 0 2.4rem; }
   .home-intro-scroll.visible { display: none; }
+  .home-navigation-resume { display: none; }
 }
 @media screen and (max-width: 380px) { // mobile-L (body-font ?)
   html { font-size: 59.85%; }
