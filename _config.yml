@@ -16,6 +16,7 @@ email: hello@adrianmato.com
 description: > # this means to ignore newlines until "baseurl:"
   Designing and building tools for developers at Microsoft.
 baseurl: "" # the subpath of your site, e.g. /blog
+baseurl_blog: "/blog" # the subpath of the blog
 url: "http://adrianmato.com" # the base hostname & protocol for your site, e.g. http://example.com
 author: Adrián Mato
 twitter_username: adrianmg
