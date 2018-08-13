@@ -243,7 +243,26 @@ img {
 
 .post a {
   color: $text-color;
-  text-decoration: underline;
+  text-decoration: none;
+  position: relative;
+  padding: .1rem 0;
+  -webkit-transition: all .1s ease-in-out;
+          transition: all .1s ease-in-out;
+}
+.post a:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid rgba($color: $text-color, $alpha: .6);
+  -webkit-transition: all .1s ease-in-out;
+          transition: all .1s ease-in-out;
+}
+.post a:hover:before {
+  border-bottom-color: rgba($color: $brand-color, $alpha: .5);
+  background: rgba($color: $brand-color, $alpha: .1);
 }
 
 .post a:hover {
