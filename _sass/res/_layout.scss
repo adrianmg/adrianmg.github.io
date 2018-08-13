@@ -366,7 +366,7 @@ img {
 .blog-list-item a {
   width: 100%;
   display: table;
-  border-bottom: .5px solid rgba($color: $text-color, $alpha: .15);
+  border-bottom: .05rem solid rgba($color: $text-color, $alpha: .15);
   -webkit-transition: none;
           transition: none;
 }
@@ -383,6 +383,10 @@ img {
   text-overflow: ellipsis;
   -webkit-transition: all $base-trans-mid ease-in-out;
           transition: all $base-trans-mid ease-in-out;
+}
+
+.blog-list-item a:before {
+  top: -.05rem;
 }
 
 .blog-list-item-date {
