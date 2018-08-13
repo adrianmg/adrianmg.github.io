@@ -2,12 +2,15 @@
 
 // Define defaults for each variable.
 
-$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !default;
-$base-font-serif:  'EB Garamond', serif !default;
-$base-font-size:    2.3rem !default;
-$base-font-weight:  400 !default;
-$small-font-size:   $base-font-size * 0.875 !default;
-$base-line-height:  1 !default;
+$base-font-family:   -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !default;
+$base-font-serif:    'EB Garamond', serif !default;
+$base-font-size:     2.3rem !default;
+$base-font-weight:   400 !default;
+$small-font-size:    $base-font-size * 0.875 !default;
+$base-line-height:   1 !default;
+$base-trans:        .1s;
+$base-trans-mid:    .2s;
+$base-trans-slow:   .25s;
 
 $text-color:        #9191A1 !default;
 $background-color:  #12121A !default;
