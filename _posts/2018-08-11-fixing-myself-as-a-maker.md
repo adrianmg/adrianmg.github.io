@@ -9,7 +9,7 @@ One of my biggest fears and a big source of frustration as a maker has been taki
 
 I want to bring back the Adrian of 2008, a kid that was writing almost one JavaScript tutorial a day, sharing what he foolishly thought was the best thing ever at the time. A kid that cared about making, about the power of sharing and showing what he was capable of without fearing that his work won't be as good as others would expect.
 
-How am I going to do that? After recognizing the problem, I’m going to do something that’s been working for me since I can remember: facing the problem.
+How am I going to do that? I’m going to do something that’s been working for me since I can remember: face the problem.
 
 **I’m going to start making things again for no reason and I’d enjoy the process, expose my work, my thoughts, and myself to the rest of the world. Creating things and sharing them it’s what keeps the fire going for me and I don’t want to lose it.**
 
