@@ -113,8 +113,8 @@ ul{
 a {
   color: $brand-color;
   text-decoration: none;
-  -webkit-transition: all .25s ease-in-out;
-          transition: all .25s ease-in-out;
+  -webkit-transition: none;
+          transition: none;
 
   &:visited {
     color: $brand-color;
@@ -140,6 +140,7 @@ a {
 /**
  * Helpers
  */
+
  .h-absolute {
   position: absolute;
  }
@@ -153,3 +154,7 @@ a {
    font-style: italic;
    font-size: 80%;
  }
+
+%h-divider {
+  border-bottom: .5px dotted rgba($color: $text-color, $alpha: .15);
+}
