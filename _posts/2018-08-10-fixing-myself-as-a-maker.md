@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Fixing myself as a maker"
-date: 2018-08-11 16:00:00
+date: 2018-08-10 16:00:00
 categories: [blog, personal]
 ---
 

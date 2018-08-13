@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Worklog: Running Race Calculator "
-date: 2018-08-10 22:30:00
+date: 2018-08-11 22:30:00
 categories: [blog, worklog]
 summary: "
 I'm pairing with [Lucia](http://luciagm.net) to build a pet project that would let people estimate the race pace and total time when running races. It's the perfect excuse to do two things:
