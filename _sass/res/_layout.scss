@@ -281,7 +281,7 @@ img {
 
 .post-content p strong {
   font-weight: normal;
-  color: darken($color: $title-color, $amount: 22)
+  color: $strong-color;
 }
 
 .post-content img {
