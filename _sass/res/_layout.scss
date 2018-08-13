@@ -78,8 +78,9 @@ img {
   color: $text-color;
   text-decoration: none;
   padding: 2.0rem 1.4rem;
-
   position: relative;
+  -webkit-transition: all $base-trans-slow ease-in-out;
+          transition: all $base-trans-slow ease-in-out;
 }
 
 .home-navigation a:hover {
@@ -99,7 +100,8 @@ img {
   fill: $text-color;
   visibility: hidden;
   opacity: 0;
-  transition: all .2s ease-in-out;
+  -webkit-transition: all $base-trans-mid ease-in-out;
+          transition: all $base-trans ease-in-out;
   position: fixed;
   bottom: 5.2rem;
   right: 4.8rem;
@@ -236,40 +238,52 @@ img {
 }
 
 .post a {
-  color: $text-color;
-  text-decoration: none;
   position: relative;
-  padding: .2rem 0;
-  -webkit-transition: all .1s ease-in-out;
-          transition: all .1s ease-in-out;
+  text-decoration: none;
+  -webkit-transition: all $base-trans ease-in-out;
+          transition: all $base-trans ease-in-out;
 }
+
 .post a:before {
   content: '';
   position: absolute;
   top: 0;
-  bottom: .2rem;
+  bottom: 0;
   left: 0;
   right: 0;
-  border-bottom: 1px solid rgba($color: $text-color, $alpha: .6);
-  -webkit-transition: all .1s ease-in-out;
-          transition: all .1s ease-in-out;
+  -webkit-transition: all $base-trans ease-in-out;
+          transition: all $base-trans ease-in-out;
 }
+
 .post a:hover:before {
-  border-bottom-color: rgba($color: $brand-color, $alpha: .5);
   background: rgba($color: $brand-color, $alpha: .08);
 }
 
+.post p a, .post li a {
+  color: $text-color;
+  text-decoration: none;
+}
+.post-content a, .post-summary a {
+  padding: .2rem 0;
+}
+.post-content p a:before, .post-summary p a:before,
+.post-content li a:before, .post-summary li a:before {
+  bottom: .2rem;
+  border-bottom: 1px solid rgba($color: $text-color, $alpha: .6);
+}
+.post-content p a:hover:before, .post-summary p a:hover:before,
+.post-content li a:hover:before, .post-summary li a:hover:before {
+  border-bottom-color: rgba($color: $brand-color, $alpha: .5);
+}
+
 .post h3 .anchor {
-  color: $title-color;
+  color: $text-color;
   text-decoration: none;
   margin-left: -1.1em !important;
   padding: 0;
 }
 .post h3 .anchor:before {
-  border: none;
   display: none;
-  -webkit-transition: none;
-          transition: none;
 }
 
 .post a:hover {
@@ -294,7 +308,7 @@ img {
   @extend %font-s;
   margin-bottom: 4.0rem;
   padding-bottom: 3.2rem;
-  border-bottom: .5px dotted rgba($color: $text-color, $alpha: .15);
+  @extend %h-divider;
 }
 
 .post-summary p, .post-summary ul {
@@ -306,7 +320,7 @@ img {
   margin-bottom: 2.6rem;
 }
 
-.post-content p strong {
+.post-content strong {
   font-weight: normal;
   color: $strong-color;
 }
@@ -316,17 +330,69 @@ img {
   // max-width: 100%;
 }
 
-.post-content-signature {
-  @extend %font-xs;
-  margin-top: 4.0rem;
-}
-.post-content-signature a {
+.post-footer a{
   color: $text-color;
 }
-.post-content-signature a:before {
-  border: none;
+
+.post-footer-signature {
+  @extend %font-xs;
+  margin: 4.0rem auto;
 }
 
+.post-footer-back {
+  @extend %font-xs;
+}
+
+/**
+ * BLOG: List of posts
+ */
+
+.blog h1 {
+  margin-bottom: 4.8rem;
+}
+
+.blog-list {
+  margin: 0;
+}
+
+.blog-list-item {
+  display: block;
+}
+
+.blog-list-item:before {
+  display: none;
+}
+
+.blog-list-item a {
+  width: 100%;
+  display: table;
+  border-bottom: .5px solid rgba($color: $text-color, $alpha: .15);
+  -webkit-transition: none;
+          transition: none;
+}
+
+.blog-list-item a:hover .blog-list-item-title {
+  padding-left: .2rem;
+}
+
+.blog-list-item a span {
+  display: table-cell;
+  padding: 1.6rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-transition: all $base-trans-mid ease-in-out;
+          transition: all $base-trans-mid ease-in-out;
+}
+
+.blog-list-item-date {
+  width: 25%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @extend %font-xs;
+  text-transform: uppercase;
+}
 
 /**
  * MEDIA QUERIES:
