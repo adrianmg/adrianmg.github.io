@@ -48,6 +48,19 @@ body {
 
 
 /**
+ * Text selection
+ */
+::selection {
+  color: $title-color;
+  background: $strong-color;
+}
+::-moz-selection {
+  color: $title-color;
+  background: $strong-color;
+}
+
+
+/**
  * Fonts
  */
 %font-xl { // H1
