@@ -234,12 +234,13 @@ img {
 }
 
 .post h3 {
-  margin: 2.4rem 0 2.0rem;
+  margin: 3.2rem 0 2.0rem;
 }
 
 .post a {
   position: relative;
   text-decoration: none;
+  font-weight: 500;
   -webkit-transition: all $base-trans ease-in-out;
           transition: all $base-trans ease-in-out;
 }
@@ -281,6 +282,7 @@ img {
   text-decoration: none;
   margin-left: -1.1em !important;
   padding: 0;
+  // background: inherit;
 }
 .post h3 .anchor:before {
   display: none;
@@ -317,10 +319,10 @@ img {
 
 .post-content p, .post-content ul, .post-content ol {
   line-height: 2.4rem;
-  margin-bottom: 2.6rem;
+  margin-bottom: 2.4rem;
 }
 
-.post-content strong {
+.post-content strong, .post-summary strong {
   font-weight: normal;
   color: $strong-color;
 }
