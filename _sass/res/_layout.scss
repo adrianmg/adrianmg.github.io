@@ -365,6 +365,7 @@ img {
 .blog-list-item a {
   width: 100%;
   display: table;
+  font-weight: normal;
   border-bottom: .05rem solid rgba($color: $text-color, $alpha: .15);
   -webkit-transition: none;
           transition: none;
