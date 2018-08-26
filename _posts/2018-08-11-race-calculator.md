@@ -15,6 +15,25 @@ I've been pondering about the idea of having a daily worklog, let's give it a tr
 "
 ---
 
+### August 25, 2018 at 20:03
+{:.anchor }
+
+We’ve been discussing a little bit how to surface the information to the user. The equation is pretty straightforward: you always have **distance**, and then the user needs to set either a **total time** or a **pace time**, and we’d generate the results.
+
+Initially, I was tempted to force the user to choose between two tabs/switch, but it felt wrong, so we’re going to keep things simple and present the info in three steps:
+
+1. What’s the distance you’re running?
+2. Do you want to calculate your pace or total time?
+3. Set a time and hit ‘Calculate.’
+
+![Notebook sketch race calculator]({{ "/assets/images/posts/2018/race-calculator-03.png" | relative_url }})
+
+All these doubts appeared after reviewing how other online calculators present all the options at first level, so they’d automatically calculate the option you leave empty: distance, total time or pace time. I found that a bit confusing.
+
+I'm also starting to explore how the interactions are going to behave and look. [Lucia](http://luciagm.net) wants to have something strong for the primary actions, something purplish. I've been using blue as the primary action so many years in different companies (now, at Microsoft) that I guess it's a blow of fresh air my eyes 😅.
+
+![Notebook sketch race calculator]({{ "/assets/images/posts/2018/race-calculator-04.png" | relative_url }})
+
 ### August 11, 2018 at 16:05
 {:.anchor }
 
