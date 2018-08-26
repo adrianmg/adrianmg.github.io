@@ -26,7 +26,7 @@ Initially, I was tempted to force the user to choose between two tabs/switch, bu
 2. Do you want to calculate your pace or total time?
 3. Set a time and hit ‘Calculate.’
 
-![Notebook sketch race calculator]({{ "/assets/images/posts/2018/race-calculator-03.png" | relative_url }})
+![Notebook sketch race calculator]({{ "/assets/images/posts/2018/race-calculator-03.jpg" | relative_url }})
 
 All these doubts appeared after reviewing how other online calculators present all the options at first level, so they’d automatically calculate the option you leave empty: distance, total time or pace time. I found that a bit confusing.
 
