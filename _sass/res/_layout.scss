@@ -231,7 +231,7 @@ img {
 }
 
 .post h3 {
-  margin: 3.2rem 0 2.0rem;
+  margin: 3.8rem 0 2.0rem;
 }
 
 .post a {
@@ -289,7 +289,18 @@ img {
   color: $brand-color;
 }
 
-.post li:before {
+.post ol li {
+  counter-increment: item;
+  list-style-position: inside;
+  list-style: none;
+}
+.post ol li::before {
+  content: counter(item) ". ";
+  font-size: 1.3rem;
+  margin-right: .8rem;
+}
+
+.post ul li:before {
   content: '-';
   margin-right: .8em;
 }
@@ -305,7 +316,7 @@ img {
 
 .post-summary {
   @extend %font-s;
-  margin-bottom: 4.0rem;
+  margin-bottom: 3.6rem;
   padding-bottom: 3.2rem;
   @extend %h-divider;
 }
@@ -325,8 +336,8 @@ img {
 }
 
 .post-content img {
+  margin: .8rem 0 .4rem;
   border-radius: 1px;
-  // max-width: 100%;
 }
 
 .post-footer a{
