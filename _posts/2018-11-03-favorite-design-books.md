@@ -41,6 +41,12 @@ Josef Albers was one the most important artist-educators in the Bauhaus in 1920.
 
 When designing, typography is the foundation of print and web design. This book will give you the best historical background, terminology, and every technical consideration you need to know when thinking with type.
 
+### Universal Principles of Design – William Lidwell, Kritina Holden, and Jill Butler
+{:.anchor }
+<img src='{{ "/assets/images/posts/2018/book-07.png" | relative_url }}' srcset='{{ "/assets/images/posts/2018/book-07.png" | relative_url }} 1x, {{ "/assets/images/posts/2018/book-07.png" | relative_url }} 2x'>
+
+This is the kind of book you'd like to read jumping back and forth between different topics. It's a beautiful compilation of several design principles along with in-depth explanations, illustrations, and examples. I find it useful whenever I want to refresh theory or don't land the right words for explaining the reasoning behind design decisions. It's also a good source of inspiration.
+
 ### Design Is a Job – Mike Monteiro
 {:.anchor }
 <img src='{{ "/assets/images/posts/2018/book-02.png" | relative_url }}' srcset='{{ "/assets/images/posts/2018/book-02.png" | relative_url }} 1x, {{ "/assets/images/posts/2018/book-02.png" | relative_url }} 2x'>
