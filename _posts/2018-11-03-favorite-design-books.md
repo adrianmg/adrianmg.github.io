@@ -5,7 +5,7 @@ date: 2018-11-03 20:41:00
 categories: [blog, design, books]
 ---
 
-I often get asked about Design book recommendations, so I've put together a few of my favorite ones that somehow helped me to grow as a designer. You'll notice that some of them are not necessary design-related and that's OK as far as they teach you different lessons that you can extract and extrapolate for yourself.
+I often get asked about Design book recommendations, so I've put together a few of my favorite ones that somehow helped me to grow as a designer. You'll notice that some of them are not necessary design-related and that's OK as far as they teach us different lessons to extract and apply later on.
 
 I'll be updating this list from time to time as I remember and read new books 🤓.
 
@@ -20,13 +20,13 @@ One of the classics, and also one of my favorite books from Otl Aicher, one of t
 {:.anchor }
 <img src='{{ "/assets/images/posts/2018/book-01.png" | relative_url }}' srcset='{{ "/assets/images/posts/2018/book-01.png" | relative_url }} 1x, {{ "/assets/images/posts/2018/book-01.png" | relative_url }} 2x'>
 
-A comic book that teaches you how to design comics. One of the biggest challanges we face as designers is to tell compelling stories in different ways, I think this book does a pretty good job explaining that field.
+A comic book that teaches you how to design comics. One of the biggest challanges we face as designers is to tell compelling stories in different ways, I think this book does a pretty good job explaining it.
 
 ### The Laws of Simplicity – John Maeda
 {:.anchor }
 <img src='{{ "/assets/images/posts/2018/book-08.png" | relative_url }}' srcset='{{ "/assets/images/posts/2018/book-08.png" | relative_url }} 1x, {{ "/assets/images/posts/2018/book-08.png" | relative_url }} 2x'>
 
-One of the most difficult challenges as designers is to find the right balance between the complexity and simplicift of many things: granularity of information, visual resources, mental models, and so on. Maeda does a pretty great job explaining what simplicity is while sharing his methodology to transform complex problems into simpler ones.
+One of the most difficult challenges as designers is to find the right balance between the complexity and simplicity: granularity of information, visual resources, mental models, and so on. Maeda does a pretty great job explaining what simplicity is while sharing his methodology to transform complex problems into simpler ones.
 
 ### The Psychology Of Everyday Things – Don Norman
 {:.anchor }
