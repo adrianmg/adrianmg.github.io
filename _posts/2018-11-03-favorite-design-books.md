@@ -22,22 +22,21 @@ One of the classics, and also one of my favorite books from Otl Aicher, one of t
 
 A comic book that teaches you how to design comics. One of the biggest challanges we face as designers is to tell compelling stories in different ways, I think this book does a pretty good job explaining that field.
 
+### The Laws of Simplicity – John Maeda
+{:.anchor }
+<img src='{{ "/assets/images/posts/2018/book-08.png" | relative_url }}' srcset='{{ "/assets/images/posts/2018/book-08.png" | relative_url }} 1x, {{ "/assets/images/posts/2018/book-08.png" | relative_url }} 2x'>
+
+One of the most difficult challenges as designers is to find the right balance between the complexity and simplicift of many things: granularity of information, visual resources, mental models, and so on. Maeda does a pretty great job explaining what simplicity is while sharing his methodology to transform complex problems into simpler ones.
+
 ### The Psychology Of Everyday Things – Don Norman
 {:.anchor }
 <img src='{{ "/assets/images/posts/2018/book-04.png" | relative_url }}' srcset='{{ "/assets/images/posts/2018/book-04.png" | relative_url }} 1x, {{ "/assets/images/posts/2018/book-04.png" | relative_url }} 2x'>
 
 An excellent introduction to the psychology and design decisions behind the day to day objects that surround us. I'd recommend you read the book while combining it with others as it can get a bit dense and dull (rhythmically speaking, don't get me wrong.
 
-### Interaction of Color – Josef Albers
-{:.anchor }
-<img src='{{ "/assets/images/posts/2018/book-05.png" | relative_url }}' srcset='{{ "/assets/images/posts/2018/book-05.png" | relative_url }} 1x, {{ "/assets/images/posts/2018/book-05.png" | relative_url }} 2x'>
-
-Josef Albers was one the most important artist-educators in the Bauhaus in 1920. His learnings and systematic approach to the color theory are a great way to understand how surrounding colors influence our perception of colors.
-
 ### Thinking with Type – Ellen Lupton
 {:.anchor }
 <img src='{{ "/assets/images/posts/2018/book-06.png" | relative_url }}' srcset='{{ "/assets/images/posts/2018/book-06.png" | relative_url }} 1x, {{ "/assets/images/posts/2018/book-06.png" | relative_url }} 2x'>
-
 
 When designing, typography is the foundation of print and web design. This book will give you the best historical background, terminology, and every technical consideration you need to know when thinking with type.
 
@@ -46,6 +45,12 @@ When designing, typography is the foundation of print and web design. This book 
 <img src='{{ "/assets/images/posts/2018/book-07.png" | relative_url }}' srcset='{{ "/assets/images/posts/2018/book-07.png" | relative_url }} 1x, {{ "/assets/images/posts/2018/book-07.png" | relative_url }} 2x'>
 
 This is the kind of book you'd like to read jumping back and forth between different topics. It's a beautiful compilation of several design principles along with in-depth explanations, illustrations, and examples. I find it useful whenever I want to refresh theory or don't land the right words for explaining the reasoning behind design decisions. It's also a good source of inspiration.
+
+### Interaction of Color – Josef Albers
+{:.anchor }
+<img src='{{ "/assets/images/posts/2018/book-05.png" | relative_url }}' srcset='{{ "/assets/images/posts/2018/book-05.png" | relative_url }} 1x, {{ "/assets/images/posts/2018/book-05.png" | relative_url }} 2x'>
+
+Josef Albers was one the most important artist-educators in the Bauhaus in 1920. His learnings and systematic approach to the color theory are a great way to understand how surrounding colors influence our perception of colors.
 
 ### Design Is a Job – Mike Monteiro
 {:.anchor }
