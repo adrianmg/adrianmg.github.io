@@ -389,7 +389,6 @@ img {
 .blog-list-item a span {
   display: table-cell;
   padding: 1.6rem 0;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-transition: all $base-trans-mid ease-in-out;
@@ -402,7 +401,7 @@ img {
 
 .blog-list-item-date {
   width: 25%;
-  white-space: nowrap;
+  // white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   @extend %font-xs;
