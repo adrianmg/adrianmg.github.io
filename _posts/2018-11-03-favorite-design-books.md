@@ -14,7 +14,7 @@ I'll be updating this list from time to time as I remember and read new books ðŸ
 
 <img src='{{ "/assets/images/posts/2018/book-03.png" | relative_url }}' srcset='{{ "/assets/images/posts/2018/book-03.png" | relative_url }} 1x, {{ "/assets/images/posts/2018/book-03.png" | relative_url }} 2x'>
 
-One of the classics, and also one of my favorite books from Otl Aicher, one of the founders of the Ulm School. Aicher re-inforces the idea that every design decision must have a purpose and a reason behind it.
+One of the classics, and also one of my favorite books from Otl Aicher, founder of the Ulm School. Aicher re-inforces the idea that every design decision must have a purpose and a reason behind it.
 
 ### Understanding Comics: The Invisible Art â€“ Scott McCloud
 {:.anchor }
