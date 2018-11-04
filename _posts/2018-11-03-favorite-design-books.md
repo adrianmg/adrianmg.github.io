@@ -7,7 +7,7 @@ categories: [blog, design, books]
 
 I often get asked about Design book recommendations, so I've put together a few of my favorite ones that somehow helped me to grow as a designer. You'll notice that some of them are not necessary design-related and that's OK as far as they teach you different lessons that you can extract and extrapolate for yourself.
 
-I'll be updating this list from time to time as I remember and read new books.
+I'll be updating this list from time to time as I remember and read new books 🤓.
 
 ### The World as Design – Otl Aicher
 {:.anchor }
@@ -49,4 +49,4 @@ A pragmatic, realistic and simple way of summarizing what being a designer means
 
 —
 
-That's it for now! I hope you find some of them useful. Please do [**share with me**](https://twitter.com/adrianmg) your favorite books!
+That's it for now! I hope you find some of them useful. Please do [**share with me**](https://twitter.com/adrianmg) your favorite books! 🤗
