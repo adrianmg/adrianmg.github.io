@@ -4,7 +4,7 @@ title: "Worklog: Something for servers to be figured out yet"
 date: 2018-11-24 21:40:00
 categories: [blog, worklog]
 summary: "
-I'm trying to build a small tool for servers as a small side project.
+I'm trying to build a small tool for servers as a small side project."
 ---
 
 ### November 24, 2018 at 21:45
