@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Worklog: Something for servers to be figured out yet"
+title: "Worklog: Small tool for servers to be figured out yet"
 date: 2018-11-24 21:40:00
 categories: [blog, worklog]
 summary: "
