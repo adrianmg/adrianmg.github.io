@@ -7,6 +7,17 @@ summary: "
 A small tool for servers on the works."
 ---
 
+### November 25, 2018 at 16:05
+{:.anchor }
+
+I've refactored and added long polling to the **nodejs** application so now I can control how often the date is going to be retrieved. I also set up a simple docker container that allows me to deploy the app to **now/zeit** continuously.
+
+Here's a preview of the app running while updating the real-time database from **firebase**:
+
+![UI components race calculator]({{ "/assets/images/posts/2018/server-status-02.gif" | relative_url }})
+
+I'm going to leave this up and running for a few days as I keep making progress on the client side. Hopefully, it doesn't crash 😅.
+
 ### November 24, 2018 at 21:45
 {:.anchor }
 
