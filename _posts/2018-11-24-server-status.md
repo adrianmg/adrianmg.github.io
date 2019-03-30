@@ -12,6 +12,7 @@ A small tool for servers on the works."
 Some news, [Iván](http://ivanguardado.com) has paired up with me helping to improve the business logic, and making the code a bit more robust for future steps. I'm trying to put together a template to generate the first version of the front-end. Basically we will be able to serve all the data we're collecting.
 
 ![UI components race calculator]({{ "/assets/images/posts/2019/server-status-03.png" | relative_url }})
+![UI components race calculator]({{ "/assets/images/posts/2019/server-status-04.png" | relative_url }})
 
 ### November 25, 2018 at 16:05
 {:.anchor }
