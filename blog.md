@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: Adrián Mato – Blog
+title: Blog
 excerpt: Unsorted thoughts and strong opinions about Design, programming, side projects, and personal growth (I guess).
 ---
 
