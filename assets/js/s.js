@@ -67,8 +67,7 @@ function scrollHandler() {
 // Scrolling function from A -> B (modified from: https://bit.ly/2H3JKMV)
 function scrollToItem(destination, duration = 500) {
   const start = window.pageYOffset;
-  const startTime =
-    "now" in window.performance ? performance.now() : new Date().getTime();
+  const startTime = "now" in window.performance ? performance.now() : new Date().getTime();
 
   const documentHeight = Math.max(
     document.body.scrollHeight,
@@ -105,7 +104,8 @@ function scrollToItem(destination, duration = 500) {
       Math.ceil(timeFunction * (destinationOffsetToScroll - start) + start)
     );
 
-    if (window.pageYOffset === destinationOffsetToScroll) {
+    if (Math.round(window.pageYOffset) === destinationOffsetToScroll) {
+      console.log('finished');
       return;
     }
 
