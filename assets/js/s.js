@@ -104,8 +104,7 @@ function scrollToItem(destination, duration = 500) {
       Math.ceil(timeFunction * (destinationOffsetToScroll - start) + start)
     );
 
-    if (Math.round(window.pageYOffset) === destinationOffsetToScroll) {
-      console.log('finished');
+    if (Math.round(window.pageYOffset) >= destinationOffsetToScroll) {
       return;
     }
 
