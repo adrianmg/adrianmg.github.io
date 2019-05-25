@@ -17,15 +17,17 @@ HOME
 */
 let arrow = document.querySelector(".home-intro-scroll");
 const arrowTreshold = 100; // when stops being visible
-const workAnchor = "#home-work";
+const workAnchor = ".home-work-grid__project";
 const navWork = document.querySelector(
   `.home-navigation [href='${workAnchor}']`
 );
 
 // click on navigation 'work' and scroll
 navWork.addEventListener("click", function(e) {
-  scrollToItem(document.querySelector(workAnchor), 800);
-  history.pushState({}, "", workAnchor);
+  // scrollToItem(document.querySelector(workAnchor), 800);
+  workAnchor.scrollIntoView({behavior: 'smooth', block: 'end' });
+
+  // history.pushState({}, "", workAnchor);
 
   e.preventDefault();
   return false;
