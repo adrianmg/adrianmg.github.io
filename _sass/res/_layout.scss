@@ -429,14 +429,28 @@ img {
 }
 @media screen and (max-width: 380px) { // mobile-L
   html { font-size: 59.85%; }
-  body.ios .home-intro-bio { min-height: 80vh; } // mobile-safari iOS
-  body.ios-iphonex .home-intro-bio { min-height: 77vh; } // mobile-safari iOS iPhoneX
   .home-work-grid__project-screenshot { margin-bottom: 5.2rem; }
   .home-work-grid__project { margin-bottom: 11.2rem; }
   .home-work-grid__project-description { margin-bottom: 4.1rem; }
   .home-navigation { margin-left: -1.2rem; }
   .home-navigation a { padding: 2.0rem 1.2rem; }
+  
+  // iPhones
+  @media only screen
+  and (min-device-width : 375px)
+  and (max-device-width : 667px) {
+    .home-intro-bio { min-height: 80vh; }
+  }
+
+  // iPhoneX
+  @media only screen
+  and (min-device-width: 375px)
+  and (max-device-width: 812px)
+  and (-webkit-min-device-pixel-ratio: 3) {
+    .home-intro-bio { min-height: 77vh; }
+  }
 }
+
 @media screen and (max-width: 360px) { // mobile-M (body-font 22px)
   html { font-size: 57.25%; }
   body { padding: 0 1.6rem; }
