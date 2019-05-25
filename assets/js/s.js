@@ -1,6 +1,8 @@
 (() => {
   'use strict';
 
+  const isHome = document.querySelector("body.home");
+
   // Lazy Load of images
   var lazyLoad = new LazyLoad({
     elements_selector: ".lazy",
@@ -8,48 +10,54 @@
   });
 
   // HOME
-  let arrow = document.querySelector(".home-intro-scroll");
-  const arrowTreshold = 100; // when stops being visible
-  const workAnchor = "#home-work";
-  const navWork = document.querySelector(
-    `.home-navigation [href='${workAnchor}']`
-  );
+  if (isHome) {
+    const arrow = document.querySelector(".home-intro-scroll");
+    const arrowTreshold = 100; // when stops being visible
+    const workAnchor = "#home-work";
+    const navWork = document.querySelector(
+      `.home-navigation [href='${workAnchor}']`
+    );
 
-  // HOME: click on navigation 'work' and scroll
-  navWork.addEventListener("click", function(e) {
-    scrollToItem(document.querySelector(workAnchor), 800);
-    history.pushState({}, "", workAnchor);
-    e.preventDefault();
-    return false;
-  });
+    // click on navigation 'work' and scroll
+    navWork.addEventListener("click", function(e) {
+      scrollToItem(document.querySelector(workAnchor), 800);
+      history.pushState({}, "", workAnchor);
+      e.preventDefault();
+      return false;
+    });
 
-  // HOME: scroll hint
-  function showScrollHint(seconds) {
-    if (arrow && document.scrollingElement.scrollTop <= arrowTreshold) {
-      setTimeout(function() {
-        if (arrow) {
-          arrow.classList.add("visible");
-        }
-      }, seconds * 1000);
+    // scroll hint
+    function showScrollHint(seconds) {
+      if (arrow && document.scrollingElement.scrollTop <= arrowTreshold) {
+        setTimeout(function() {
+          if (arrow) {
+            arrow.classList.add("visible");
+          }
+        }, seconds * 1000);
+      }
     }
-  }
 
-  // HOME: hide scroll hint
-  document.addEventListener("scroll", scrollHandler);
+    // scrolling
+    document.addEventListener("scroll", scrollHandler);
 
-  function scrollHandler() {
-    let scroll = document.scrollingElement.scrollTop;
+    function scrollHandler() {
+      // scroll hint
+      let scroll = document.scrollingElement.scrollTop;
 
-    if (scroll >= arrowTreshold && arrow) {
-      arrow.classList.remove("visible");
+      if (scroll >= arrowTreshold && arrow) {
+        arrow.classList.remove("visible");
 
-      document.removeEventListener("scroll", scrollHandler);
-      // remove element after transition (avoid dealing with event handling + transitionend)
-      setTimeout(function() {
-        arrow.parentNode.removeChild(arrow);
-        arrow = false;
-      }, 400);
+        document.removeEventListener("scroll", scrollHandler);
+        // remove element after transition (avoid dealing with event handling + transitionend)
+        setTimeout(function() {
+          arrow.parentNode.removeChild(arrow);
+          arrow = false;
+        }, 400);
+      }
     }
+
+    // Initialize scroll hint
+    showScrollHint(3);
   }
 
   // HELPERS
