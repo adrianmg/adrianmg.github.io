@@ -46,6 +46,8 @@
     function scrollHandler() {
       // if header is sticky via CSS
       if (navBoundingTop <= 1) {
+        nav.classList.add("sticky");
+
         if (windowOffset > window.pageYOffset) { // scrolling up
           if (windowOffsetDelta >= windowOffsetThreshold && nav.classList.contains("hidden")) {
             nav.classList.remove("hidden");
@@ -60,6 +62,9 @@
           }
           windowOffsetDelta = 0;
         }
+      }
+      else {
+        nav.classList.remove("sticky");
       }
       navBoundingTop = nav.getBoundingClientRect().top;
       windowOffset = window.pageYOffset;
