@@ -69,8 +69,8 @@ img {
   transition: all 180ms ease-out;
 }
 
-.home-navigation.sticky {
-  padding-top: 2vh;
+.home-navigation.sticky ul {
+  transform: translateY(2vh);
 }
 
 .home-navigation.hidden {
