@@ -11,16 +11,16 @@
 
   // HOME
   if (isHome) {
-    const arrow = document.querySelector(".home-intro-scroll");
+    let arrow = document.querySelector('.home-intro-scroll');
     const arrowTreshold = 100; // when stops being visible
     const workAnchor = "#home-work";
-    const navWork = document.querySelector(
-      `.home-navigation [href='${workAnchor}']`
-    );
+    const navWork = document.querySelector(`.home-navigation [href='${workAnchor}']`);
+    const nav = document.querySelector('.home-navigation');
+    let navBoundingTop = nav.getBoundingClientRect().top;
 
     // click on navigation 'work' and scroll
     navWork.addEventListener("click", function(e) {
-      scrollToItem(document.querySelector(workAnchor), 800);
+      scrollToItem(document.querySelector(workAnchor), 800, nav.clientHeight * 1.2);
       history.pushState({}, "", workAnchor);
       e.preventDefault();
       return false;
@@ -37,22 +37,39 @@
       }
     }
 
-    // scrolling
+    // scrolling event
+    let windowOffset = window.pageYOffset;
+    let windowOffsetDelta = 0;
+    let windowOffsetThreshold = 20; // pixels
     document.addEventListener("scroll", scrollHandler);
 
     function scrollHandler() {
-      // scroll hint
+      // if header is sticky via CSS
+      if (navBoundingTop <= 1) {
+        if (windowOffset > window.pageYOffset) { // scrolling up
+          if (windowOffsetDelta >= windowOffsetThreshold && nav.classList.contains("hidden")) {
+            nav.classList.remove("hidden");
+          }
+          else {
+            windowOffsetDelta++;
+          }
+        }
+        else { // scrolling down
+          if (!nav.classList.contains("hidden")) {
+            nav.classList.add("hidden");
+          }
+          windowOffsetDelta = 0;
+        }
+      }
+      navBoundingTop = nav.getBoundingClientRect().top;
+      windowOffset = window.pageYOffset;
+
+      // // scroll hint
       let scroll = document.scrollingElement.scrollTop;
 
+      // hide arrow when needed
       if (scroll >= arrowTreshold && arrow) {
         arrow.classList.remove("visible");
-
-        document.removeEventListener("scroll", scrollHandler);
-        // remove element after transition (avoid dealing with event handling + transitionend)
-        setTimeout(function() {
-          arrow.parentNode.removeChild(arrow);
-          arrow = false;
-        }, 400);
       }
     }
 
@@ -63,7 +80,7 @@
   // HELPERS
 
   // HELPERS: scrolling function from A -> B (modified from: https://bit.ly/2H3JKMV)
-  function scrollToItem(destination, duration = 500) {
+  function scrollToItem(destination, duration = 500, extraPadding) {
     const start = window.pageYOffset;
     const startTime = "now" in window.performance ? performance.now() : new Date().getTime();
 
@@ -80,11 +97,14 @@
       document.getElementsByTagName("body")[0].clientHeight;
     const destinationOffset =
       typeof destination === "number" ? destination : destination.offsetTop;
-    const destinationOffsetToScroll = Math.round(
+    let destinationOffsetToScroll = Math.round(
       documentHeight - destinationOffset < windowHeight
         ? documentHeight - windowHeight
         : destinationOffset
-    );
+    )
+    if (start >= destinationOffsetToScroll) { // going up
+      destinationOffsetToScroll -= extraPadding;
+    }
 
     if ("requestAnimationFrame" in window === false) {
       window.scroll(0, destinationOffsetToScroll);
@@ -102,8 +122,15 @@
         Math.ceil(timeFunction * (destinationOffsetToScroll - start) + start)
       );
 
-      if (Math.round(window.pageYOffset) >= destinationOffsetToScroll) {
-        return;
+      if (start >= destinationOffsetToScroll) { // going up
+        if (Math.round(window.pageYOffset) <= Math.ceil(destinationOffsetToScroll)) {
+          return;
+        }
+      }
+      else { // going down
+        if (Math.round(window.pageYOffset) >= Math.ceil(destinationOffsetToScroll)) {
+          return;
+        }
       }
 
       requestAnimationFrame(scroll);
