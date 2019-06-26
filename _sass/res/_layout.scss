@@ -114,23 +114,17 @@ img {
 }
 
 @keyframes home-intro-scroll {
-  20% {
-    // opacity: 1;
-  }
+  20% {}
   45%  {
     transform: translateY(0);
   }
   50%  {
-    // opacity: 1;
     transform: translateY(.5rem);
   }
   65%  {
-    // opacity: 1;
     transform:translateY(0);
   }
-  75% {
-    // opacity: 1;
-  }
+  75% {}
 }
 
 @keyframes navigation-animation {
@@ -283,7 +277,6 @@ img {
   text-decoration: none;
   margin-left: -1.1em !important;
   padding: 0;
-  // background: inherit;
 }
 .post h3 .anchor:before {
   display: none;
@@ -405,7 +398,6 @@ img {
 
 .blog-list-item-date {
   width: 25%;
-  // white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   @extend %font-xs;
