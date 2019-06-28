@@ -9,10 +9,10 @@ baseurl: "" # the subpath of your site, e.g. /blog
 baseurl_blog: "/blog" # the subpath of the blog
 url: "http://adrianmato.com" # the base hostname & protocol for your site, e.g. http://example.com
 author: Adrián Mato
-twitter_username: adrianmg
-linkedin_username: adrianmg
-github_username:  adrianmg
-instagram_username: adrianmato
+twitter: adrianmg
+linkedin: adrianmg
+github:  adrianmg
+instagram: adrianmato
 
 # Custom Settings
 timezone: America/Los_Angeles
@@ -25,6 +25,7 @@ incremental: true
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-seo-tag
 exclude:
   - Gemfile
   - Gemfile.lock
