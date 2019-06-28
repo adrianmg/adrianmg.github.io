@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: " en " }}">
 {% include head.html %}
-
 <body class="home">
-
   <div class="home-intro">
     <div class="home-intro-bio">
       <div class="home-intro-bio-desc">
@@ -21,23 +19,18 @@
         </div>
       </div>
     </div>
-
     <svg class="home-intro-scroll" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
       <path d="M12 18.23l5.584-5.584 1.365 1.365-8.041 8.04-7.857-7.856 1.377-1.376L10 18.391V1h2v17.23z" fill-rule="evenodd"/>
     </svg>
   </div>
-
   {% include home-navigation.html %}
-
   {% include home-work.html %}
 
   <script type="text/javascript" src="/assets/js/ios.js"></script>
   <script type="text/javascript" src="/assets/js/lazyload.min.js"></script>
   <script type="text/javascript" src="/assets/js/s.js"></script>
-  
   {% if jekyll.environment == 'production' %}
     {% include google-analytics.html %}
   {% endif %}
 </body>
-
 </html>
