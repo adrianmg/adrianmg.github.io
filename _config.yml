@@ -3,8 +3,6 @@ livereload: true
 # Site settings
 title: Adrián Mato – Product Designer in San Francisco
 email: hello@adrianmato.com
-description: > # this means to ignore newlines until "baseurl:"
-  Personal website of Adrián Mato. Designing and building tools for developers at Microsoft.
 baseurl: "" # the subpath of your site, e.g. /blog
 baseurl_blog: "/blog" # the subpath of the blog
 url: "http://adrianmato.com" # the base hostname & protocol for your site, e.g. http://example.com
@@ -30,3 +28,5 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+include:
+  - 404.html
