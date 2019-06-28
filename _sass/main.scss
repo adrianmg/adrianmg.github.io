@@ -8,18 +8,22 @@
   --base-font-weight:   400;
   --small-font-size:    calc(var(--base-font-size) * 0.875);
   --base-line-height:   1;
-  --base-trans:        .1s;
-  --base-trans-mid:    .2s;
-  --base-trans-slow:   .25s;
+  --base-trans:         .1s;
+  --base-trans-mid:     .2s;
+  --base-trans-slow:    .25s;
 
-  --text-color:        #9191A1;
-  --background-color:  #12121A;
-  --brand-color:       #FFB87A;
-  --title-color:       #F2F3FB;
-  --strong-color:      #9ca4e1;
+  --text-color-rgb:     145, 145, 161;
+  --brand-color-rgb:    255, 184, 122;
+  --text-color:         rgb(var(--text-color-rgb));
+  --brand-color:        rgb(var(--brand-color-rgb));
+  --background-color: rgb(18, 18, 26);
+  --title-color:      rgb(242, 243, 251);
+  --strong-color:     rgb(156, 164, 225);
 
-  --base-padding:      3.4em;
-  --base-max-width:    120.0rem;  
+  --base-padding:       3.4em;
+  --base-max-width:     120.0rem;
+
+  --font-size-m:        1.4rem;
 }
 
 // Import partials

@@ -270,7 +270,7 @@ img {
 }
 
 .post a:hover:before {
-  background: rgba($color: var(--brand-color), $alpha: .08);
+  background-color: rgba(var(--brand-color-rgb), 0.08);
 }
 
 .post p a, .post li a {
@@ -283,11 +283,11 @@ img {
 .post-content p a:before, .post-summary p a:before,
 .post-content li a:before, .post-summary li a:before {
   bottom: .2rem;
-  border-bottom: 1px solid rgba($color: var(--text-color), $alpha: .6);
+  border-bottom: 1px solid rgba(var(--text-color-rgb), 0.6)
 }
 .post-content p a:hover:before, .post-summary p a:hover:before,
 .post-content li a:hover:before, .post-summary li a:hover:before {
-  border-bottom-color: rgba($color: var(--brand-color), $alpha: .5);
+  border-bottom-color: rgba(var(--brand-color-rgb), 0.5);
 }
 
 .post h3 .anchor {
@@ -392,12 +392,17 @@ img {
   width: 100%;
   display: table;
   font-weight: normal;
-  border-bottom: .05rem solid rgba($color: var(--text-color), $alpha: .15);
+  border-bottom: .05rem solid rgba(var(--text-color-rgb), .15);
   transition: none;
+}
+
+.blog-list-item a .blog-list-item-title {
+  color: var(--title-color);
 }
 
 .blog-list-item a:hover .blog-list-item-title {
   padding-left: .4rem;
+  color: var(--brand-color);
 }
 
 .blog-list-item a span {
