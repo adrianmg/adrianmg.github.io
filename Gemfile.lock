@@ -36,6 +36,8 @@ GEM
       jekyll (~> 3.3)
     jekyll-sass-converter (1.5.2)
       sass (~> 3.4)
+    jekyll-sitemap (1.3.1)
+      jekyll (>= 3.7, < 5.0)
     jekyll-watch (2.1.2)
       listen (~> 3.0)
     kramdown (1.17.0)
@@ -67,10 +69,11 @@ DEPENDENCIES
   jekyll (>= 3.8.4)
   jekyll-autoprefixer
   jekyll-feed (~> 0.6)
+  jekyll-sitemap
   tzinfo-data
 
 RUBY VERSION
-   ruby 2.4.1p111
+   ruby 2.3.7p456
 
 BUNDLED WITH
-   1.16.3
+   1.16.4

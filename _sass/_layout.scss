@@ -25,7 +25,7 @@ img {
  */
 
 .home-intro {
-  max-width: $base-max-width;
+  max-width: var(--base-max-width);
   margin: 0 auto;
   @extend %font-body;
 }
@@ -49,9 +49,9 @@ img {
 
 .home-intro-bio-desc h2 {
   @extend %font-l;
-  color: $brand-color;
+  color: var(--brand-color);
   margin-bottom: 2.2rem;
-  font-family: $base-font-serif;
+  font-family: var(--base-font-serif);
 }
 
 .home-intro-bio-desc p {
@@ -63,14 +63,14 @@ img {
   min-height: 8vh;
   top: 0;
   position: sticky;
-  background: $background-color;
+  background: var(--background-color);
   transform: translateY(0%);
   z-index: 1;
   transition: all 180ms ease-out;
 }
 
-.home-navigation.sticky ul {
-  transform: translateY(2vh);
+.home-navigation.sticky {
+  padding-top: 2vh;
 }
 
 .home-navigation.hidden {
@@ -78,7 +78,7 @@ img {
 }
 
 .home-navigation ul {
-  max-width: $base-max-width;
+  max-width: var(--base-max-width);
   @extend %font-xs;
   font-weight: 600;
   line-height: 2.8rem;
@@ -93,16 +93,15 @@ img {
 }
 
 .home-navigation a {
-  color: $text-color;
+  color: var(--text-color);
   text-decoration: none;
   padding: 2.0rem 1.4rem;
   position: relative;
-  -webkit-transition: all $base-trans-slow ease-in-out;
-          transition: all $base-trans-slow ease-in-out;
+  transition: all var(--base-trans-slow) ease-in-out;
 }
 
 .home-navigation a:hover {
-  color: $brand-color;
+  color: var(--brand-color);
 }
 
 @keyframes home-intro-desc-animation {
@@ -115,11 +114,10 @@ img {
 .home-intro-scroll {
   width: 1.6rem;
   height: 1.6rem;
-  fill: $text-color;
+  fill: var(--text-color);
   visibility: hidden;
   opacity: 0;
-  -webkit-transition: all $base-trans-mid ease-in-out;
-          transition: all $base-trans ease-in-out;
+  transition: all var(--base-trans) ease-in-out;
   position: fixed;
   bottom: 5.2rem;
   right: 4.8rem;
@@ -162,7 +160,7 @@ img {
  */
 
 .home-work-grid {
-  max-width: $base-max-width;
+  max-width: var(--base-max-width);
   margin: 0 auto;
 }
 
@@ -184,7 +182,7 @@ img {
 }
 
 .home-work-grid__project-description h2 {
-  font-size: $base-font-size;
+  font-size: var(--base-font-size);
   line-height: 2.8rem;
   margin-bottom: 0.7rem;
 }
@@ -195,7 +193,7 @@ img {
 }
 
 .home-work-grid__project-description a:hover {
-  color: $brand-color;
+  color: var(--brand-color);
 }
 
 .home-work-grid__project-screenshot {
@@ -245,7 +243,7 @@ img {
 }
 
 .post h2 {
-  font-size: $base-font-size;
+  font-size: var(--base-font-size);
   line-height: 2.8rem;
   margin-bottom: 2.0rem;
 }
@@ -258,8 +256,7 @@ img {
   position: relative;
   text-decoration: none;
   font-weight: 500;
-  -webkit-transition: all $base-trans ease-in-out;
-          transition: all $base-trans ease-in-out;
+  transition: all var(--base-trans) ease-in-out;
 }
 
 .post a:before {
@@ -269,16 +266,15 @@ img {
   bottom: 0;
   left: 0;
   right: 0;
-  -webkit-transition: all $base-trans ease-in-out;
-          transition: all $base-trans ease-in-out;
+  transition: all var(--base-trans) ease-in-out;
 }
 
 .post a:hover:before {
-  background: rgba($color: $brand-color, $alpha: .08);
+  background: rgba($color: var(--brand-color), $alpha: .08);
 }
 
 .post p a, .post li a {
-  color: $text-color;
+  color: var(--text-color);
   text-decoration: none;
 }
 .post-content a, .post-summary a {
@@ -287,15 +283,15 @@ img {
 .post-content p a:before, .post-summary p a:before,
 .post-content li a:before, .post-summary li a:before {
   bottom: .2rem;
-  border-bottom: 1px solid rgba($color: $text-color, $alpha: .6);
+  border-bottom: 1px solid rgba($color: var(--text-color), $alpha: .6);
 }
 .post-content p a:hover:before, .post-summary p a:hover:before,
 .post-content li a:hover:before, .post-summary li a:hover:before {
-  border-bottom-color: rgba($color: $brand-color, $alpha: .5);
+  border-bottom-color: rgba($color: var(--brand-color), $alpha: .5);
 }
 
 .post h3 .anchor {
-  color: $text-color;
+  color: var(--text-color);
   text-decoration: none;
   margin-left: -1.1em !important;
   padding: 0;
@@ -305,7 +301,7 @@ img {
 }
 
 .post a:hover {
-  color: $brand-color;
+  color: var(--brand-color);
 }
 
 .post ol li {
@@ -330,7 +326,7 @@ img {
 }
 
 .post-meta a {
-  color: $text-color;
+  color: var(--text-color);
 }
 
 .post-summary {
@@ -351,7 +347,7 @@ img {
 
 .post-content strong, .post-summary strong {
   font-weight: normal;
-  color: $strong-color;
+  color: var(--strong-color);
 }
 
 .post-content img {
@@ -360,7 +356,7 @@ img {
 }
 
 .post-footer a{
-  color: $text-color;
+  color: var(--text-color);
 }
 
 .post-footer-signature {
@@ -396,9 +392,8 @@ img {
   width: 100%;
   display: table;
   font-weight: normal;
-  border-bottom: .05rem solid rgba($color: $text-color, $alpha: .15);
-  -webkit-transition: none;
-          transition: none;
+  border-bottom: .05rem solid rgba($color: var(--text-color), $alpha: .15);
+  transition: none;
 }
 
 .blog-list-item a:hover .blog-list-item-title {
@@ -410,8 +405,7 @@ img {
   padding: 1.6rem 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-transition: all $base-trans-mid ease-in-out;
-          transition: all $base-trans-mid ease-in-out;
+  transition: all var(--base-trans-mid) ease-in-out;
 }
 
 .blog-list-item a:before {

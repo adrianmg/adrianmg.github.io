@@ -32,9 +32,9 @@ dl, dd, ol, ul, figure {
  * Basic styling
  */
 body {
-  font: $base-font-weight $base-font-size $base-font-family;
-  color: $text-color;
-  background-color: $background-color;
+  font: var(--base-font-weight) var(--base-font-size) var(--base-font-family);
+  color: var(--text-color);
+  background-color: var(--background-color);
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -51,12 +51,12 @@ body {
  * Text selection
  */
 ::selection {
-  color: $title-color;
-  background: $strong-color;
+  color: var(--title-color);
+  background: var(--strong-color);
 }
 ::-moz-selection {
-  color: $title-color;
-  background: $strong-color;
+  color: var(--title-color);
+  background: var(--strong-color);
 }
 
 
@@ -105,7 +105,7 @@ ul, ol, dl, figure,
  * Headers
  */
 h1, h2, h3 {
-  color: $title-color;
+  color: var(--title-color);
   font-weight: 400;
 }
 
@@ -123,17 +123,17 @@ ul{
  * Links
  */
 a {
-  color: $brand-color;
+  color: var(--brand-color);
   text-decoration: none;
   -webkit-transition: none;
           transition: none;
 
   &:visited {
-    color: $brand-color;
+    color: var(--brand-color);
   }
 
   &:hover {
-    color: $text-color;
+    color: var(--text-color);
     text-decoration: underline;
   }
 }
@@ -158,7 +158,7 @@ a {
  }
 
  .h-padleft {
-  padding-left: $base-padding;
+  padding-left: var(--base-padding);
  }
 
  .ampersand {
@@ -168,7 +168,7 @@ a {
  }
 
 %h-divider {
-  border-bottom: .5px dotted rgba($color: $text-color, $alpha: .15);
+  border-bottom: .5px dotted rgba($color: var(--text-color), $alpha: .15);
 }
 
 .h-bradius {

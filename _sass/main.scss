@@ -1,28 +1,29 @@
 @charset "utf-8";
 
 // Define defaults for each variable.
+:root {
+  --base-font-family:   -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --base-font-serif:    'EB Garamond', serif;
+  --base-font-size:     2.3rem;
+  --base-font-weight:   400;
+  --small-font-size:    calc(var(--base-font-size) * 0.875);
+  --base-line-height:   1;
+  --base-trans:        .1s;
+  --base-trans-mid:    .2s;
+  --base-trans-slow:   .25s;
 
-$base-font-family:   -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !default;
-$base-font-serif:    'EB Garamond', serif !default;
-$base-font-size:     2.3rem !default;
-$base-font-weight:   400 !default;
-$small-font-size:    $base-font-size * 0.875 !default;
-$base-line-height:   1 !default;
-$base-trans:        .1s;
-$base-trans-mid:    .2s;
-$base-trans-slow:   .25s;
+  --text-color:        #9191A1;
+  --background-color:  #12121A;
+  --brand-color:       #FFB87A;
+  --title-color:       #F2F3FB;
+  --strong-color:      #9ca4e1;
 
-$text-color:        #9191A1 !default;
-$background-color:  #12121A !default;
-$brand-color:       #FFB87A !default;
-$title-color:       #F2F3FB !default;
-$strong-color:      #9ca4e1 !default;
+  --base-padding:      3.4em;
+  --base-max-width:    120.0rem;  
+}
 
-$base-padding:      3.4em !default;
-$base-max-width:    120.0rem !default;
-
-// Import partials.
+// Import partials
 @import
-  "res/base",
-  "res/layout"
+  "base",
+  "layout"
 ;

@@ -24,8 +24,8 @@ incremental: true
 
 plugins:
   - jekyll-feed
-  - jekyll-autoprefixer
   - jekyll-sitemap
 exclude:
   - Gemfile
   - Gemfile.lock
+  - README.md
