@@ -5,7 +5,7 @@ title: Adrián Mato – Product Designer in San Francisco
 email: hello@adrianmato.com
 baseurl: "" # the subpath of your site, e.g. /blog
 baseurl_blog: "/blog" # the subpath of the blog
-url: "http://adrianmato.com" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://adrianmato.com" # the base hostname & protocol for your site, e.g. http://example.com
 author: Adrián Mato
 twitter: adrianmg
 linkedin: adrianmg
