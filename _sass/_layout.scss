@@ -31,14 +31,14 @@ img {
 }
 
 .home-intro-bio {
-  min-height: 91vh;
+  min-height: 89vh;
   display: flex;
   align-items: center;
 }
 
 .home-intro-bio-desc {
   max-width: 66rem;
-  bottom: 1.6vh;
+  bottom: 1.5vh;
   position: relative;
 }
 
@@ -61,20 +61,7 @@ img {
 
 .home-navigation {
   min-height: 8vh;
-  top: 0;
-  position: sticky;
   background: var(--background-color);
-  transform: translateY(0%);
-  z-index: 1;
-  transition: all 180ms ease-out;
-}
-
-.home-navigation.sticky {
-  padding-top: 2vh;
-}
-
-.home-navigation.hidden {
-  transform: translateY(-100%);
 }
 
 .home-navigation ul {

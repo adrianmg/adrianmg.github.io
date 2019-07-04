@@ -3,7 +3,7 @@
 
   const isHome = document.querySelector("body.home");
 
-  // Lazy Load of images
+  // lazy Load of images
   var lazyLoad = new LazyLoad({
     elements_selector: ".lazy",
     threshold: 800
@@ -16,7 +16,6 @@
     const workAnchor = "#home-work";
     const navWork = document.querySelector(`.home-navigation [href='${workAnchor}']`);
     const nav = document.querySelector('.home-navigation');
-    let navBoundingTop = nav.getBoundingClientRect().top;
 
     // click on navigation 'work' and scroll
     navWork.addEventListener("click", function(e) {
@@ -38,38 +37,10 @@
     }
 
     // scrolling event
-    let windowOffset = window.pageYOffset;
-    let windowOffsetDelta = 0;
-    let windowOffsetThreshold = 20; // pixels
     document.addEventListener("scroll", scrollHandler);
 
     function scrollHandler() {
-      // if header is sticky via CSS
-      if (navBoundingTop <= 1) {
-        nav.classList.add("sticky");
-
-        if (windowOffset > window.pageYOffset) { // scrolling up
-          if (windowOffsetDelta >= windowOffsetThreshold && nav.classList.contains("hidden")) {
-            nav.classList.remove("hidden");
-          }
-          else {
-            windowOffsetDelta++;
-          }
-        }
-        else { // scrolling down
-          if (!nav.classList.contains("hidden")) {
-            nav.classList.add("hidden");
-          }
-          windowOffsetDelta = 0;
-        }
-      }
-      else {
-        nav.classList.remove("sticky");
-      }
-      navBoundingTop = nav.getBoundingClientRect().top;
-      windowOffset = window.pageYOffset;
-
-      // // scroll hint
+      // scroll hint
       let scroll = document.scrollingElement.scrollTop;
 
       // hide arrow when needed
@@ -78,7 +49,7 @@
       }
     }
 
-    // Initialize scroll hint
+    // initialize scroll hint
     showScrollHint(3);
   }
 
