@@ -3,7 +3,10 @@ layout: post
 title: "Designer, don't blame the client… it's your fault!"
 date: 2013-03-30 02:55:39
 categories: [blog, design, opinion]
-redirect_from: /2013/03/designer-dont-blame-the-client-its-your-fault
+redirect_from:
+  - /2013/03/designer-dont-blame-the-client-its-your-fault
+  - http://adrianmato.com/2013/03/designer-dont-blame-the-client-its-your-fault/
+  - https://adrianmato.com/2013/03/designer-dont-blame-the-client-its-your-fault/
 ---
 
 As a part of the designer's guild, I've been suffering the same problems than you everyday working with different kind of clients. I want to share with you some thoughts that may help you in your daily job and projects.
