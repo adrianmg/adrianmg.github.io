@@ -4,29 +4,29 @@ title: "Worklog: Running Race Calculator "
 date: 2018-08-11 22:30:00
 categories: [blog, worklog]
 summary: "
-I'm pairing with [Lucia](http://luciagm.net) to build a pet project that would let people estimate the race pace and total time when running races. It's the perfect excuse to do two things:
+I’m pairing with [Lucia](http://luciagm.net) to build a pet project that would let people estimate the race pace and total time when running races. It’s the perfect excuse to do two things:
 
 - She’d  <a href='https://github.com/lucia-gm/race-calculator'>code</a> all the project to keep improving her front-end skills
 
-- I'd stretch the creativity muscle and create a small UI kit to facilitate side projects
+- I’d stretch the creativity muscle and create a small UI kit to facilitate side projects
 
 
-I've been pondering about the idea of having a daily worklog, let's give it a try! If you got comments or suggestions please do [share them](http://twitter.com/adrianmg).
+I’ve been pondering about the idea of having a daily worklog, let’s give it a try! If you got comments or suggestions please do [share them](http://twitter.com/adrianmg).
 "
 ---
 
 ### August 26, 2018 at 19:14
 {:.anchor }
 
-I've covered the **basic input controls** and the **results table**. Speaking of which, we've decided that the table would feature not only one pace time column but a few more, showing pace time if you run a few seconds faster and slower. The idea is helping people to guess their time **without fine tune seconds up and down** by having a broader range.
+I’ve covered the **basic input controls** and the **results table**. Speaking of which, we’ve decided that the table would feature not only one pace time column but a few more, showing pace time if you run a few seconds faster and slower. The idea is helping people to guess their time **without fine tune seconds up and down** by having a broader range.
 
 ![UI components race calculator]({{ "/assets/images/posts/2018/race-calculator-05.png" | relative_url }})
 
-For the first version we're going to keep things pretty simple, so I was sketching basic empty cases where the layout would always remain the same with the controls on the left and the results table on the right. The table would become an empty case pointing out to the controls until the user starts generating results.
+For the first version we’re going to keep things pretty simple, so I was sketching basic empty cases where the layout would always remain the same with the controls on the left and the results table on the right. The table would become an empty case pointing out to the controls until the user starts generating results.
 
 ![Notebook sketch race calculator]({{ "/assets/images/posts/2018/race-calculator-06.jpg" | relative_url }})
 
-On the **development side**, [Lucia](https://twitter.com/luuugm) has started to put together the [**React application**](https://github.com/lucia-gm/race-calculator-react). The functionality was already there so now she's investing some time translating all the vanilla JavaScript functionality into React components.
+On the **development side**, [Lucia](https://twitter.com/luuugm) has started to put together the [**React application**](https://github.com/lucia-gm/race-calculator-react). The functionality was already there so now she’s investing some time translating all the vanilla JavaScript functionality into React components.
 
 ### August 25, 2018 at 20:03
 {:.anchor }
@@ -43,7 +43,7 @@ Initially, I was tempted to force the user to choose between two tabs/switch, bu
 
 All these doubts appeared after reviewing how other online calculators present all the options at first level, so they’d automatically calculate the option you leave empty: distance, total time or pace time. I found that a bit confusing.
 
-I'm also starting to explore how the interactions are going to behave and look. [Lucia](http://luciagm.net) wants to have something strong for the primary actions, something purplish. I've been using blue as the primary action so many years in different companies (now, at Microsoft) that I guess it's a blow of fresh air my eyes 😅.
+I’m also starting to explore how the interactions are going to behave and look. [Lucia](http://luciagm.net) wants to have something strong for the primary actions, something purplish. I’ve been using blue as the primary action so many years in different companies (now, at Microsoft) that I guess it’s a blow of fresh air my eyes 😅.
 
 ![UI exploration race calculator]({{ "/assets/images/posts/2018/race-calculator-04.png" | relative_url }})
 

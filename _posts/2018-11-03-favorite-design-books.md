@@ -5,9 +5,9 @@ date: 2018-11-03 20:41:00
 categories: [blog, design, books]
 ---
 
-I often get asked about Design book recommendations, so I've put together a few of my favorite ones that somehow helped me to grow as a designer. You'll notice that some of them are not necessary design-related and that's OK as far as they teach us different lessons to extract and apply later on.
+I often get asked about Design book recommendations, so I’ve put together a few of my favorite ones that somehow helped me to grow as a designer. You’ll notice that some of them are not necessary design-related and that’s OK as far as they teach us different lessons to extract and apply later on.
 
-I'll be updating this list from time to time as I remember and read new books 🤓.
+I’ll be updating this list from time to time as I remember and read new books 🤓.
 
 ### The World as Design – Otl Aicher
 {:.anchor }
@@ -32,7 +32,7 @@ One of the most difficult challenges as designers is to find the right balance b
 {:.anchor }
 <img src='{{ "/assets/images/posts/2018/book-04.png" | relative_url }}' srcset='{{ "/assets/images/posts/2018/book-04.png" | relative_url }} 1x, {{ "/assets/images/posts/2018/book-04.png" | relative_url }} 2x'>
 
-An excellent introduction to the psychology and design decisions behind the day to day objects that surround us. I'd recommend you read the book while combining it with others as it can get a bit dense and dull (rhythmically speaking, don't get me wrong.
+An excellent introduction to the psychology and design decisions behind the day to day objects that surround us. I’d recommend you read the book while combining it with others as it can get a bit dense and dull (rhythmically speaking, don’t get me wrong.
 
 ### Thinking with Type – Ellen Lupton
 {:.anchor }
@@ -44,7 +44,7 @@ When designing, typography is the foundation of print and web design. This book 
 {:.anchor }
 <img src='{{ "/assets/images/posts/2018/book-07.png" | relative_url }}' srcset='{{ "/assets/images/posts/2018/book-07.png" | relative_url }} 1x, {{ "/assets/images/posts/2018/book-07.png" | relative_url }} 2x'>
 
-This is the kind of book you'd like to read jumping back and forth between different topics. It's a beautiful compilation of several design principles along with in-depth explanations, illustrations, and examples. I find it useful whenever I want to refresh theory or don't land the right words for explaining the reasoning behind design decisions. It's also a good source of inspiration.
+This is the kind of book you’d like to read jumping back and forth between different topics. It’s a beautiful compilation of several design principles along with in-depth explanations, illustrations, and examples. I find it useful whenever I want to refresh theory or don’t land the right words for explaining the reasoning behind design decisions. It’s also a good source of inspiration.
 
 ### Interaction of Color – Josef Albers
 {:.anchor }
@@ -60,4 +60,4 @@ A pragmatic, realistic and simple way of summarizing what being a designer means
 
 —
 
-That's it for now! I hope you find some of them useful. Please do [**share with me**](https://twitter.com/adrianmg) your favorite books! 🤗
+That’s it for now! I hope you find some of them useful. Please do [**share with me**](https://twitter.com/adrianmg) your favorite books! 🤗
