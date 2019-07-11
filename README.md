@@ -3,6 +3,6 @@
 
 *Personal website based on Jekyll running a custom theme.*
 
-![](http://adrianmg.github.io/preview.png)
+![](/assets/preview.png)
 
 [Visit my website](https://adrianmato.com)
