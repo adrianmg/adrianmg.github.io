@@ -3,6 +3,6 @@
 
 *Personal website based on Jekyll running a custom theme.*
 
-![](/assets/preview.png)
+[![adrianmato.com](/assets/preview.png)](https://adrianmato.com)
 
 [Visit my website](https://adrianmato.com)
