@@ -6,7 +6,7 @@ hidden: true
 
 ### Markdown test document
 
-I've borrowed this from [Diana](https://github.com/broccolini), thanks for sharing!
+I've borrowed this from [Diana](https://github.com/broccolini/athena/blob/master/_posts/2016-09-04-markdown-sample.md), thanks for sharing!
 
 Text can be **bold**, _italic_, or ~~strikethrough~~. [Links](https://github.com) should be blue with no underlines (unless hovered over).
 
@@ -158,11 +158,11 @@ Inline code inside table cells should still be distinguishable.
 
 Small images should be shown at their actual size.
 
-![](http://placekitten.com/g/300/200/)
+![](https://placekitten.com/g/300/200/)
 
 Large images should always scale down and fit in the content container.
 
-![](http://placekitten.com/g/1200/800/)
+![](https://placekitten.com/g/1200/800/)
 
 ```
 This is the final element on the page and there should be no margin below this.
@@ -174,7 +174,7 @@ This is the final element on the page and there should be no margin below this.
 [MIT](./LICENSE) &copy; [GitHub](https://github.com/)
 
 [primer-css]: https://github.com/primer/primer
-[docs]: http://primercss.io/
+[docs]: https://primercss.io/
 [npm]: https://www.npmjs.com/
 [install-npm]: https://docs.npmjs.com/getting-started/installing-node
-[sass]: http://sass-lang.com/
+[sass]: https://sass-lang.com/
