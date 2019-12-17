@@ -8,6 +8,17 @@ Updates on a small project aiming to improve how people collaborate by sharing t
 "
 ---
 
+### December 16, 2019 at 22:30
+{:.anchor }
+
+I just arrived in my hometown with a terrible jet lag, so I managed to put together a first working version of the new login system using [passport-twitter](http://www.passportjs.org/docs/twitter/).
+
+I spent a decent amount of time debugging a token session error while using [cookie-session](https://www.npmjs.com/package/cookie-session). It turns out using `sameSite: strict` won't work at least in a local development environment.
+
+The next steps are figuring out the data retrieved from Twitter and hook it up properly with the data model in the database.
+
+![Prisma Query explorer]({{ "/assets/images/posts/2019/peekingat-02.png" | relative_url }})
+
 ### December 12, 2019 at 22:30
 {:.anchor }
 
@@ -15,4 +26,4 @@ After eight years working together, [mamuso](http://mamuso.net) and I thought it
 
 We got login sessions working via Google Auth, but I'm currently working on a [Passport Twitter Strategy](http://passportjs.org).
 
-![Type ramp for race calculator]({{ "/assets/images/posts/2019/peekingat-01.png" | relative_url }})
+![Prisma GraphQL]({{ "/assets/images/posts/2019/peekingat-01.png" | relative_url }})
