@@ -11,7 +11,7 @@ Updates on a small project aiming to improve how people collaborate by sharing t
 ### December 16, 2019 at 22:30
 {:.anchor }
 
-I just arrived in my hometown with a terrible jet lag, so I managed to put together a first working version of the new login system using [passport-twitter](http://www.passportjs.org/docs/twitter/). I spent a decent amount of time debugging a token session error while using [cookie-session](https://www.npmjs.com/package/cookie-session). It turns out using `sameSite: strict` won't work at least in a local development environment.
+I just arrived in my hometown with a terrible jet lag, so I managed to put together a first working version of the new login system using [passport-twitter](http://www.passportjs.org/docs/twitter/). I spent a decent amount of time debugging a token session error while using [cookie-session](https://www.npmjs.com/package/cookie-session). It turns out using `sameSite: strict` won't work and it will throw some token errors when running the app in a local environment.
 
 The next steps are figuring out the data retrieved from Twitter and hook it up properly with the data model in the database.
 
