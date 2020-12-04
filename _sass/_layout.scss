@@ -267,14 +267,16 @@ img {
 .post-content a, .post-summary a {
   padding: .2rem 0;
 }
-.post-content p a:before, .post-summary p a:before,
-.post-content li a:before, .post-summary li a:before {
-  bottom: .2rem;
-  border-bottom: 1px solid rgba(var(--text-color-rgb), 0.6)
-}
-.post-content p a:hover:before, .post-summary p a:hover:before,
-.post-content li a:hover:before, .post-summary li a:hover:before {
-  border-bottom-color: rgba(var(--brand-color-rgb), 0.5);
+
+.post-content p a, .post-summary p a,
+.post-content li a, .post-summary li a {
+  text-decoration: underline;
+
+  img {
+    display: block;
+    padding-top: .8rem;
+    padding-bottom: .8rem;
+  }
 }
 
 .post h3 .anchor {
