@@ -66,7 +66,7 @@ GEM
     unicode-display_width (1.7.0)
 
 PLATFORMS
-  x86_64-darwin-18
+  ruby
 
 DEPENDENCIES
   jekyll (>= 3.8.4)
@@ -78,7 +78,7 @@ DEPENDENCIES
   tzinfo-data
 
 RUBY VERSION
-   ruby 2.6.3p62
+   ruby 2.7.1p83
 
 BUNDLED WITH
-   2.2.6
+   2.1.4
