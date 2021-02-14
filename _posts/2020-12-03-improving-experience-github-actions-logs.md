@@ -52,7 +52,7 @@ These additions result in a better reading experience, letting users scan throug
 
 The **search** also received minor visual updates and interaction design updates. Additionally, we’ve improved the **performance** by defining a threshold that will prevent the system from querying unintentional matches. These gains are especially apparent in content-heavy logs.
 
-[![GitHub Logs UI]({{ "/assets/images/posts/2020/github-logs/logs-06.png" | relative_url }})]({{ "/assets/images/posts/2020/github-logs/logs-06-full.png" | relative_url }})
+[![GitHub Logs UI]({{ "/assets/images/posts/2020/github-logs/logs-06.png" | relative_url }})]({{ "/assets/images/posts/2020/github-logs/logs-06.png" | relative_url }})
 
 **Color** is a powerful visual resource, and we wanted to be more mindful of using it to guide you to the right place, so we have redesigned how we use color in our log output. If things go as expected, your logs will look largely the same. If items are in progress, waiting for your input, or even failing, you’ll now be able to quickly locate the item that needs attention and start taking action on your next task.
 
