@@ -17,6 +17,7 @@ body {
 
 img {
   max-width: 100%;
+  height: auto;
 }
 
 
@@ -208,11 +209,6 @@ img {
 .home-work-grid__project-preview--collage__item img {
   display: block;
 }
-
-.home-work-grid__project img:not([src]) { // lazy load: prevents img without src to appear
-  visibility: hidden;
-}
-
 
 /**
  * HOME: Intro

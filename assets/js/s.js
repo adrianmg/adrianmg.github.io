@@ -3,12 +3,6 @@
 
   const isHome = document.querySelector("body.home");
 
-  // lazy Load of images
-  var lazyLoad = new LazyLoad({
-    elements_selector: ".lazy",
-    threshold: 800
-  });
-
   // HOME
   if (isHome) {
     let arrow = document.querySelector('.home-intro-scroll');
