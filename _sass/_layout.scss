@@ -209,11 +209,6 @@ img {
   display: block;
 }
 
-.home-work-grid__project img:not([src]) { // lazy load: prevents img without src to appear
-  visibility: hidden;
-}
-
-
 /**
  * HOME: Intro
  */
