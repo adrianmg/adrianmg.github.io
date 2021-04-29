@@ -2,17 +2,20 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:image" content="{{"/assets/og-image.png" | absolute_url }}" />
   {% seo %}
+  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="{{ site.twitter }}">
+  <meta name="twitter:creator" content="{{ site.twitter }}">
+  <meta property="og:url" content="{{ site.url }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{ site.title }}" />
+  <meta property="og:description" content="Personal website of Adrián Mato. Designing and building tools for developers at GitHub" />
+  <meta property="og:image" content="{{"/assets/og-image.png" | absolute_url }}" />
   <meta property="og:image:alt" content="{{ site.title }}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="600" />
   <meta property="og:site_name" content="{{ site.url }}" />
-  <meta property="og:type" content="object" />
-  <meta property="og:title" content="{{ site.title }}" />
-  <meta property="og:url" content="{{ site.url }}" />
-  <meta property="og:description" content="Personal website of Adrián Mato. Designing and building tools for developers at GitHub" />
-  <meta name="twitter:card" content="summary_large_image"/>
 
   <link rel="preload" as="style" href="{{ "/assets/css/style.css" | relative_url }}">
   <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
