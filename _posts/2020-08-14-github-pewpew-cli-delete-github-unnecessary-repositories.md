@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "github-pewpew: a CLI tool to clean up and remove unnecessary GitHub repositories. 🔫 Pew pew!"
-date: 2020-08-11 13:56:00
+date: 2021-08-11 13:56:00
 categories: [blog, worklog]
 ---
 
