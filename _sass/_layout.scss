@@ -20,6 +20,15 @@ img {
   height: auto;
 }
 
+pre {
+  overflow-x: auto;
+  background-color: rgba(var(--text-color-rgb), 0.08);
+  border-radius: 3px;
+  padding: 2.0rem 1.4rem;
+  font-size: var(--font-size-m);
+  scrollbar-color: rgba(var(--text-color-rgb), 0.3) transparent;
+  margin-bottom: 2.8rem;
+}
 
 /**
  * HOME: Intro
