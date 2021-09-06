@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Speeding up your TypeScript development flow for instant feedback"
+title: "Speeding up the TypeScript development flow for instant feedback"
 date: 2021-09-05 21:00:00
 categories: [blog, coding]
 ---
