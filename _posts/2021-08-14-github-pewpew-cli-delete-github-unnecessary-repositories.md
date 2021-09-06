@@ -10,12 +10,21 @@ categories: [blog, worklog]
 
 ![github-pewpew preview]({{ "/assets/images/posts/2021/github-pewpew.gif" | relative_url }})
 
-### Why?
+## Why?
 Have you ever had too much fun with the GitHub API and ended up creating too many dummy repos? Me too 😅!
 
 I made this little CLI tool to clean up repositories quickly. I'm planning to add some flags and regexp to delete in bulk in the future. [Let me know](http://twitter.com/adrianmg) if that sounds interesting to you.
 
 Get the [latest version](https://www.npmjs.com/package/github-pewpew/) published in npm. It's [open-sourced on GitHub](https://github.com/adrianmg/github-pewpew) under MIT license.
+
+### 📦 github-pewpew v1.2.0 on August 24, 2021
+{:.anchor }
+
+I published version [github-pewpew v 1.2.0](https://www.npmjs.com/package/github-pewpew/v/1.2.0) to npm. A much-needed refactor after v1.1.0 that improves the overall stability of the app. You can now get more than 100 results, as there was no pagination in prior versions.
+
+Many bugs have been fixed, and the authentication process is now more robust when tokens get invalidated in different scenarios. I've also added some [testing using Mocha](https://github.com/adrianmg/github-pewpew/blob/main/test/test.js) to cover the authentication flow.
+
+Next, I'm porting everything to TypeScript. I hope you like it, and thanks for the feedback!
 
 ### 📦 github-pewpew v1.1.3 on August 14, 2021
 {:.anchor }
