@@ -104,4 +104,4 @@ The worst and best part of the JavaScript community is how fast is changing ever
 
 I'd love to know if you are using SWC or something else to speed up your developer velocity. Hit me up on [Twitter](https://twitter.com/adrianmg) at any time.
 
-Thanks to [Jorge](https://twitter.com/tylosan) and [Sergio](https://twitter.com/sergiou87) for the feedback before publishing this article.
+Thanks to [Lucia](https://luciagm.net), [Jorge](https://twitter.com/tylosan), and [Sergio](https://twitter.com/sergiou87) for the feedback before publishing this article.
