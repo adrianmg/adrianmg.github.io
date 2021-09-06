@@ -9,7 +9,7 @@ I recently started porting [github-pewpew]({{ site.baseurl }}{% link _posts/2021
 
 I tried enabling a [`--watch` implementation](https://www.typescriptlang.org/docs/handbook/configuring-watch.html) so that my project will compile on the fly. That way, I can have it ready to go when running my application. While the experience has improved, it’s still slow when I need instant feedback on my changes. I tried turning on [`--incremental`](https://www.typescriptlang.org/tsconfig#incremental) decreasing times by 200ms to 300ms.
 
-I'm not alone, and the community is [discussing about it](https://github.com/microsoft/TypeScript/issues/29651). The most significant advantage is to transpile skipping  types checking, but it’s not supported. This is where the [**SWC compiler**](https://swc.rs) comes in.
+I'm not alone, the community is [discussing about it](https://github.com/microsoft/TypeScript/issues/29651). The biggest advantage is to transpile skipping  types checking, but it’s not supported. This is where the [**SWC compiler**](https://swc.rs) comes in.
 
 ## Aiming for instant feedback with SWC
 
