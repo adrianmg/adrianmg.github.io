@@ -1,8 +1,0 @@
----
-title: "test"
-description: test
-permalink: /404.html
----
-<div>
-  <img src="{{"/assets/gphew/og.png " | relative_url }}" />
-</div>

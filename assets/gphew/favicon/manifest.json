@@ -1,0 +1,11 @@
+{
+  "name": "github-pewpew",
+  "description": "Curious mind, developer, and writer.",
+  "icons": [
+    {
+      "src": "/res/favicon/android-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
