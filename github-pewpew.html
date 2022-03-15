@@ -34,7 +34,7 @@ description: "Clean up your unused repos from your terminal. Created by Adrián 
   <meta name="twitter:site" content="@adrianmg" />
   <meta name="twitter:title" content="{{page.title}}" />
   <meta name="twitter:description" content="{{page.description }}" />
-  <meta name="twitter:image" content="{{"/assets/gphew/og.png" | site.url }}" />
+  <meta name="twitter:image" content="{{"/assets/gphew/og.png" | absolute_url }}" />
   <meta name="twitter:url" content="{{ site.url }}/github-pewpew" />
   <meta name="twitter:domain" content="github-pewpew" />
 </head>
@@ -236,6 +236,10 @@ description: "Clean up your unused repos from your terminal. Created by Adrián 
       });
     });
   </script>
+
+  {% if jekyll.environment == 'production' %}
+    {% include google-analytics.html %}
+  {% endif %}
 </body>
 
 </html>
