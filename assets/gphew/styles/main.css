@@ -178,11 +178,12 @@ h3 {
 
 .logo {
   transition: transform .1s ease-in-out;
-  cursor: pointer;
+  cursor: grab;
 }
 .logo:active {
   transition: transform .3s ease-in-out;
   transform: scale(.90) rotate(-3deg);
+  cursor: grabbing;
 }
 
 .cta code svg {
