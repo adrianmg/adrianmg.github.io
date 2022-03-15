@@ -220,7 +220,7 @@ section {
   height: 626px;
   background-color: #0C1011;
   background-size: cover;
-  background-image: url(../res/background.webp);
+  background-image: url(../background.webp);
   display: flex;
   align-items: center;
   justify-content: center;
