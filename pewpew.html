@@ -4,9 +4,208 @@ description: "Clean up your unused repos from your terminal. Created by Adrián 
 ---
 <!DOCTYPE html>
 <html>
-<head><title>github-pewpew: pew pew needless GitHub repos!</title> <meta content="Clean up your unused repos from your terminal. Created by Adrián Mato."name=description> <meta charset=utf-8> <meta content="width=device-width,initial-scale=1"name=viewport> <link href=/styles/inter-var-latin.woff2 rel=preload type=font/woff2 as=font crossorigin=anonymous> <link href=/styles/main.css rel=preload as=style> <link href=/styles/main.css rel=stylesheet> <link href=/res/favicon/manifest.json rel=manifest> <link href=res/favicon/apple-touch-icon.png rel=apple-touch-icon sizes=180x180> <link href=/res/favicon/favicon-32x32.png rel=icon sizes=32x32 type=image/png> <link href=/res/favicon/favicon-16x16.png rel=icon sizes=16x16 type=image/png> <link href=/res/favicon/mask-icon.svg rel=mask-icon> <meta content="github-pewpew: pew pew needless GitHub repos!"property=og:title> <meta content="Clean up your unused repos from your terminal. Created by Adrián Mato."property=og:description> <meta content=/res/og.png property=og:image> <meta content=1200 property=og:image:width> <meta content=630 property=og:image:height> <meta content=https://adrianmato.com/pewpew property=og:url> <meta content=website property=og:type> <meta content=github-pewpew property=og:site_name> <meta content=en_US property=og:locale> <meta content=summary_large_image name=twitter:card> <meta content=@adrianmg name=twitter:site> <meta content="github-pewpew: pew pew needless GitHub repos!"name=twitter:title> <meta content="Clean up your unused repos from your terminal. Created by Adrián Mato."name=twitter:description> <meta content=/res/og.png name=twitter:image> <meta content=https://adrianmato.com/pewpew name=twitter:url></head>
+
+<head>
+  <title>{{page.title}}</title>
+  <meta name="description" content="{{page.description }}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="preload" href="{{"/assets/pewpew/styles/inter-var-latin.woff2" | relative_url }}" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" as="style" href="{{"/assets/pewpew/styles/main.css" | relative_url }}">
+  <link rel="stylesheet" href="{{"/assets/pewpew/styles/main.css" | relative_url }}">
+  <link rel="manifest" href="{{"/assets/pewpew/favicon/manifest.json" | relative_url }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{"/assets/pewpew/favicon/apple-touch-icon.png" | relative_url }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{"/assets/pewpew/favicon/favicon-32x32.png" | relative_url }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{"/assets/pewpew/favicon/favicon-16x16.png" | relative_url }}">
+  <link rel="mask-icon" href="{{"/assets/pewpew/favicon/mask-icon.svg" | relative_url }}">
+  
+  <meta property="og:title" content="{{page.title}}" />
+  <meta property="og:description" content="{{page.description }}" />
+  <meta property="og:image" content="{{"/assets/pewpew/og.png?1" | absolute_url }}" />
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="{{ site.url }}/pewpew" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="github-pewpew" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@adrianmg" />
+  <meta name="twitter:title" content="{{page.title}}" />
+  <meta name="twitter:description" content="{{page.description }}" />
+  <meta name="twitter:image" content="{{"/assets/pewpew/og.png?1" | absolute_url }}" />
+  <meta name="twitter:url" content="{{ site.url }}/pewpew" />
+</head>
+
 <body>
-<div class=container> <img alt="github-pewpew logo"height=142 srcset="res/logo.webp, res/logo@2x.webp 2x"width=152 class=logo> <div class=margin> <h1>Pew pew needless GitHub repos!</h1> <h3>Clean up your unused repos via CLI.</h3> </div> <ul class="margin cta"> <li> <code data="npm i -g github-pewpew"> <span>$ npm i -g github-pewpew</span> <svg height=22 width=22 xmlns=http://www.w3.org/2000/svg class=copy><path d="M7.833 16.435H6c-1.013 0-1.833-.836-1.833-1.866V4.616c0-1.032.82-1.866 1.833-1.866h7.333c1.013 0 1.834.835 1.834 1.866v1.71m-5.5.157H17c1.013 0 1.833.834 1.833 1.865V18.3c0 1.032-.82 1.867-1.833 1.867H9.667c-1.013 0-1.834-.835-1.834-1.867V8.348c0-1.03.82-1.865 1.834-1.865Z"stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=1.5 /></svg> <svg height=24 width=24 xmlns=http://www.w3.org/2000/svg fill=none class=check><path d="M20 6 9 17l-5-5"stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 /></svg> </code> </li> <li> <a href=https://github.com/adrianmg/github-pewpew class=github> <svg height=16 width=16 aria-hidden=true viewBox="0 0 16 16"> <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"fill-rule=evenodd> </path> </svg> <span>View on GitHub</span> </a> </li> </ul> <section class=preview> <div class=cli> <div class=header> <svg height=12 width=52 xmlns=http://www.w3.org/2000/svg fill=none> <circle cx=6 cy=6 r=6 /> <circle cx=26 cy=6 r=6 /> <circle cx=46 cy=6 r=6 /> </svg> </div> <div class=content id=cli> <p>➜</p> </div> </div> </section> <section class="margin features"> <h2>Have you ever had too much fun playing with the GitHub API?</h2> <h3>Me too! This little tool cleans up repositories quickly.</h3> <dl> <div class=card> <svg height=24 width=24 xmlns=http://www.w3.org/2000/svg fill=none> <path d="M7 11V7a5 5 0 1 1 10 0v4"stroke=url(#a) stroke-linecap=round stroke-linejoin=round stroke-width=1.5 /> <path d="M19 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2Z"stroke=url(#b) stroke-linecap=round stroke-linejoin=round stroke-width=1.5 /> <defs> <linearGradient gradientUnits=userSpaceOnUse id=a x1=12 x2=12 y1=2 y2=11> <stop offset=.349 /> <stop offset=1 /> </linearGradient> <linearGradient gradientUnits=userSpaceOnUse id=b x1=12 x2=12 y1=11 y2=22> <stop offset=.349 /> <stop offset=1 /> </linearGradient> </defs> </svg> <dt>GitHub OAuth</dt> <dd>Don't sweat it; it's 100% safe. You decide which accounts are accessible.</dd> </div> <div class=card> <svg height=24 width=24 xmlns=http://www.w3.org/2000/svg fill=none> <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"stroke=url(#a) stroke-linecap=round stroke-linejoin=round stroke-width=1.5 /> <path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"stroke=url(#b) stroke-linecap=round stroke-linejoin=round stroke-width=1.5 /> <path d="M23 21v-2a4 4 0 0 0-3-3.87"stroke=url(#c) stroke-linecap=round stroke-linejoin=round stroke-width=1.5 /> <path d="M16 3.13a4 4 0 0 1 0 7.75"stroke=url(#d) stroke-linecap=round stroke-linejoin=round stroke-width=1.5 /> <defs> <linearGradient gradientUnits=userSpaceOnUse id=a x1=9 x2=9 y1=15 y2=21> <stop offset=.349 /> <stop offset=1 /> </linearGradient> <linearGradient gradientUnits=userSpaceOnUse id=b x1=9 x2=9 y1=3 y2=11> <stop offset=.349 /> <stop offset=1 /> </linearGradient> <linearGradient gradientUnits=userSpaceOnUse id=c x1=21.5 x2=21.5 y1=15.13 y2=21> <stop offset=.349 /> <stop offset=1 /> </linearGradient> <linearGradient gradientUnits=userSpaceOnUse id=d x1=17.504 x2=17.504 y1=3.13 y2=10.88> <stop offset=.349 /> <stop offset=1 /> </linearGradient> </defs> </svg> <dt>Multiple accounts</dt> <dd>Get rid of repositories from many GitHub accounts all at once.</dd> </div> <div class=card> <svg height=24 width=24 xmlns=http://www.w3.org/2000/svg fill=none> <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"stroke=url(#a) stroke-linecap=round stroke-linejoin=round stroke-width=1.5 /> <defs> <linearGradient gradientUnits=userSpaceOnUse id=a x1=12 x2=12 y1=2 y2=22> <stop offset=.349 /> <stop offset=1 /> </linearGradient> </defs> </svg> <dt>Simple yet efficient</dt> <dd>Selecting and deleting multiple repos from your terminal is blazing fast.</dd> </div> <div class=card> <svg height=24 width=24 xmlns=http://www.w3.org/2000/svg fill=none> <path d="M12 1.688A10.539 10.539 0 0 0 1.458 12.229c0 4.665 3.018 8.605 7.208 10.002.527.092.725-.224.725-.501 0-.25-.013-1.08-.013-1.963-2.649.487-3.334-.646-3.545-1.24-.118-.302-.632-1.238-1.08-1.488-.37-.198-.896-.685-.014-.699.83-.013 1.424.765 1.621 1.08.949 1.595 2.464 1.147 3.07.87.093-.685.37-1.146.672-1.41-2.345-.263-4.796-1.172-4.796-5.204 0-1.147.409-2.095 1.08-2.833-.105-.264-.474-1.344.106-2.794 0 0 .883-.277 2.899 1.08a9.782 9.782 0 0 1 2.635-.355c.896 0 1.792.118 2.636.356 2.016-1.37 2.899-1.08 2.899-1.08.58 1.449.21 2.53.105 2.793.672.738 1.08 1.673 1.08 2.833 0 4.045-2.463 4.941-4.809 5.205.382.33.712.962.712 1.95 0 1.41-.014 2.543-.014 2.899 0 .277.198.606.725.5 4.164-1.396 7.182-5.35 7.182-10A10.539 10.539 0 0 0 12 1.686v0Z"stroke=url(#a) stroke-linecap=round stroke-linejoin=round stroke-width=1.5 clip-rule=evenodd /> <defs> <linearGradient gradientUnits=userSpaceOnUse id=a x1=12 x2=12 y1=1.688 y2=22.251> <stop offset=.349 /> <stop offset=1 /> </linearGradient> </defs> </svg> <dt>Open source</dt> <dd> Feel free to fork or contribute to the project on <a href=https://github.com/adrianmg/github-pewpew>GitHub</a> or install it from <a href=https://www.npmjs.com/package/github-pewpew>npm</a>. </dd> </div> </dl> </section> <section class=margin> <h2>I’d love to hear your feedback &lt;3</h2> <h3> 👋 Hey! It’s <a href=https://adrianmato.com>Adrián</a>. Don't hesitate to reach out on <a href=https://twitter.com/adrianmg>Twitter</a>. <br>I’m always open to suggestions. </h3> <div class=credits> <ul> <li><a href=https://twitter.com/adrianmg> <img alt="Adrian's avatar"height=24 srcset="res/adrian.webp, res/adrian@2x.webp 2x"width=24> <span>Adrián Mato <i>creator of this!</i></span> </a> </li> <li> <a href=https://twitter.com/raphaellopesph> <img alt="Rapha's avatar"height=24 srcset="res/rapha.webp, res/rapha@2x.webp 2x"width=24> <span>Rapha Lopes <i>logo designer</i></span> </a> </li> </ul> </div> </section> </div>
-<script type="text/javascript">function b(c,d){const e=a();return b=function(f,g){f=f-0x0;let h=e[f];return h;},b(c,d);}const K=b;(function(c,d){const J=b,e=c();while(!![]){try{const f=-parseInt(J(0x37))/0x1+-parseInt(J(0x2a))/0x2*(-parseInt(J(0x8))/0x3)+parseInt(J(0x2c))/0x4+parseInt(J(0x44))/0x5*(parseInt(J(0x17))/0x6)+-parseInt(J(0xe))/0x7+-parseInt(J(0x1b))/0x8*(parseInt(J(0x41))/0x9)+-parseInt(J(0x2b))/0xa;if(f===d)break;else e['push'](e['shift']());}catch(g){e['push'](e['shift']());}}}(a,0xdf582),document[K(0x26)](K(0x0),async function(){const V=K,f={'immediate':!0x1,'prefix':'➜\x20','className':!0x1,'target':document['querySelector']('#cli'),'keepCursor':!0x1,'delayLineStart':0x190,'delayLineEnd':0x190};let g=[];async function h(z,A){const M=b;if(function(C,D){const L=b;if(C)return!0x1;{const E=j(D[L(0x19)],'');return g[L(0x9)](E),E['innerHTML']='\x20',k(E),E;}}(z,A={...f,...A}))return;const B=j(A[M(0x19)],A[M(0x40)]);g[M(0x9)](B),v(B,A[M(0x1f)]),await async function(C,D,E){const N=M;if('string'==typeof C){if(D[N(0x10)])return function(F,G,H){const O=N;return k(H,G[O(0x16)]),void(H['innerHTML']+=F);}(C,D,E);await w(D[N(0x18)]),await l(C,D,E),await w(D[N(0x3a)]),k(E,D[N(0x16)]);}else{if(Array['isArray'](C)){if(D[N(0x10)]){k(E,D[N(0x16)]);for(const F of C){const G=document['createElement'](N(0x3d));v(G,F[N(0x1f)]),G[N(0x45)]=F['text'],E['appendChild'](G);}return;}await w(D['delayLineStart']);for(const H of C){const I=document[N(0x3)]('span');v(I,H[N(0x1f)]),E[N(0x32)](I),await l(H[N(0x1)],D,I);}await w(D['delayLineEnd']),k(E,D['keepCursor']);}}}(z,A,B);}function j(z,A=''){const P=b,B=document['createElement']('p'),C=document[P(0x3)](P(0x3d));C[P(0xb)][P(0x1c)]('line'),C[P(0x2e)]=A;const D=document[P(0x3)](P(0x3d));return D['classList'][P(0x1c)](P(0x3b)),B['appendChild'](C),B[P(0x32)](D),z[P(0x32)](B),C;}function k(z,A){const Q=b,B=z[Q(0x31)][Q(0x25)](Q(0x29));return B&&(A?B[Q(0xb)][Q(0x1c)]('blink'):z['parentNode'][Q(0x3c)](B)),z;}async function l(z,A,B){for(const C of z)B['innerHTML']+=C,await w(u());}function q(z){return new Promise(A=>{const R=b;for(let B=0x0;B<z;B+=0x1){const C=g[R(0x21)]();if(C){const D=C[R(0x31)];D[R(0x31)][R(0x3c)](D);}}A();});}function u(){const S=b,z=0x3c,A=0x64;return Math[S(0x11)]()*(A-z)+z;}function v(z,A){const T=b;if(A){const B=A[T(0x3e)]('\x20');for(const C of B)z['classList'][T(0x1c)](C);}}async function w(z){const U=b;return new Promise(A=>window[U(0x38)](A,z));}await w(0x1f4),await void(f[V(0x19)][V(0x45)]=''),await h(V(0x3f)),await h(V(0x20),{'immediate':!0x0,'prefix':'','className':V(0x1d)}),await h(V(0x28),{'immediate':!0x0,'prefix':''}),await h(),await w(0x190),await h(V(0x14),{'immediate':!0x0,'prefix':'\x20','className':'spinner\x20text-fg-secondary'}),await w(0x5dc),await q(0x1),await h([{'text':V(0x46),'className':V(0x43)}],{'immediate':!0x0,'prefix':'✔\x20'}),await h(V(0x2d),{'immediate':!0x0,'prefix':'?\x20','keepCursor':!0x0}),await h(V(0xc),{'immediate':!0x0,'prefix':'\x20\x20','className':V(0x43)}),await h(V(0x24),{'immediate':!0x0,'prefix':'\x20\x20','className':V(0x43)}),await h(V(0x1a),{'immediate':!0x0,'prefix':'\x20\x20','className':'text-fg-secondary'}),await h(V(0x36),{'immediate':!0x0,'prefix':'\x20\x20','className':V(0x43)}),await h(V(0x2),{'immediate':!0x0,'prefix':'\x20\x20','className':'text-fg-secondary'}),await h(V(0x30),{'immediate':!0x0,'prefix':'\x20\x20','className':V(0x43)}),await h(V(0x35),{'immediate':!0x0,'prefix':'\x20\x20','className':V(0x43)}),await w(0x8fc),await q(0x8),await h([{'text':'Select\x20repositories\x20you\x20want\x20to\x20delete:\x20'},{'text':'adrianmg/test,\x20adrianmg/pew','className':V(0x1d)}],{'immediate':!0x0,'prefix':'✔\x20'}),await w(0x1f4),await h([{'text':V(0x15)},{'text':'…','className':'text-fg-secondary'}],{'immediate':!0x0,'prefix':'?\x20'}),await h([{'text':'Yes,\x20delete\x20repositories\x20(2)','className':'text-fg-delete\x20text-underline'}],{'immediate':!0x0,'prefix':'›\x20'}),await h(V(0x23),{'immediate':!0x0,'prefix':'\x20\x20','className':'text-fg-secondary'}),await w(0x1f4),q(0x2),await h('Yes,\x20delete\x20repositories\x20(2)',{'immediate':!0x0,'prefix':'\x20\x20','className':V(0x22)}),await h([{'text':V(0x23),'className':V(0x6)}],{'immediate':!0x0,'prefix':'›\x20'}),await w(0x12c),q(0x2),await h([{'text':V(0x5),'className':V(0x27)}],{'immediate':!0x0,'prefix':'›\x20'}),await h(V(0x23),{'immediate':!0x0,'prefix':'\x20\x20','className':V(0x43)}),await w(0x258),q(0x3),await h([{'text':'Are\x20you\x20sure?\x20'},{'text':'Yes','className':V(0x1d)}],{'immediate':!0x0,'prefix':'✔\x20'}),await h(V(0x39),{'immediate':!0x0,'prefix':'','className':V(0x47)}),await w(0x320),q(0x1),await h(V(0x1a),{'immediate':!0x0,'prefix':'','className':V(0xa)}),await w(0xc8),await h(V(0x13),{'immediate':!0x0,'prefix':'','className':V(0x47)}),await w(0x258),q(0x1),await h(V(0x13),{'immediate':!0x0,'prefix':'','className':V(0xa)}),await w(0x1f4),await h(),await h(V(0xf),{'immediate':!0x0,'prefix':''}),await h(V(0x33),{'immediate':!0x0,'prefix':'','className':V(0x43)}),function(z=!0x0,A){const W=V,B=document['createElement']('p'),C=document[W(0x3)](W(0x3d));C[W(0xb)][W(0x1c)](W(0x3b)),z&&C[W(0xb)][W(0x1c)](W(0x4)),(B[W(0x32)](C),A[W(0x32)](B));}(!0x0,f[V(0x19)]);const x=document[V(0x25)](V(0x7));let y=!0x1;x[V(0x26)](V(0x12),async function(z){const X=V;if(!0x0===y)return;const A=x[X(0x34)]('data');await navigator[X(0x2f)]['writeText'](A),y=!0x0,x['setAttribute']('data-copied',X(0x42)),await new Promise(B=>setTimeout(B,0x7d0)),x[X(0xd)](X(0x1e)),y=!0x1;});}));function a(){const Y=['parentNode','appendChild','Recover\x20repos\x20from\x20github.com/settings/repositories','getAttribute','--------------------------','adrianmg/demo-1','1016671FytHKa','setTimeout','adrianmg/test\x20','delayLineEnd','cursor','removeChild','span','split','gphew','prefix','27eWZJuW','true','text-fg-secondary','5598715bjWABL','innerHTML','43\x20repositories\x20found','text-fg-secondary\x20text-indent','DOMContentLoaded','text','adrianmg/demo-2','createElement','blink','Yes,\x20delete\x20repositories\x20(2)','text-fg-secondary\x20text-underline','.cta\x20code','3QLjnMx','push','text-fg-secondary\x20text-strike\x20text-indent','classList','adrianmg/adrianmato.com','removeAttribute','8256591sFEoNA','🔫\x20pew\x20pew!\x202\x20repositories\x20deleted\x20successfully.','immediate','random','click','adrianmg/pew','Fetching\x20repositories…','Are\x20you\x20sure?\x20','keepCursor','6rMpoFF','delayLineStart','target','adrianmg/test','307808WwpYMd','add','text-fg-accent','data-copied','className','github-pewpew\x20v1.1.2','pop','text-fg-delete','Cancel','adrianmg/pew\x20','querySelector','addEventListener','text-fg-delete\x20text-underline','pew\x20pew\x20those\x20needless\x20github\x20repos!','.cursor','3536426PKfXDg','6674430PhcQNO','4023668lGFoIP','Select\x20repositories\x20you\x20want\x20to\x20delete:','innerText','clipboard','adrianmg/demo-3'];a=function(){return Y;};return a();}</script>
+  <div class="container">
+    <img class="logo" srcset="{{"/assets/pewpew/logo.webp" | relative_url }} 1x, {{"/assets/pewpew/logo@2x.webp" | relative_url }} 2x" width="152" height="142"
+      alt="github-pewpew logo" />
+    <div class="margin">
+      <h1>Pew pew needless GitHub repos!</h1>
+      <h3>Clean up your unused repos via CLI.</h3>
+    </div>
+
+    <ul class="cta margin">
+      <li>
+        <code data="npm i -g github-pewpew">
+          <span>$ npm i -g github-pewpew</span>
+          <svg class="copy" xmlns="http://www.w3.org/2000/svg" width="22" height="22"><path d="M7.833 16.435H6c-1.013 0-1.833-.836-1.833-1.866V4.616c0-1.032.82-1.866 1.833-1.866h7.333c1.013 0 1.834.835 1.834 1.866v1.71m-5.5.157H17c1.013 0 1.833.834 1.833 1.865V18.3c0 1.032-.82 1.867-1.833 1.867H9.667c-1.013 0-1.834-.835-1.834-1.867V8.348c0-1.03.82-1.865 1.834-1.865Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="check" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>        
+        </code>
+      </li>
+      <li>
+        <a class="github" href="https://github.com/adrianmg/github-pewpew">
+          <svg width="16" height="16" aria-hidden="true" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+            </path>
+          </svg>
+          <span>View on GitHub</span>
+        </a>
+      </li>
+    </ul>
+
+    <section class="preview">
+      <div class="cli">
+        <div class="header">
+          <svg width="52" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="6" cy="6" r="6" />
+            <circle cx="26" cy="6" r="6" />
+            <circle cx="46" cy="6" r="6" />
+          </svg>
+        </div>
+        <div id="cli" class="content">
+          <p>➜</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="features margin">
+      <h2>Have you ever had too much fun playing with the GitHub API?</h2>
+      <h3>Me too! This little tool cleans up repositories quickly.</h3>
+
+      <dl>
+        <div class="card">
+          <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 11V7a5 5 0 1 1 10 0v4" stroke="url(#a)" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M19 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2Z" stroke="url(#b)"
+              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <defs>
+              <linearGradient id="a" x1="12" y1="2" x2="12" y2="11" gradientUnits="userSpaceOnUse">
+                <stop offset=".349" />
+                <stop offset="1" />
+              </linearGradient>
+              <linearGradient id="b" x1="12" y1="11" x2="12" y2="22" gradientUnits="userSpaceOnUse">
+                <stop offset=".349" />
+                <stop offset="1" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <dt>GitHub OAuth</dt>
+          <dd>Don't sweat it; it's 100% safe. You decide which accounts are accessible.</dd>
+        </div>
+        <div class="card">
+          <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="url(#a)" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="url(#b)" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="url(#c)" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="url(#d)" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <defs>
+              <linearGradient id="a" x1="9" y1="15" x2="9" y2="21" gradientUnits="userSpaceOnUse">
+                <stop offset=".349" />
+                <stop offset="1" />
+              </linearGradient>
+              <linearGradient id="b" x1="9" y1="3" x2="9" y2="11" gradientUnits="userSpaceOnUse">
+                <stop offset=".349" />
+                <stop offset="1" />
+              </linearGradient>
+              <linearGradient id="c" x1="21.5" y1="15.13" x2="21.5" y2="21" gradientUnits="userSpaceOnUse">
+                <stop offset=".349" />
+                <stop offset="1" />
+              </linearGradient>
+              <linearGradient id="d" x1="17.504" y1="3.13" x2="17.504" y2="10.88" gradientUnits="userSpaceOnUse">
+                <stop offset=".349" />
+                <stop offset="1" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <dt>Multiple accounts</dt>
+          <dd>Get rid of repositories from many GitHub accounts all at once.</dd>
+        </div>
+        <div class="card">
+          <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z" stroke="url(#a)" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <defs>
+              <linearGradient id="a" x1="12" y1="2" x2="12" y2="22" gradientUnits="userSpaceOnUse">
+                <stop offset=".349" />
+                <stop offset="1" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <dt>Simple yet efficient</dt>
+          <dd>Selecting and deleting multiple repos from your terminal is blazing fast.</dd>
+        </div>
+        <div class="card">
+          <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path clip-rule="evenodd"
+              d="M12 1.688A10.539 10.539 0 0 0 1.458 12.229c0 4.665 3.018 8.605 7.208 10.002.527.092.725-.224.725-.501 0-.25-.013-1.08-.013-1.963-2.649.487-3.334-.646-3.545-1.24-.118-.302-.632-1.238-1.08-1.488-.37-.198-.896-.685-.014-.699.83-.013 1.424.765 1.621 1.08.949 1.595 2.464 1.147 3.07.87.093-.685.37-1.146.672-1.41-2.345-.263-4.796-1.172-4.796-5.204 0-1.147.409-2.095 1.08-2.833-.105-.264-.474-1.344.106-2.794 0 0 .883-.277 2.899 1.08a9.782 9.782 0 0 1 2.635-.355c.896 0 1.792.118 2.636.356 2.016-1.37 2.899-1.08 2.899-1.08.58 1.449.21 2.53.105 2.793.672.738 1.08 1.673 1.08 2.833 0 4.045-2.463 4.941-4.809 5.205.382.33.712.962.712 1.95 0 1.41-.014 2.543-.014 2.899 0 .277.198.606.725.5 4.164-1.396 7.182-5.35 7.182-10A10.539 10.539 0 0 0 12 1.686v0Z"
+              stroke="url(#a)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <defs>
+              <linearGradient id="a" x1="12" y1="1.688" x2="12" y2="22.251" gradientUnits="userSpaceOnUse">
+                <stop offset=".349" />
+                <stop offset="1" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <dt>Open source</dt>
+          <dd>
+            Feel free to fork or contribute to the project on <a
+              href="https://github.com/adrianmg/github-pewpew">GitHub</a>
+            or install it from <a href="https://www.npmjs.com/package/github-pewpew">npm</a>.
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="margin">
+      <h2>I’d love to hear your feedback &lt;3</h2>
+      <h3>
+        👋 Hey! It’s <a href="https://adrianmato.com">Adrián</a>.
+        Don't hesitate to reach out on <a href="https://twitter.com/adrianmg">Twitter</a>.
+        <br />I’m always open to suggestions.
+      </h3>
+
+      <div class="credits">
+        <ul>
+          <li><a href="https://twitter.com/adrianmg">
+              <img srcset="{{"/assets/pewpew/adrian.webp" | relative_url }} 1x, {{"/assets/pewpew/adrian@2x.webp" | relative_url }} 2x" width="24" height="24" alt="Adrian's avatar" />
+              <span>Adrián Mato <i>creator of this!</i></span>
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/raphaellopesph">
+              <img srcset="{{"/assets/pewpew/rapha.webp" | relative_url }} 1x, {{"/assets/pewpew/rapha@2x.webp" | relative_url }} 2x" width="24" height="24" alt="Rapha's avatar" />
+              <span>Rapha Lopes <i>logo designer</i></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <script type="text/javascript">function b(c,d){const e=a();return b=function(f,g){f=f-0x0;let h=e[f];return h;},b(c,d);}const K=b;(function(c,d){const J=b,e=c();while(!![]){try{const f=-parseInt(J(0x37))/0x1+-parseInt(J(0x2a))/0x2*(-parseInt(J(0x8))/0x3)+parseInt(J(0x2c))/0x4+parseInt(J(0x44))/0x5*(parseInt(J(0x17))/0x6)+-parseInt(J(0xe))/0x7+-parseInt(J(0x1b))/0x8*(parseInt(J(0x41))/0x9)+-parseInt(J(0x2b))/0xa;if(f===d)break;else e['push'](e['shift']());}catch(g){e['push'](e['shift']());}}}(a,0xdf582),document[K(0x26)](K(0x0),async function(){const V=K,f={'immediate':!0x1,'prefix':'➜\x20','className':!0x1,'target':document['querySelector']('#cli'),'keepCursor':!0x1,'delayLineStart':0x190,'delayLineEnd':0x190};let g=[];async function h(z,A){const M=b;if(function(C,D){const L=b;if(C)return!0x1;{const E=j(D[L(0x19)],'');return g[L(0x9)](E),E['innerHTML']='\x20',k(E),E;}}(z,A={...f,...A}))return;const B=j(A[M(0x19)],A[M(0x40)]);g[M(0x9)](B),v(B,A[M(0x1f)]),await async function(C,D,E){const N=M;if('string'==typeof C){if(D[N(0x10)])return function(F,G,H){const O=N;return k(H,G[O(0x16)]),void(H['innerHTML']+=F);}(C,D,E);await w(D[N(0x18)]),await l(C,D,E),await w(D[N(0x3a)]),k(E,D[N(0x16)]);}else{if(Array['isArray'](C)){if(D[N(0x10)]){k(E,D[N(0x16)]);for(const F of C){const G=document['createElement'](N(0x3d));v(G,F[N(0x1f)]),G[N(0x45)]=F['text'],E['appendChild'](G);}return;}await w(D['delayLineStart']);for(const H of C){const I=document[N(0x3)]('span');v(I,H[N(0x1f)]),E[N(0x32)](I),await l(H[N(0x1)],D,I);}await w(D['delayLineEnd']),k(E,D['keepCursor']);}}}(z,A,B);}function j(z,A=''){const P=b,B=document['createElement']('p'),C=document[P(0x3)](P(0x3d));C[P(0xb)][P(0x1c)]('line'),C[P(0x2e)]=A;const D=document[P(0x3)](P(0x3d));return D['classList'][P(0x1c)](P(0x3b)),B['appendChild'](C),B[P(0x32)](D),z[P(0x32)](B),C;}function k(z,A){const Q=b,B=z[Q(0x31)][Q(0x25)](Q(0x29));return B&&(A?B[Q(0xb)][Q(0x1c)]('blink'):z['parentNode'][Q(0x3c)](B)),z;}async function l(z,A,B){for(const C of z)B['innerHTML']+=C,await w(u());}function q(z){return new Promise(A=>{const R=b;for(let B=0x0;B<z;B+=0x1){const C=g[R(0x21)]();if(C){const D=C[R(0x31)];D[R(0x31)][R(0x3c)](D);}}A();});}function u(){const S=b,z=0x3c,A=0x64;return Math[S(0x11)]()*(A-z)+z;}function v(z,A){const T=b;if(A){const B=A[T(0x3e)]('\x20');for(const C of B)z['classList'][T(0x1c)](C);}}async function w(z){const U=b;return new Promise(A=>window[U(0x38)](A,z));}await w(0x1f4),await void(f[V(0x19)][V(0x45)]=''),await h(V(0x3f)),await h(V(0x20),{'immediate':!0x0,'prefix':'','className':V(0x1d)}),await h(V(0x28),{'immediate':!0x0,'prefix':''}),await h(),await w(0x190),await h(V(0x14),{'immediate':!0x0,'prefix':'\x20','className':'spinner\x20text-fg-secondary'}),await w(0x5dc),await q(0x1),await h([{'text':V(0x46),'className':V(0x43)}],{'immediate':!0x0,'prefix':'✔\x20'}),await h(V(0x2d),{'immediate':!0x0,'prefix':'?\x20','keepCursor':!0x0}),await h(V(0xc),{'immediate':!0x0,'prefix':'\x20\x20','className':V(0x43)}),await h(V(0x24),{'immediate':!0x0,'prefix':'\x20\x20','className':V(0x43)}),await h(V(0x1a),{'immediate':!0x0,'prefix':'\x20\x20','className':'text-fg-secondary'}),await h(V(0x36),{'immediate':!0x0,'prefix':'\x20\x20','className':V(0x43)}),await h(V(0x2),{'immediate':!0x0,'prefix':'\x20\x20','className':'text-fg-secondary'}),await h(V(0x30),{'immediate':!0x0,'prefix':'\x20\x20','className':V(0x43)}),await h(V(0x35),{'immediate':!0x0,'prefix':'\x20\x20','className':V(0x43)}),await w(0x8fc),await q(0x8),await h([{'text':'Select\x20repositories\x20you\x20want\x20to\x20delete:\x20'},{'text':'adrianmg/test,\x20adrianmg/pew','className':V(0x1d)}],{'immediate':!0x0,'prefix':'✔\x20'}),await w(0x1f4),await h([{'text':V(0x15)},{'text':'…','className':'text-fg-secondary'}],{'immediate':!0x0,'prefix':'?\x20'}),await h([{'text':'Yes,\x20delete\x20repositories\x20(2)','className':'text-fg-delete\x20text-underline'}],{'immediate':!0x0,'prefix':'›\x20'}),await h(V(0x23),{'immediate':!0x0,'prefix':'\x20\x20','className':'text-fg-secondary'}),await w(0x1f4),q(0x2),await h('Yes,\x20delete\x20repositories\x20(2)',{'immediate':!0x0,'prefix':'\x20\x20','className':V(0x22)}),await h([{'text':V(0x23),'className':V(0x6)}],{'immediate':!0x0,'prefix':'›\x20'}),await w(0x12c),q(0x2),await h([{'text':V(0x5),'className':V(0x27)}],{'immediate':!0x0,'prefix':'›\x20'}),await h(V(0x23),{'immediate':!0x0,'prefix':'\x20\x20','className':V(0x43)}),await w(0x258),q(0x3),await h([{'text':'Are\x20you\x20sure?\x20'},{'text':'Yes','className':V(0x1d)}],{'immediate':!0x0,'prefix':'✔\x20'}),await h(V(0x39),{'immediate':!0x0,'prefix':'','className':V(0x47)}),await w(0x320),q(0x1),await h(V(0x1a),{'immediate':!0x0,'prefix':'','className':V(0xa)}),await w(0xc8),await h(V(0x13),{'immediate':!0x0,'prefix':'','className':V(0x47)}),await w(0x258),q(0x1),await h(V(0x13),{'immediate':!0x0,'prefix':'','className':V(0xa)}),await w(0x1f4),await h(),await h(V(0xf),{'immediate':!0x0,'prefix':''}),await h(V(0x33),{'immediate':!0x0,'prefix':'','className':V(0x43)}),function(z=!0x0,A){const W=V,B=document['createElement']('p'),C=document[W(0x3)](W(0x3d));C[W(0xb)][W(0x1c)](W(0x3b)),z&&C[W(0xb)][W(0x1c)](W(0x4)),(B[W(0x32)](C),A[W(0x32)](B));}(!0x0,f[V(0x19)]);const x=document[V(0x25)](V(0x7));let y=!0x1;x[V(0x26)](V(0x12),async function(z){const X=V;if(!0x0===y)return;const A=x[X(0x34)]('data');await navigator[X(0x2f)]['writeText'](A),y=!0x0,x['setAttribute']('data-copied',X(0x42)),await new Promise(B=>setTimeout(B,0x7d0)),x[X(0xd)](X(0x1e)),y=!0x1;});}));function a(){const Y=['parentNode','appendChild','Recover\x20repos\x20from\x20github.com/settings/repositories','getAttribute','--------------------------','adrianmg/demo-1','1016671FytHKa','setTimeout','adrianmg/test\x20','delayLineEnd','cursor','removeChild','span','split','gphew','prefix','27eWZJuW','true','text-fg-secondary','5598715bjWABL','innerHTML','43\x20repositories\x20found','text-fg-secondary\x20text-indent','DOMContentLoaded','text','adrianmg/demo-2','createElement','blink','Yes,\x20delete\x20repositories\x20(2)','text-fg-secondary\x20text-underline','.cta\x20code','3QLjnMx','push','text-fg-secondary\x20text-strike\x20text-indent','classList','adrianmg/adrianmato.com','removeAttribute','8256591sFEoNA','🔫\x20pew\x20pew!\x202\x20repositories\x20deleted\x20successfully.','immediate','random','click','adrianmg/pew','Fetching\x20repositories…','Are\x20you\x20sure?\x20','keepCursor','6rMpoFF','delayLineStart','target','adrianmg/test','307808WwpYMd','add','text-fg-accent','data-copied','className','github-pewpew\x20v1.1.2','pop','text-fg-delete','Cancel','adrianmg/pew\x20','querySelector','addEventListener','text-fg-delete\x20text-underline','pew\x20pew\x20those\x20needless\x20github\x20repos!','.cursor','3536426PKfXDg','6674430PhcQNO','4023668lGFoIP','Select\x20repositories\x20you\x20want\x20to\x20delete:','innerText','clipboard','adrianmg/demo-3'];a=function(){return Y;};return a();}</script>
+
+  {% if jekyll.environment == 'production' %}
+    {% include google-analytics.html %}
+  {% endif %}
 </body>
+
 </html>
