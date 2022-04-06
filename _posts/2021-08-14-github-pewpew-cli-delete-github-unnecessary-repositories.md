@@ -17,6 +17,13 @@ I made this little CLI tool to clean up repositories quickly. I'm planning to ad
 
 Get the [latest version](https://www.npmjs.com/package/github-pewpew/) published in npm. It's [open-sourced on GitHub](https://github.com/adrianmg/github-pewpew) under MIT license.
 
+### 📦 github-pewpew v1.2.2 on April 5, 2022
+{:.anchor }
+
+A new [version 1.2.2](https://www.npmjs.com/package/github-pewpew/v/1.2.2) has been published to npm. It's a minor update, but it's a special one: we are launching a brand [new website](/pewpew) and logo.
+
+![github-pewpew preview]({{ "/assets/images/posts/2022/github-pewpew-1.png" | relative_url }})
+
 ### 📦 github-pewpew v1.2.0 on August 24, 2021
 {:.anchor }
 
