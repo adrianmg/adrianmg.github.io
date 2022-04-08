@@ -183,6 +183,11 @@ pre {
   font-size: var(--base-font-size);
   line-height: 2.8rem;
   margin-bottom: 0.7rem;
+
+  a {
+    color: var(--title-color);
+    text-decoration: none;
+  }
 }
 
 .home-work-grid__project-description h3 {
