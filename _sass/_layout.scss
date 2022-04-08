@@ -189,6 +189,7 @@ pre {
     color: var(--title-color);
     text-decoration: none;
     outline: none;
+    transition: all var(--base-trans-slow) ease-in-out;
   }
 }
 
@@ -500,8 +501,6 @@ pre {
   .home-work-grid__project-description {
     margin-bottom: 4.1rem;
   }
-  // .home-navigation { margin-left: -1.2rem; }
-  // .home-navigation a { padding: 2.0rem 1.2rem; }
 
   // iPhones
   @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
