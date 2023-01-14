@@ -7,17 +7,6 @@
   if (isHome) {
     let arrow = document.querySelector('.home-intro-scroll');
     const arrowTreshold = 100; // when stops being visible
-    const workAnchor = "#home-work";
-    const navWork = document.querySelector(`.home-navigation [href='${workAnchor}']`);
-    const nav = document.querySelector('.home-navigation');
-
-    // click on navigation 'work' and scroll
-    navWork.addEventListener("click", function(e) {
-      scrollToItem(document.querySelector(workAnchor), 800, nav.clientHeight * 1.2);
-      history.pushState({}, "", workAnchor);
-      e.preventDefault();
-      return false;
-    });
 
     // scroll hint
     function showScrollHint(seconds) {
