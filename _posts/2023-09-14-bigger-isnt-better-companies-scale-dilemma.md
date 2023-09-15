@@ -6,7 +6,9 @@ categories: [blog, industry, opinion]
 summary: "The tech industry has witnessed tremendous growth, but with this growth comes challenges. Massive teams and lofty financial targets have rendered a significant portion of the sector daunting and less enjoyable."
 ---
 
-**We need more companies doing fewer things**, fewer features, and requiring fewer employees. Building high-quality software is fun when you have focus and a tight team. The current scale of most teams and the absurd financial goals make a large portion of this industry unbearable.
+We need more companies **doing fewer things**, fewer features, and requiring fewer employees. Building high-quality software is fun when you have focus and a tight team.
+
+The current scale of most teams and the absurd financial goals make a large portion of this industry unbearable.
 
 Redistributing the workforce among a broader spectrum of companies will generate more competition and ownership. The ultimate beneficiaries? End-users who enjoy better products and solutions.
 
