@@ -1,9 +1,8 @@
 ---
 layout: post
-title: "The problem with scale in the tech industry"
+title: "When bigger isn't better: large companies' dilemma"
 date: 2023-09-14 17:34:00
 categories: [blog, industry, opinion]
-summary: "Reflecting on companies' scale and software quality in the tech industry."
 ---
 
 The tech industry has witnessed tremendous growth, but with this growth comes challenges. Massive teams and lofty financial targets have rendered a significant portion of the sector daunting and less enjoyable.
