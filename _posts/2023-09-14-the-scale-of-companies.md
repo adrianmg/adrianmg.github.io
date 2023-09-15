@@ -3,7 +3,7 @@ layout: post
 title: "The problem with scale in the tech industry"
 date: 2023-09-14 17:34:00
 categories: [blog, industry, opinion]
-summary: "Sharing some hot takes on the scale of companies in the tech industry after sixteen years of working in the field."
+summary: "Reflecting on companies' scale and software quality in the tech industry."
 ---
 
 The tech industry has witnessed tremendous growth, but with this growth comes challenges. Massive teams and lofty financial targets have rendered a significant portion of the sector daunting and less enjoyable.
@@ -16,7 +16,7 @@ Redistributing the workforce among a broader spectrum of companies will generate
 
 The scale pushes us to generate intermediate layers of tech, processes, middle management, and other fat, distracting us from creating better products.
 
-Simply downsizing and flattening organizations isn't the answer. Companies need to reduce commitments and laser-focus on true value delivery.
+Simply downsizing and flattening organizations isn't the answer. Companies need to reduce commitments and laser-focus on genuine value delivery.
 
 Most of these problems have been auto-infringed. It's puzzling to see hyper-growth startups sprinting into the scale issue as soon as they raise some money. Rather than benefiting from focus and competitive advantage, they jump right into the fire with the rest of the companies.
 
