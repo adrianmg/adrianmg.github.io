@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "When bigger isn't better: large companies' dilemma"
+title: "Bigger isn't better: the companies scale dilemma"
 date: 2023-09-14 17:34:00
 categories: [blog, industry, opinion]
 ---
