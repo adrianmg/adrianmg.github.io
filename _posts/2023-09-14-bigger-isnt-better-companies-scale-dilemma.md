@@ -7,7 +7,7 @@ categories: [blog, industry, opinion]
 
 The tech industry has witnessed tremendous growth, but with this growth comes challenges. Massive teams and lofty financial targets have rendered a significant portion of the sector daunting and less enjoyable.
 
-We need more companies doing fewer things, fewer features, and requiring fewer employees. Building high-quality software is fun when you have focus and a tight team.
+**We need more companies doing fewer things**, fewer features, and requiring fewer employees. Building high-quality software is fun when you have focus and a tight team.**
 
 The current scale of most teams and the absurd financial goals make a large portion of this industry unbearable.
 
