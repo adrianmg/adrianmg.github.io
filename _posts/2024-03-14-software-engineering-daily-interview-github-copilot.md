@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Interview about GitHub Copilot Design on the Sofware Engineering Daily podcast"
+title: "My first podcast: desgining GitHub Copilot with Software Engineering Daily"
 date: 2024-03-14 13:00:00
 categories: [blog, design, interview]
 ---
