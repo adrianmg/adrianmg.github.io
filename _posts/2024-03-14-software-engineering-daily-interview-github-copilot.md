@@ -1,10 +1,11 @@
 ---
 layout: post
-title: "My first podcast: desgining GitHub Copilot with Software Engineering Daily"
+title: "Podcast interview: designing GitHub Copilot with Software Engineering Daily"
 date: 2024-03-14 13:00:00
 categories: [blog, design, interview]
 ---
 
+<a href=""></a>
 ![Software Engineering Daily podcast interview]({{ "/assets/images/posts/2024/software-engineering-interview.png" | relative_url }})
 
 I'm thrilled to share that I recently made my first-ever podcast appearance, and what a better way to kick things off than on the [Software Engineering Daily podcast](https://softwareengineeringdaily.com/2024/03/14/design-at-github-copilot-with-adrian-mato-gondelle/).
