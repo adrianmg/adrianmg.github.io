@@ -9,7 +9,7 @@ categories: [blog, design, hiring, startups, remote]
 
 As we welcome our [newest Design Engineer](https://bsky.app/profile/did:plc:fwjnjhsdebcvhstqd2ab2z7c/post/3lgy5ckbznc22) to the [Copilot](https://github.com/features/copilot) Design team, I've noticed a trend—the last four hires have all been from Europe. Many of GitHub's most talented designers are overseas, complementing a widely distributed North American workforce across timezones.
 
-In contrast, **many CEOs continue pushing for office returns, insisting that AI innovation can only thrive in San Francisco**. This coordinated narrative makes me question the real motivation behind it. Is it truly about productivity, or is it more about keeping office landlords, VCs, and gatekeepers happy?
+In contrast, **many CEOs continue pushing for office returns, insisting that AI and innovation can only thrive in San Francisco**. This coordinated narrative makes me question the real motivation behind it. Is it truly about productivity, or is it more about keeping office landlords, VCs, and gatekeepers happy?
 
 Funny enough, **DeepSeek** caught everyone off guard [this week](https://api-docs.deepseek.com/news/news250120), proving once again that innovation and creativity aren't exclusive to a limited group of people nor region—and that great things can happen anywhere in the world.
 
