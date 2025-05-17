@@ -8,7 +8,7 @@ baseurl_blog: "/blog" # the subpath of the blog
 url: "https://adrianmato.com" # the base hostname & protocol for your site, e.g. http://example.com
 author: Adrián Mato
 twitter: adrianmg
-blueksy: adrianmato.com
+bluesky: adrianmato.com
 linkedin: adrianmg
 github: adrianmg
 instagram: adrianmato
