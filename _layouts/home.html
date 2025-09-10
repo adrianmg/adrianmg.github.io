@@ -26,7 +26,7 @@
   {% include home-navigation.html %}
   {% include home-work.html %}
 
-  <script type="text/javascript" src="/assets/js/ios.js"></script>
-  <script type="text/javascript" src="/assets/js/s.js"></script>
+  <script type="text/javascript" src="/assets/js/ios.js" onerror="console.warn('Failed to load iOS compatibility script')"></script>
+  <script type="text/javascript" src="/assets/js/s.js" onerror="console.warn('Failed to load main script')"></script>
 </body>
 </html>
