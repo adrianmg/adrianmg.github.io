@@ -22,6 +22,8 @@
    git clone https://github.com/adrianmg/adrianmg.github.io.git
    cd adrianmg.github.io
    ```
+   
+   Or fork the repository and clone your fork.
 
 2. Install dependencies:
    ```bash
