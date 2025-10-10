@@ -1,7 +1,7 @@
 livereload: true
 
 # Site settings
-title: Adrián Mato – Product Designer in San Francisco
+title: Cap'n Adrián Mato – Product Designer in San Francisco
 email: hello@adrianmato.com
 baseurl: "" # the subpath of your site, e.g. /blog
 baseurl_blog: "/blog" # the subpath of the blog
