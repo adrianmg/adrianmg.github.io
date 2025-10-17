@@ -2,7 +2,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9482eaf2-54d5-4ee5-a190-5da6e2226aeb/deploy-status)](https://app.netlify.com/sites/adrianmato/deploys)
 
-Personal website of Adrián Mato – Design Director at Github Copilot and startup investor.
+Personal website of Adrián Mato – Design Director at GitHub Copilot and startup investor.
 
 Built with Jekyll and a custom theme, deployed on Netlify.
 
