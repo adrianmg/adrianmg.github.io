@@ -2,7 +2,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9482eaf2-54d5-4ee5-a190-5da6e2226aeb/deploy-status)](https://app.netlify.com/sites/adrianmato/deploys)
 
-Personal website and blog for Adrián Mato, Design Director at GitHub Copilot and startup investor. Built with Jekyll and hosted on Netlify.
+Personal website and blog for Adrián Mato, Product Designer based in San Francisco. Built with Jekyll and hosted on Netlify.
 
 [![adrianmato.com](/assets/preview.png)](https://adrianmato.com)
 
@@ -77,8 +77,8 @@ Create a new file in `_posts/` with the format `YYYY-MM-DD-title.md`:
 ---
 layout: post
 title: "Your Post Title"
-date: YYYY-MM-DD
-categories: category-name
+date: YYYY-MM-DD HH:MM:SS
+categories: [blog, design]
 ---
 
 Your content here...
