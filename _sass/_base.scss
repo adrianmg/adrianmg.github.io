@@ -152,6 +152,22 @@ a {
 
 
 /**
+ * Transition helpers
+ */
+%transition-base {
+  transition: all var(--base-trans) ease-in-out;
+}
+
+%transition-mid {
+  transition: all var(--base-trans-mid) ease-in-out;
+}
+
+%transition-slow {
+  transition: all var(--base-trans-slow) ease-in-out;
+}
+
+
+/**
  * Helpers
  */
 

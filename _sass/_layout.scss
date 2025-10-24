@@ -94,7 +94,7 @@ pre {
   text-decoration: none;
   padding: 2rem 1.4rem;
   position: relative;
-  transition: all var(--base-trans-slow) ease-in-out;
+  @extend %transition-slow;
 }
 
 .home-navigation a:hover {
@@ -114,7 +114,7 @@ pre {
   fill: var(--text-color);
   visibility: hidden;
   opacity: 0;
-  transition: all var(--base-trans) ease-in-out;
+  @extend %transition-base;
   position: fixed;
   bottom: 5.2rem;
   right: 4.8rem;
@@ -189,7 +189,7 @@ pre {
     color: var(--title-color);
     text-decoration: none;
     outline: none;
-    transition: all var(--base-trans-slow) ease-in-out;
+    @extend %transition-slow;
   }
 }
 
@@ -262,7 +262,7 @@ pre {
   position: relative;
   text-decoration: none;
   font-weight: 500;
-  transition: all var(--base-trans) ease-in-out;
+  @extend %transition-base;
 }
 
 .post a:before {
@@ -272,7 +272,7 @@ pre {
   bottom: 0;
   left: 0;
   right: 0;
-  transition: all var(--base-trans) ease-in-out;
+  @extend %transition-base;
 }
 
 .post a:hover:before {
@@ -426,7 +426,7 @@ pre {
   padding: 1.6rem 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: all var(--base-trans-mid) ease-in-out;
+  @extend %transition-mid;
 }
 
 .blog-list-item a:before {
