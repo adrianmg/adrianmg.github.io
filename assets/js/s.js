@@ -61,7 +61,8 @@
         ? documentHeight - windowHeight
         : destinationOffset
     )
-    if (start >= destinationOffsetToScroll) { // going up
+    const isScrollingUp = start >= destinationOffsetToScroll;
+    if (isScrollingUp) {
       destinationOffsetToScroll -= extraPadding;
     }
 
@@ -81,7 +82,7 @@
         Math.ceil(timeFunction * (destinationOffsetToScroll - start) + start)
       );
 
-      if (start >= destinationOffsetToScroll) { // going up
+      if (isScrollingUp) {
         if (Math.round(window.pageYOffset) <= Math.ceil(destinationOffsetToScroll)) {
           return;
         }
