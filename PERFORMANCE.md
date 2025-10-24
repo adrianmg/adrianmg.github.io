@@ -102,7 +102,7 @@ terser assets/js/s.js -o assets/js/s.min.js -c -m
 
 #### 2. Deobfuscate pewpew.html Inline Script
 
-**Current State:** Large obfuscated inline script in pewpew.html (line 227, ~3KB).
+**Current State:** Large obfuscated inline script in pewpew.html (line 227, ~7.7KB).
 
 **Issues:**
 - Hard to maintain and debug
@@ -216,13 +216,13 @@ Consider implementing:
 
 ## Browser Compatibility
 
-All optimizations maintain compatibility with:
+All optimizations maintain compatibility with modern browsers:
 - Chrome/Edge 90+
 - Firefox 88+
 - Safari 14+
 - Mobile browsers (iOS Safari 14+, Chrome Android 90+)
 
-Note: Legacy feature detection was removed from code that had fallbacks for very old browsers. If support for IE11 or older browsers is required, some changes may need to be reverted.
+Note: Legacy feature detection was removed from code that had fallbacks for very old browsers. Modern web APIs like `performance.now()` and `requestAnimationFrame` are now universally supported in current browsers.
 
 ## Summary
 
