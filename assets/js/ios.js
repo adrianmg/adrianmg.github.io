@@ -1,4 +1,36 @@
-/*
-Adds property innerHeight within 'window' object
-*/
-!function (f) { if ("object" == typeof exports && "undefined" != typeof module) module.exports = f(); else if ("function" == typeof define && define.amd) define([], f); else { ("undefined" != typeof window ? window : "undefined" != typeof global ? global : "undefined" != typeof self ? self : this).iosInnerHeight = f() } }(function () { return function r(e, n, t) { function o(i, f) { if (!n[i]) { if (!e[i]) { var c = "function" == typeof require && require; if (!f && c) return c(i, !0); if (u) return u(i, !0); var a = new Error("Cannot find module '" + i + "'"); throw a.code = "MODULE_NOT_FOUND", a } var p = n[i] = { exports: {} }; e[i][0].call(p.exports, function (r) { return o(e[i][1][r] || r) }, p, p.exports, r, e, n, t) } return n[i].exports } for (var u = "function" == typeof require && require, i = 0; i < t.length; i++)o(t[i]); return o }({ 1: [function (require, module, exports) { "use strict"; module.exports = function () { if (!navigator.userAgent.match(/iphone|ipod|ipad/i)) return function () { return window.innerHeight }; var ruler, axis = Math.abs(window.orientation), dims = { w: 0, h: 0 }; return (ruler = document.createElement("div")).style.position = "fixed", ruler.style.height = "100vh", ruler.style.width = 0, ruler.style.top = 0, document.documentElement.appendChild(ruler), dims.w = 90 === axis ? ruler.offsetHeight : window.innerWidth, dims.h = 90 === axis ? window.innerWidth : ruler.offsetHeight, document.documentElement.removeChild(ruler), ruler = null, function () { return 90 !== Math.abs(window.orientation) ? dims.h : dims.w } }() }, {}] }, {}, [1])(1) });
+/**
+ * iOS innerHeight Polyfill
+ * Provides accurate innerHeight for iOS devices to handle viewport quirks
+ */
+(function() {
+  'use strict';
+
+  // Return early if not iOS
+  if (!navigator.userAgent.match(/iphone|ipod|ipad/i)) {
+    window.iosInnerHeight = function() {
+      return window.innerHeight;
+    };
+    return;
+  }
+
+  // Cache dimensions to avoid repeated DOM manipulation
+  const dims = { w: 0, h: 0 };
+  
+  // Create temporary ruler element once
+  const ruler = document.createElement('div');
+  ruler.style.cssText = 'position:fixed;height:100vh;width:0;top:0;pointer-events:none;';
+  
+  // Append, measure, and remove
+  document.documentElement.appendChild(ruler);
+  
+  const axis = Math.abs(window.orientation);
+  dims.w = axis === 90 ? ruler.offsetHeight : window.innerWidth;
+  dims.h = axis === 90 ? window.innerWidth : ruler.offsetHeight;
+  
+  document.documentElement.removeChild(ruler);
+
+  // Return cached dimension based on orientation
+  window.iosInnerHeight = function() {
+    return Math.abs(window.orientation) === 90 ? dims.w : dims.h;
+  };
+})();
