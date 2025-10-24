@@ -19,8 +19,20 @@
       }
     }
 
+    // throttle function to limit scroll handler calls
+    function throttle(func, limit) {
+      let inThrottle;
+      return function() {
+        if (!inThrottle) {
+          func.apply(this, arguments);
+          inThrottle = true;
+          setTimeout(() => inThrottle = false, limit);
+        }
+      }
+    }
+
     // scrolling event
-    document.addEventListener("scroll", scrollHandler);
+    document.addEventListener("scroll", throttle(scrollHandler, 100), { passive: true });
 
     function scrollHandler() {
       // scroll hint
