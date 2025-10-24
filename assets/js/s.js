@@ -19,18 +19,33 @@
       }
     }
 
-    // scrolling event
-    document.addEventListener("scroll", scrollHandler);
+    // throttle function to limit scroll handler execution
+    function throttle(func, limit) {
+      let inThrottle;
+      return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+          func.apply(context, args);
+          inThrottle = true;
+          setTimeout(() => inThrottle = false, limit);
+        }
+      }
+    }
 
+    // scrolling event with throttling
     function scrollHandler() {
-      // scroll hint
-      let scroll = document.scrollingElement.scrollTop;
+      // cache scroll value to avoid repeated DOM access
+      const scroll = document.scrollingElement.scrollTop;
 
       // hide arrow when needed
       if (scroll >= arrowTreshold && arrow) {
         arrow.classList.remove("visible");
       }
     }
+
+    // throttle scroll handler to run at most every 100ms
+    document.addEventListener("scroll", throttle(scrollHandler, 100));
 
     // initialize scroll hint
     showScrollHint(3);
