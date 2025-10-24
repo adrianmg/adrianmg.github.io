@@ -19,18 +19,28 @@
       }
     }
 
-    // scrolling event
-    document.addEventListener("scroll", scrollHandler);
-
+    // Throttle scroll events for better performance
+    let scrollTimeout;
     function scrollHandler() {
-      // scroll hint
-      let scroll = document.scrollingElement.scrollTop;
+      if (scrollTimeout) return;
+      
+      scrollTimeout = setTimeout(function() {
+        scrollTimeout = null;
+        
+        // scroll hint
+        let scroll = document.scrollingElement.scrollTop;
 
-      // hide arrow when needed
-      if (scroll >= arrowTreshold && arrow) {
-        arrow.classList.remove("visible");
-      }
+        // hide arrow when needed
+        if (scroll >= arrowTreshold && arrow) {
+          arrow.classList.remove("visible");
+          // Remove listener once arrow is hidden to improve performance
+          document.removeEventListener("scroll", scrollHandler);
+        }
+      }, 100);
     }
+
+    // scrolling event
+    document.addEventListener("scroll", scrollHandler, { passive: true });
 
     // initialize scroll hint
     showScrollHint(3);
@@ -43,17 +53,18 @@
     const start = window.pageYOffset;
     const startTime = "now" in window.performance ? performance.now() : new Date().getTime();
 
+    // Cache document element references for better performance
+    const docElement = document.documentElement;
+    const body = document.body;
+    
     const documentHeight = Math.max(
-      document.body.scrollHeight,
-      document.body.offsetHeight,
-      document.documentElement.clientHeight,
-      document.documentElement.scrollHeight,
-      document.documentElement.offsetHeight
+      body.scrollHeight,
+      body.offsetHeight,
+      docElement.clientHeight,
+      docElement.scrollHeight,
+      docElement.offsetHeight
     );
-    const windowHeight =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.getElementsByTagName("body")[0].clientHeight;
+    const windowHeight = window.innerHeight || docElement.clientHeight || body.clientHeight;
     const destinationOffset =
       typeof destination === "number" ? destination : destination.offsetTop;
     let destinationOffsetToScroll = Math.round(
@@ -81,13 +92,16 @@
         Math.ceil(timeFunction * (destinationOffsetToScroll - start) + start)
       );
 
+      const currentOffset = Math.round(window.pageYOffset);
+      const targetOffset = Math.ceil(destinationOffsetToScroll);
+
       if (start >= destinationOffsetToScroll) { // going up
-        if (Math.round(window.pageYOffset) <= Math.ceil(destinationOffsetToScroll)) {
+        if (currentOffset <= targetOffset) {
           return;
         }
       }
       else { // going down
-        if (Math.round(window.pageYOffset) >= Math.ceil(destinationOffsetToScroll)) {
+        if (currentOffset >= targetOffset) {
           return;
         }
       }
