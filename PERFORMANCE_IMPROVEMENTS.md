@@ -84,10 +84,18 @@ Removed empty keyframe steps from `home-intro-scroll`:
 ## Performance Impact
 
 ### Estimated Improvements:
-- **Initial Page Load**: 15-20% faster
-- **Scroll Performance**: 30-40% smoother
-- **Resource Caching**: Better browser caching for scripts
-- **CSS Size**: ~5% smaller
+
+**Note**: These are estimated improvements based on common web performance patterns. Actual results may vary based on network conditions, device, and browser.
+
+- **Initial Page Load**: 15-20% faster (based on removal of inline script and deferred loading)
+- **Scroll Performance**: 30-40% smoother (based on throttling and event listener optimization)
+- **Resource Caching**: Improved browser caching for extracted JavaScript
+- **CSS Size**: ~5% smaller (14 lines removed from animations)
+
+To measure actual improvements, use:
+- Chrome DevTools Lighthouse
+- WebPageTest.org
+- Chrome DevTools Performance tab for scroll performance
 
 ### Browser Benefits:
 - Faster HTML parsing (no large inline scripts)
@@ -105,14 +113,31 @@ Removed empty keyframe steps from `home-intro-scroll`:
 
 ## Browser Compatibility
 
-All changes use standard web APIs and are compatible with:
-- Chrome/Edge 61+
-- Firefox 55+
-- Safari 11+
-- iOS Safari 11+
+All changes use standard web APIs supported by modern browsers:
+- Chrome/Edge 90+ (2021+)
+- Firefox 88+ (2021+)
+- Safari 14+ (2020+)
+- iOS Safari 14+ (2020+)
+
+Older browsers will still work but may not receive all performance benefits:
+- Defer attribute: Supported since Chrome 61, Firefox 55, Safari 11
+- Passive event listeners: Supported since Chrome 51, Firefox 49, Safari 10
+- Font loading technique: Requires JavaScript (noscript fallback provided)
 
 ## Maintenance Notes
 
-- The terminal.js file is minified/obfuscated - consider keeping source version
-- Scroll throttle delay (100ms) can be adjusted if needed
-- Font loading technique requires JavaScript (has noscript fallback)
+### Source Code Management
+- The terminal.js file is minified/obfuscated
+- **Recommendation**: Keep an unminified source version in a separate location
+  - Store source at: `assets/pewpew/js/terminal.source.js` or in version control
+  - Add build step to minify if changes are needed
+  - Document the minification process in project README
+
+### Configuration Options
+- Scroll throttle delay (100ms) can be adjusted in `assets/js/s.js` if needed
+  - Lower values (50ms) = more responsive but higher CPU usage
+  - Higher values (150ms) = better performance but less responsive
+
+### Font Loading
+- Font loading technique requires JavaScript (noscript fallback provided)
+- If JavaScript is disabled, fonts will still load but may cause layout shift
