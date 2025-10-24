@@ -7,7 +7,7 @@
   if (isHome) {
     let arrow = document.querySelector('.home-intro-scroll');
     const arrowTreshold = 100; // when stops being visible
-    const scrollingElement = document.scrollingElement;
+    const scrollingElement = document.scrollingElement || document.documentElement;
     let ticking = false;
 
     // scroll hint
