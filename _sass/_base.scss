@@ -127,8 +127,8 @@ ul{
 a {
   color: var(--brand-color);
   text-decoration: none;
-  -webkit-transition: none;
-          transition: none;
+  -webkit-transition: color 0s, text-decoration 0s;
+          transition: color 0s, text-decoration 0s;
 
   &:visited {
     color: var(--brand-color);

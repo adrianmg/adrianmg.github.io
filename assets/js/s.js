@@ -19,8 +19,8 @@
       }
     }
 
-    // scrolling event
-    document.addEventListener("scroll", scrollHandler);
+    // scrolling event with passive listener for better performance
+    document.addEventListener("scroll", scrollHandler, { passive: true });
 
     function scrollHandler() {
       // scroll hint
@@ -43,6 +43,7 @@
     const start = window.pageYOffset;
     const startTime = "now" in window.performance ? performance.now() : new Date().getTime();
 
+    // Cache document height calculations
     const documentHeight = Math.max(
       document.body.scrollHeight,
       document.body.offsetHeight,
@@ -60,7 +61,8 @@
       documentHeight - destinationOffset < windowHeight
         ? documentHeight - windowHeight
         : destinationOffset
-    )
+    );
+    
     if (start >= destinationOffsetToScroll) { // going up
       destinationOffsetToScroll -= extraPadding;
     }
@@ -81,13 +83,16 @@
         Math.ceil(timeFunction * (destinationOffsetToScroll - start) + start)
       );
 
+      const currentPosition = Math.round(window.pageYOffset);
+      const targetPosition = Math.ceil(destinationOffsetToScroll);
+      
       if (start >= destinationOffsetToScroll) { // going up
-        if (Math.round(window.pageYOffset) <= Math.ceil(destinationOffsetToScroll)) {
+        if (currentPosition <= targetPosition) {
           return;
         }
       }
       else { // going down
-        if (Math.round(window.pageYOffset) >= Math.ceil(destinationOffsetToScroll)) {
+        if (currentPosition >= targetPosition) {
           return;
         }
       }
