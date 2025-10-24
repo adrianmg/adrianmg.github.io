@@ -176,3 +176,22 @@ a {
 .h-bradius {
   border-radius: .1rem;
 }
+
+/**
+ * Transition Mixins
+ */
+@mixin transition($speed: var(--base-trans)) {
+  transition: all $speed ease-in-out;
+}
+
+%transition-base {
+  @include transition(var(--base-trans));
+}
+
+%transition-mid {
+  @include transition(var(--base-trans-mid));
+}
+
+%transition-slow {
+  @include transition(var(--base-trans-slow));
+}
