@@ -147,21 +147,38 @@ font-feature-settings: "kern" 1;
 ```scss
 // Before: Nested queries
 @media screen and (max-width: 380px) {
-  // ... styles ...
+  html {
+    font-size: 59.85%;
+  }
+  .home-work-grid__project-screenshot {
+    margin-bottom: 5.2rem;
+  }
   
-  @media only screen and (min-device-width: 375px) ... {
-    // This would never match!
+  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+    // This would never match because it's nested inside max-width: 380px
+    // but requires min-device-width: 375px
+    .home-intro-bio {
+      min-height: 80vh;
+    }
   }
 }
 
 // After: Flattened structure
 @media screen and (max-width: 380px) {
-  // ... styles ...
+  html {
+    font-size: 59.85%;
+  }
+  .home-work-grid__project-screenshot {
+    margin-bottom: 5.2rem;
+  }
 }
 
 // Separate, properly scoped query
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (max-width: 380px) {
-  // Now properly scoped
+  // Now properly scoped with explicit max-width
+  .home-intro-bio {
+    min-height: 80vh;
+  }
 }
 ```
 
