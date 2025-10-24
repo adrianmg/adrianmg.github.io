@@ -19,18 +19,45 @@
       }
     }
 
-    // scrolling event
-    document.addEventListener("scroll", scrollHandler);
+    // Throttle function to limit scroll event execution
+    function throttle(func, wait) {
+      let timeout;
+      let previous = 0;
+      
+      return function() {
+        const now = Date.now();
+        const remaining = wait - (now - previous);
+        
+        if (remaining <= 0 || remaining > wait) {
+          if (timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+          }
+          previous = now;
+          func();
+        } else if (!timeout) {
+          timeout = setTimeout(function() {
+            previous = Date.now();
+            timeout = null;
+            func();
+          }, remaining);
+        }
+      };
+    }
 
+    // scrolling event handler
     function scrollHandler() {
-      // scroll hint
-      let scroll = document.scrollingElement.scrollTop;
+      // Cache scroll position
+      const scroll = document.scrollingElement.scrollTop;
 
       // hide arrow when needed
       if (scroll >= arrowTreshold && arrow) {
         arrow.classList.remove("visible");
       }
     }
+
+    // Add throttled scroll listener with passive flag for better performance
+    document.addEventListener("scroll", throttle(scrollHandler, 100), { passive: true });
 
     // initialize scroll hint
     showScrollHint(3);

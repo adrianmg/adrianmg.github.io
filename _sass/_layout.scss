@@ -6,12 +6,15 @@ body {
   --body-padding: 5.6rem;
 
   padding: 0 var(--body-padding);
-  animation: body-animation 1.6s;
+  animation: body-animation 1.6s forwards;
 }
 
 @keyframes body-animation {
   from {
     opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -144,6 +147,10 @@ pre {
   }
   75% {
   }
+}
+
+.home-intro-scroll.visible {
+  will-change: transform;
 }
 
 @keyframes navigation-animation {
