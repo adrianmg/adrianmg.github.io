@@ -7,6 +7,7 @@
   if (isHome) {
     let arrow = document.querySelector('.home-intro-scroll');
     const arrowTreshold = 100; // when stops being visible
+    let ticking = false;
 
     // scroll hint
     function showScrollHint(seconds) {
@@ -19,10 +20,20 @@
       }
     }
 
-    // scrolling event
-    document.addEventListener("scroll", scrollHandler);
+    // scrolling event with requestAnimationFrame throttling
+    document.addEventListener("scroll", scrollHandler, { passive: true });
 
     function scrollHandler() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          updateScrollPosition();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    function updateScrollPosition() {
       // scroll hint
       let scroll = document.scrollingElement.scrollTop;
 
@@ -41,21 +52,19 @@
   // HELPERS: scrolling function from A -> B (modified from: https://bit.ly/2H3JKMV)
   function scrollToItem(destination, duration = 500, extraPadding) {
     const start = window.pageYOffset;
-    const startTime = "now" in window.performance ? performance.now() : new Date().getTime();
+    const startTime = performance.now();
+    const documentElement = document.documentElement;
+    const body = document.body;
 
     const documentHeight = Math.max(
-      document.body.scrollHeight,
-      document.body.offsetHeight,
-      document.documentElement.clientHeight,
-      document.documentElement.scrollHeight,
-      document.documentElement.offsetHeight
+      body.scrollHeight,
+      body.offsetHeight,
+      documentElement.clientHeight,
+      documentElement.scrollHeight,
+      documentElement.offsetHeight
     );
-    const windowHeight =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.getElementsByTagName("body")[0].clientHeight;
-    const destinationOffset =
-      typeof destination === "number" ? destination : destination.offsetTop;
+    const windowHeight = window.innerHeight || documentElement.clientHeight || body.clientHeight;
+    const destinationOffset = typeof destination === "number" ? destination : destination.offsetTop;
     let destinationOffsetToScroll = Math.round(
       documentHeight - destinationOffset < windowHeight
         ? documentHeight - windowHeight
@@ -65,15 +74,13 @@
       destinationOffsetToScroll -= extraPadding;
     }
 
-    if ("requestAnimationFrame" in window === false) {
+    if (!window.requestAnimationFrame) {
       window.scroll(0, destinationOffsetToScroll);
       return;
     }
 
     function scroll() {
-      const now =
-        "now" in window.performance ? performance.now() : new Date().getTime();
-
+      const now = performance.now();
       const time = Math.min(1, (now - startTime) / duration);
       const timeFunction = 0.5 * (1 - Math.cos(Math.PI * time));
       window.scroll(
