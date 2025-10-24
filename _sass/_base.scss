@@ -107,17 +107,17 @@ ul{
 
 
 /**
- * Mixins
+ * Reusable Placeholders
  */
 
-// Mixin for common link hover effect
+// Placeholder for common link hover effect
 %link-hover-brand {
   &:hover {
     color: var(--brand-color);
   }
 }
 
-// Mixin for link with underlay effect
+// Placeholder for link with underlay effect
 %link-with-underlay {
   position: relative;
   text-decoration: none;
