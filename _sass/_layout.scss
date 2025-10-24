@@ -94,11 +94,8 @@ pre {
   text-decoration: none;
   padding: 2rem 1.4rem;
   position: relative;
-  transition: all var(--base-trans-slow) ease-in-out;
-}
-
-.home-navigation a:hover {
-  color: var(--brand-color);
+  @extend %transition-slow;
+  @extend %link-hover-brand;
 }
 
 @keyframes home-intro-desc-animation {
@@ -114,7 +111,7 @@ pre {
   fill: var(--text-color);
   visibility: hidden;
   opacity: 0;
-  transition: all var(--base-trans) ease-in-out;
+  @extend %transition-standard;
   position: fixed;
   bottom: 5.2rem;
   right: 4.8rem;
@@ -189,7 +186,7 @@ pre {
     color: var(--title-color);
     text-decoration: none;
     outline: none;
-    transition: all var(--base-trans-slow) ease-in-out;
+    @extend %transition-slow;
   }
 }
 
@@ -203,8 +200,8 @@ pre {
   color: var(--text-color);
 }
 
-.home-work-grid__project-description a:hover {
-  color: var(--brand-color);
+.home-work-grid__project-description a {
+  @extend %link-hover-brand;
 }
 
 .home-work-grid__project-screenshot {
@@ -259,24 +256,8 @@ pre {
 }
 
 .post a {
-  position: relative;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all var(--base-trans) ease-in-out;
-}
-
-.post a:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  transition: all var(--base-trans) ease-in-out;
-}
-
-.post a:hover:before {
-  background-color: rgba(var(--brand-color-rgb), 0.08);
+  @extend %link-with-underlay;
+  @extend %link-hover-brand;
 }
 
 .post p a,
