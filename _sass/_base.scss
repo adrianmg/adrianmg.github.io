@@ -173,6 +173,11 @@ a {
   border-bottom: .5px dotted rgba($color: var(--text-color), $alpha: .15);
 }
 
+%container {
+  max-width: var(--base-max-width);
+  margin: 0 auto;
+}
+
 .h-bradius {
   border-radius: .1rem;
 }
