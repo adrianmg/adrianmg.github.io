@@ -469,6 +469,7 @@ pre {
     --body-padding: 3.2rem;
   }
 }
+
 @media screen and (max-width: 560px) {
   // mobile-XL
   .home-intro-scroll.visible {
@@ -478,8 +479,9 @@ pre {
     display: none;
   }
 }
+
 @media screen and (max-width: 480px) {
-  // mobile-XL intermediate (yes… I know)
+  // mobile-XL intermediate
   body {
     --body-padding: 2.4rem;
   }
@@ -487,6 +489,7 @@ pre {
     display: none;
   }
 }
+
 @media screen and (max-width: 380px) {
   // mobile-L
   html {
@@ -501,20 +504,6 @@ pre {
   .home-work-grid__project-description {
     margin-bottom: 4.1rem;
   }
-
-  // iPhones
-  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
-    .home-intro-bio {
-      min-height: 80vh;
-    }
-  }
-
-  // iPhoneX
-  @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
-    .home-intro-bio {
-      min-height: 77vh;
-    }
-  }
 }
 
 @media screen and (max-width: 360px) {
@@ -526,6 +515,7 @@ pre {
     --body-padding: 1.6rem;
   }
 }
+
 @media screen and (max-width: 320px) {
   // mobile-S (body-font 20px)
   html {
@@ -535,8 +525,25 @@ pre {
     display: none;
   }
 }
+
+// Specific device queries - moved outside of nested queries for better performance
+// iPhones (standard)
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (max-width: 380px) {
+  .home-intro-bio {
+    min-height: 80vh;
+  }
+}
+
+// iPhoneX and newer
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (max-width: 380px) {
+  .home-intro-bio {
+    min-height: 77vh;
+  }
+}
+
+// Firefox-specific fix for image loading
 @-moz-document url-prefix() {
   img:-moz-loading {
     visibility: hidden;
   }
-} // fixes Firefox anomaly during image load
+}
