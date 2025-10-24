@@ -7,6 +7,7 @@
   if (isHome) {
     let arrow = document.querySelector('.home-intro-scroll');
     const arrowTreshold = 100; // when stops being visible
+    let ticking = false; // for requestAnimationFrame throttling
 
     // scroll hint
     function showScrollHint(seconds) {
@@ -19,18 +20,23 @@
       }
     }
 
-    // scrolling event
-    document.addEventListener("scroll", scrollHandler);
-
+    // optimized scroll handler using requestAnimationFrame
     function scrollHandler() {
-      // scroll hint
-      let scroll = document.scrollingElement.scrollTop;
-
-      // hide arrow when needed
-      if (scroll >= arrowTreshold && arrow) {
-        arrow.classList.remove("visible");
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          // hide arrow when needed
+          const scroll = document.scrollingElement.scrollTop;
+          if (scroll >= arrowTreshold && arrow) {
+            arrow.classList.remove("visible");
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     }
+
+    // scrolling event with passive listener for better performance
+    document.addEventListener("scroll", scrollHandler, { passive: true });
 
     // initialize scroll hint
     showScrollHint(3);
@@ -39,10 +45,11 @@
   // HELPERS
 
   // HELPERS: scrolling function from A -> B (modified from: https://bit.ly/2H3JKMV)
-  function scrollToItem(destination, duration = 500, extraPadding) {
+  function scrollToItem(destination, duration = 500, extraPadding = 0) {
     const start = window.pageYOffset;
-    const startTime = "now" in window.performance ? performance.now() : new Date().getTime();
+    const startTime = performance.now();
 
+    // Cache document height calculation
     const documentHeight = Math.max(
       document.body.scrollHeight,
       document.body.offsetHeight,
@@ -50,49 +57,37 @@
       document.documentElement.scrollHeight,
       document.documentElement.offsetHeight
     );
-    const windowHeight =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.getElementsByTagName("body")[0].clientHeight;
+    const windowHeight = window.innerHeight;
     const destinationOffset =
       typeof destination === "number" ? destination : destination.offsetTop;
     let destinationOffsetToScroll = Math.round(
       documentHeight - destinationOffset < windowHeight
         ? documentHeight - windowHeight
         : destinationOffset
-    )
+    );
+    
     if (start >= destinationOffsetToScroll) { // going up
       destinationOffsetToScroll -= extraPadding;
     }
 
-    if ("requestAnimationFrame" in window === false) {
-      window.scroll(0, destinationOffsetToScroll);
-      return;
-    }
-
     function scroll() {
-      const now =
-        "now" in window.performance ? performance.now() : new Date().getTime();
-
+      const now = performance.now();
       const time = Math.min(1, (now - startTime) / duration);
       const timeFunction = 0.5 * (1 - Math.cos(Math.PI * time));
+      
       window.scroll(
         0,
         Math.ceil(timeFunction * (destinationOffsetToScroll - start) + start)
       );
 
-      if (start >= destinationOffsetToScroll) { // going up
-        if (Math.round(window.pageYOffset) <= Math.ceil(destinationOffsetToScroll)) {
-          return;
-        }
-      }
-      else { // going down
-        if (Math.round(window.pageYOffset) >= Math.ceil(destinationOffsetToScroll)) {
-          return;
-        }
-      }
+      const currentScroll = Math.round(window.pageYOffset);
+      const targetReached = start >= destinationOffsetToScroll
+        ? currentScroll <= Math.ceil(destinationOffsetToScroll)  // going up
+        : currentScroll >= Math.ceil(destinationOffsetToScroll); // going down
 
-      requestAnimationFrame(scroll);
+      if (!targetReached) {
+        requestAnimationFrame(scroll);
+      }
     }
 
     scroll();
