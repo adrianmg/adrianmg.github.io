@@ -7,6 +7,7 @@
   if (isHome) {
     let arrow = document.querySelector('.home-intro-scroll');
     const arrowTreshold = 100; // when stops being visible
+    let ticking = false;
 
     // scroll hint
     function showScrollHint(seconds) {
@@ -19,8 +20,16 @@
       }
     }
 
-    // scrolling event
-    document.addEventListener("scroll", scrollHandler);
+    // scrolling event with RAF throttling
+    document.addEventListener("scroll", function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          scrollHandler();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
 
     function scrollHandler() {
       // scroll hint
