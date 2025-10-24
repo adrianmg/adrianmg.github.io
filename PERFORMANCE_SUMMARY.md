@@ -16,7 +16,7 @@ let ticking = false;
 document.addEventListener("scroll", function() {
   if (!ticking) {
     window.requestAnimationFrame(function() {
-      scrollHandler();
+      handleScroll(); // Your scroll handler function
       ticking = false;
     });
     ticking = true;
@@ -25,7 +25,7 @@ document.addEventListener("scroll", function() {
 ```
 
 **Benefits:**
-- Reduces scroll handler calls to ~60fps maximum (aligned with display refresh rate)
+- Reduces scroll handler execution to display refresh rate (typically 60Hz, but adapts to 120Hz+ displays)
 - Prevents main thread blocking during scroll
 - Passive listener improves scroll performance
 - Reduces CPU usage during scrolling
@@ -138,7 +138,9 @@ document.addEventListener("scroll", function() {
 
 ## Expected Performance Improvements
 
-### Core Web Vitals Impact
+**Note:** The following are estimated improvements based on web performance best practices. Actual results will vary depending on device capabilities, network conditions, content size, and other factors. Measure with real-world testing tools like Lighthouse, WebPageTest, or PageSpeed Insights for specific results.
+
+### Core Web Vitals Impact (Estimated)
 - **First Contentful Paint (FCP):** 200-500ms improvement from non-blocking fonts
 - **Largest Contentful Paint (LCP):** 100-300ms improvement from content-visibility
 - **Cumulative Layout Shift (CLS):** No change (already optimized)
@@ -149,7 +151,7 @@ document.addEventListener("scroll", function() {
 - **JavaScript Size:** -4KB (removed ios.js)
 - **HTTP Requests:** -1 (removed ios.js)
 - **Font Loading:** Non-blocking (async loading)
-- **Scroll Performance:** ~16ms per frame (60fps aligned)
+- **Scroll Performance:** Aligned with display refresh rate
 
 ## Security Analysis
 ✅ No security vulnerabilities found (CodeQL scan passed)
