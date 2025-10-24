@@ -38,12 +38,12 @@
 
   // HELPERS
 
-  // HELPERS: Get current time in milliseconds
+  // Get current time in milliseconds
   function getCurrentTime() {
     return "now" in window.performance ? performance.now() : new Date().getTime();
   }
 
-  // HELPERS: scrolling function from A -> B (modified from: https://bit.ly/2H3JKMV)
+  // scrolling function from A -> B (modified from: https://bit.ly/2H3JKMV)
   function scrollToItem(destination, duration = 500, extraPadding) {
     const start = window.pageYOffset;
     const startTime = getCurrentTime();
