@@ -16,7 +16,7 @@
 /**
  * Reset some basic elements
  */
-* { padding: 0; margin: 0; -moz-box-sizing: border-box; box-sizing: border-box; }
+* { padding: 0; margin: 0; box-sizing: border-box; }
 
 html {
   font-size: 62.5%;
@@ -127,8 +127,7 @@ ul{
 a {
   color: var(--brand-color);
   text-decoration: none;
-  -webkit-transition: none;
-          transition: none;
+  transition: none;
 
   &:visited {
     color: var(--brand-color);
