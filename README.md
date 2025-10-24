@@ -6,3 +6,22 @@
 [![adrianmato.com](/assets/preview.png)](https://adrianmato.com)
 
 [Visit my website](https://adrianmato.com)
+
+---
+
+## 😄 Developer Jokes
+
+**Why do programmers prefer dark mode?**  
+Because light attracts bugs! 🐛
+
+**How many programmers does it take to change a light bulb?**  
+None. It's a hardware problem. 💡
+
+**Why do Java developers wear glasses?**  
+Because they don't C#! 👓
+
+**What's a programmer's favorite hangout place?**  
+The Foo Bar! 🍺
+
+**Why did the developer go broke?**  
+Because they used up all their cache! 💸
