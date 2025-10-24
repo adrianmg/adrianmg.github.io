@@ -1,0 +1,15 @@
+<div class="home-work-grid__project">
+    {% if include.is_first %}
+    <a name="home-work" class="home-work-grid__anchor" id="home-work"></a>
+    {% endif %}
+    <div class="home-work-grid__project-description">
+        <h2><a id="{{ include.project.id }}" href="#{{ include.project.id }}">{{ include.project.title }}</a></h2>
+        <h3>{{ include.project.role }}</h3>
+        <p>{{ include.project.description }}</p>
+    </div>
+    {% for screenshot in include.project.screenshots %}
+    <figure class="home-work-grid__project-screenshot">
+        <img {% if screenshot.loading %}loading="{{ screenshot.loading }}" {% endif %}{% if screenshot.class %}class="{{ screenshot.class }}" {% endif %}src="{{ screenshot.url | relative_url }}" width="{{ screenshot.width }}" height="{{ screenshot.height }}" alt="{{ screenshot.alt }}">
+    </figure>
+    {% endfor %}
+</div>
