@@ -1,7 +1,7 @@
 # adrianmato.com
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9482eaf2-54d5-4ee5-a190-5da6e2226aeb/deploy-status)](https://app.netlify.com/sites/adrianmato/deploys)
 
-*Personal website based on Dr Jekyll and Mr Hide running a custom theme.*
+*Personal website based on Dr Jekyll and Mr Hyde running a custom theme.*
 
 > **Fun fact:** This site is powered by Jekyll. Not to be confused with Mr. Hyde, who handles the CSS... and occasionally the bugs. 🐛
 
