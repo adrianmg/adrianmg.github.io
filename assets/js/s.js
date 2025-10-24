@@ -19,8 +19,27 @@
       }
     }
 
-    // scrolling event
-    document.addEventListener("scroll", scrollHandler);
+    // Throttle function to limit scroll event firing
+    function throttle(func, wait) {
+      let timeout;
+      let lastRan;
+      return function executedFunction() {
+        const context = this;
+        const args = arguments;
+        if (!lastRan) {
+          func.apply(context, args);
+          lastRan = Date.now();
+        } else {
+          clearTimeout(timeout);
+          timeout = setTimeout(function() {
+            if ((Date.now() - lastRan) >= wait) {
+              func.apply(context, args);
+              lastRan = Date.now();
+            }
+          }, wait - (Date.now() - lastRan));
+        }
+      };
+    }
 
     function scrollHandler() {
       // scroll hint
@@ -31,6 +50,9 @@
         arrow.classList.remove("visible");
       }
     }
+
+    // scrolling event with throttling (100ms) and passive listener for better performance
+    document.addEventListener("scroll", throttle(scrollHandler, 100), { passive: true });
 
     // initialize scroll hint
     showScrollHint(3);
