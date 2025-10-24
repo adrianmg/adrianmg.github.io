@@ -35,8 +35,7 @@ pre {
  */
 
 .home-intro {
-  max-width: var(--base-max-width);
-  margin: 0 auto;
+  @extend %container;
   @extend %font-body;
 }
 
@@ -75,14 +74,13 @@ pre {
 }
 
 .home-navigation ul {
-  max-width: var(--base-max-width);
+  @extend %container;
   @extend %font-xs;
   font-weight: 600;
   line-height: 2.8rem;
   text-transform: uppercase;
   position: relative;
   left: -1.4rem;
-  margin: 0 auto;
 }
 
 .home-navigation li {
@@ -158,8 +156,7 @@ pre {
  */
 
 .home-work-grid {
-  max-width: var(--base-max-width);
-  margin: 0 auto;
+  @extend %container;
 }
 
 .home-work-grid__anchor {
