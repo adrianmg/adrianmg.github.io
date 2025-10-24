@@ -7,10 +7,12 @@
   if (isHome) {
     let arrow = document.querySelector('.home-intro-scroll');
     const arrowTreshold = 100; // when stops being visible
+    const scrollingElement = document.scrollingElement || document.documentElement;
+    let ticking = false;
 
     // scroll hint
     function showScrollHint(seconds) {
-      if (arrow && document.scrollingElement.scrollTop <= arrowTreshold) {
+      if (arrow && scrollingElement.scrollTop <= arrowTreshold) {
         setTimeout(function() {
           if (arrow) {
             arrow.classList.add("visible");
@@ -19,18 +21,28 @@
       }
     }
 
-    // scrolling event
-    document.addEventListener("scroll", scrollHandler);
-
+    // scrolling event handler - optimized with requestAnimationFrame throttling
     function scrollHandler() {
-      // scroll hint
-      let scroll = document.scrollingElement.scrollTop;
-
       // hide arrow when needed
+      const scroll = scrollingElement.scrollTop;
+      
       if (scroll >= arrowTreshold && arrow) {
         arrow.classList.remove("visible");
       }
+      
+      ticking = false;
     }
+
+    // Throttled scroll event listener using requestAnimationFrame
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(scrollHandler);
+        ticking = true;
+      }
+    }
+
+    // Add passive listener for better scroll performance
+    document.addEventListener("scroll", onScroll, { passive: true });
 
     // initialize scroll hint
     showScrollHint(3);
