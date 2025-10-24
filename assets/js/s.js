@@ -7,6 +7,7 @@
   if (isHome) {
     let arrow = document.querySelector('.home-intro-scroll');
     const arrowTreshold = 100; // when stops being visible
+    let scrollTimeout;
 
     // scroll hint
     function showScrollHint(seconds) {
@@ -19,17 +20,26 @@
       }
     }
 
-    // scrolling event
-    document.addEventListener("scroll", scrollHandler);
+    // scrolling event with throttling
+    document.addEventListener("scroll", scrollHandler, { passive: true });
 
     function scrollHandler() {
-      // scroll hint
-      let scroll = document.scrollingElement.scrollTop;
-
-      // hide arrow when needed
-      if (scroll >= arrowTreshold && arrow) {
-        arrow.classList.remove("visible");
+      // Throttle scroll events to improve performance
+      if (scrollTimeout) {
+        return;
       }
+      
+      scrollTimeout = setTimeout(function() {
+        scrollTimeout = null;
+        
+        // scroll hint
+        let scroll = document.scrollingElement.scrollTop;
+
+        // hide arrow when needed
+        if (scroll >= arrowTreshold && arrow) {
+          arrow.classList.remove("visible");
+        }
+      }, 100);
     }
 
     // initialize scroll hint
@@ -43,17 +53,9 @@
     const start = window.pageYOffset;
     const startTime = "now" in window.performance ? performance.now() : new Date().getTime();
 
-    const documentHeight = Math.max(
-      document.body.scrollHeight,
-      document.body.offsetHeight,
-      document.documentElement.clientHeight,
-      document.documentElement.scrollHeight,
-      document.documentElement.offsetHeight
-    );
-    const windowHeight =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.getElementsByTagName("body")[0].clientHeight;
+    // Cache commonly used values
+    const documentHeight = document.documentElement.scrollHeight;
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
     const destinationOffset =
       typeof destination === "number" ? destination : destination.offsetTop;
     let destinationOffsetToScroll = Math.round(
