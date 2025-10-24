@@ -6,3 +6,19 @@
 [![adrianmato.com](/assets/preview.png)](https://adrianmato.com)
 
 [Visit my website](https://adrianmato.com)
+
+---
+
+## 😄 Developer Jokes
+
+> Why do programmers prefer dark mode?
+> 
+> Because light attracts bugs! 🐛
+
+> Why did the developer go broke?
+> 
+> Because he used up all his cache! 💸
+
+> How many programmers does it take to change a light bulb?
+> 
+> None. It's a hardware problem. 💡
