@@ -6,12 +6,15 @@ body {
   --body-padding: 5.6rem;
 
   padding: 0 var(--body-padding);
-  animation: body-animation 1.6s;
+  animation: body-animation 1.6s forwards;
 }
 
 @keyframes body-animation {
   from {
     opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -94,7 +97,7 @@ pre {
   text-decoration: none;
   padding: 2rem 1.4rem;
   position: relative;
-  transition: all var(--base-trans-slow) ease-in-out;
+  transition: color var(--base-trans-slow) ease-in-out;
 }
 
 .home-navigation a:hover {
@@ -114,7 +117,7 @@ pre {
   fill: var(--text-color);
   visibility: hidden;
   opacity: 0;
-  transition: all var(--base-trans) ease-in-out;
+  transition: opacity var(--base-trans) ease-in-out, visibility var(--base-trans) ease-in-out;
   position: fixed;
   bottom: 5.2rem;
   right: 4.8rem;
@@ -144,6 +147,10 @@ pre {
   }
   75% {
   }
+}
+
+.home-intro-scroll.visible {
+  will-change: transform;
 }
 
 @keyframes navigation-animation {
@@ -189,7 +196,7 @@ pre {
     color: var(--title-color);
     text-decoration: none;
     outline: none;
-    transition: all var(--base-trans-slow) ease-in-out;
+    transition: color var(--base-trans-slow) ease-in-out;
   }
 }
 
@@ -262,7 +269,7 @@ pre {
   position: relative;
   text-decoration: none;
   font-weight: 500;
-  transition: all var(--base-trans) ease-in-out;
+  transition: color var(--base-trans) ease-in-out;
 }
 
 .post a:before {
@@ -272,7 +279,7 @@ pre {
   bottom: 0;
   left: 0;
   right: 0;
-  transition: all var(--base-trans) ease-in-out;
+  transition: background-color var(--base-trans) ease-in-out;
 }
 
 .post a:hover:before {
@@ -426,7 +433,7 @@ pre {
   padding: 1.6rem 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: all var(--base-trans-mid) ease-in-out;
+  transition: padding-left var(--base-trans-mid) ease-in-out, color var(--base-trans-mid) ease-in-out;
 }
 
 .blog-list-item a:before {
