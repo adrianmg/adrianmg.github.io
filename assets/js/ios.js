@@ -18,7 +18,7 @@
   
   // Create temporary ruler element once
   const ruler = document.createElement('div');
-  ruler.style.cssText = 'position:fixed;height:100vh;width:0;top:0;pointer-events:none;';
+  ruler.style.cssText = 'position:fixed;height:100vh;width:0;top:0;pointer-events:none;visibility:hidden;';
   
   // Append, measure, and remove
   document.documentElement.appendChild(ruler);
