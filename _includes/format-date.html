@@ -1,0 +1,6 @@
+{%- comment -%}
+  Usage: {% include format-date.html date=post.date format="%b %-d %Y" %}
+  If no format is provided, defaults to "%B %-d, %Y"
+{%- endcomment -%}
+{%- assign date_format = include.format | default: "%B %-d, %Y" -%}
+{{ include.date | date: date_format }}
