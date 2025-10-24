@@ -101,13 +101,6 @@ pre {
   color: var(--brand-color);
 }
 
-@keyframes home-intro-desc-animation {
-  from {
-    bottom: 4%;
-    opacity: 0;
-  }
-}
-
 .home-intro-scroll {
   width: 1.6rem;
   height: 1.6rem;
@@ -139,13 +132,6 @@ pre {
   }
   65% {
     transform: translateY(0);
-  }
-}
-
-@keyframes navigation-animation {
-  from {
-    bottom: 6.2rem;
-    opacity: 0;
   }
 }
 
