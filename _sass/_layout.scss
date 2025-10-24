@@ -128,11 +128,10 @@ pre {
   animation-duration: 2.5s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
+  will-change: transform;
 }
 
 @keyframes home-intro-scroll {
-  20% {
-  }
   45% {
     transform: translateY(0);
   }
@@ -141,8 +140,6 @@ pre {
   }
   65% {
     transform: translateY(0);
-  }
-  75% {
   }
 }
 
@@ -170,6 +167,8 @@ pre {
 
 .home-work-grid__project {
   margin-bottom: 20.2rem;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
 }
 
 .home-work-grid__project-description {
