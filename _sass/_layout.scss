@@ -13,6 +13,9 @@ body {
   from {
     opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
 }
 
 img {
@@ -128,6 +131,7 @@ pre {
   animation-duration: 2.5s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
+  will-change: transform; // Optimize animation performance
 }
 
 @keyframes home-intro-scroll {
