@@ -176,3 +176,22 @@ a {
 .h-bradius {
   border-radius: .1rem;
 }
+
+/**
+ * Common placeholders for repeated patterns
+ */
+%transition-slow {
+  transition: all var(--base-trans-slow) ease-in-out;
+}
+
+%transition-base {
+  transition: all var(--base-trans) ease-in-out;
+}
+
+%transition-mid {
+  transition: all var(--base-trans-mid) ease-in-out;
+}
+
+%hover-brand-color:hover {
+  color: var(--brand-color);
+}
