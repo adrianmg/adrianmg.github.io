@@ -1,32 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-{% include head.html %}
-<body class="home">
-  <div class="home-intro">
-    <div class="home-intro-bio">
-      <div class="home-intro-bio-desc">
-        <div>
-            <h1>Adrián Mato</h1>
-            <h2>Design Director at GitHub Copilot <span class="ampersand">&amp;</span> startup investor.</h2>
-            <p>
-              For the last 18+ years, I've designed digital products between Madrid, London and now, from
-              San Francisco. I also co-founded and later sold my company Erasmusu.
-            </p>
-            <p>
-              My career started as a Software Developer, but it soon became clear that my true passion was Design.
-              I love combining both skillsets to create products that fulfill a clear purpose.
-            </p>
-        </div>
+---
+layout: default
+---
+<div class="home-intro">
+  <div class="home-intro-bio">
+    <div class="home-intro-bio-desc">
+      <div>
+          <h1>Adrián Mato</h1>
+          <h2>Design Director at GitHub Copilot <span class="ampersand">&amp;</span> startup investor.</h2>
+          <p>
+            For the last 18+ years, I've designed digital products between Madrid, London and now, from
+            San Francisco. I also co-founded and later sold my company Erasmusu.
+          </p>
+          <p>
+            My career started as a Software Developer, but it soon became clear that my true passion was Design.
+            I love combining both skillsets to create products that fulfill a clear purpose.
+          </p>
       </div>
     </div>
-    <svg class="home-intro-scroll" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 18.23l5.584-5.584 1.365 1.365-8.041 8.04-7.857-7.856 1.377-1.376L10 18.391V1h2v17.23z" fill-rule="evenodd"/>
-    </svg>
   </div>
-  {% include home-navigation.html %}
-  {% include home-work.html %}
+  <svg class="home-intro-scroll" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 18.23l5.584-5.584 1.365 1.365-8.041 8.04-7.857-7.856 1.377-1.376L10 18.391V1h2v17.23z" fill-rule="evenodd"/>
+  </svg>
+</div>
+{% include home-navigation.html %}
+{% include home-work.html %}
 
-  <script type="text/javascript" src="/assets/js/ios.js"></script>
-  <script type="text/javascript" src="/assets/js/s.js"></script>
-</body>
-</html>
+{% include home-scripts.html %}

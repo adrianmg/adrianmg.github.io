@@ -38,10 +38,15 @@
 
   // HELPERS
 
+  // HELPERS: Get current time with fallback
+  function getCurrentTime() {
+    return "now" in window.performance ? performance.now() : new Date().getTime();
+  }
+
   // HELPERS: scrolling function from A -> B (modified from: https://bit.ly/2H3JKMV)
   function scrollToItem(destination, duration = 500, extraPadding) {
     const start = window.pageYOffset;
-    const startTime = "now" in window.performance ? performance.now() : new Date().getTime();
+    const startTime = getCurrentTime();
 
     const documentHeight = Math.max(
       document.body.scrollHeight,
@@ -61,7 +66,8 @@
         ? documentHeight - windowHeight
         : destinationOffset
     )
-    if (start >= destinationOffsetToScroll) { // going up
+    const isScrollingUp = start >= destinationOffsetToScroll;
+    if (isScrollingUp) {
       destinationOffsetToScroll -= extraPadding;
     }
 
@@ -71,8 +77,7 @@
     }
 
     function scroll() {
-      const now =
-        "now" in window.performance ? performance.now() : new Date().getTime();
+      const now = getCurrentTime();
 
       const time = Math.min(1, (now - startTime) / duration);
       const timeFunction = 0.5 * (1 - Math.cos(Math.PI * time));
@@ -81,7 +86,7 @@
         Math.ceil(timeFunction * (destinationOffsetToScroll - start) + start)
       );
 
-      if (start >= destinationOffsetToScroll) { // going up
+      if (isScrollingUp) {
         if (Math.round(window.pageYOffset) <= Math.ceil(destinationOffsetToScroll)) {
           return;
         }
