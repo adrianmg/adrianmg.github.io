@@ -9,10 +9,7 @@ excerpt: Unsorted thoughts and strong opinions about Design, programming, side p
   <li class='blog-list-item'>
     <a href="{{ post.url }}">
       <span class='blog-list-item-date'>
-        <time datetime="{{ post.date | date_to_xmlschema }}">
-        {%- assign date_format = date_format | default: "%b %-d %Y" -%}
-        {{ post.date | date: date_format }}
-        </time>
+        {% include date-format.html date=post.date format="%b %-d %Y" %}
       </span>
       <span class='blog-list-item-title'>{{ post.title }}</span>
     </a>
