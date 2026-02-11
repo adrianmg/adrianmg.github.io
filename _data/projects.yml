@@ -1,0 +1,117 @@
+- id: project-pipelines
+  title: "Microsoft: Azure Pipelines"
+  role: "Lead & Design Manager (2018 – 2020)"
+  description: "Leading a team of 5 designers through a major redesign of a 12 years old enterprise product. A new product vision in the CI/CD space for software developers based on a single pipeline experience using YAML."
+  screenshots:
+    - url: /assets/work/pipelines/pipelines-01.png
+      width: 1200px
+      height: 440px
+      alt: "Adrián Mato - Azure Pipelines"
+    - url: /assets/work/pipelines/pipelines-02.png
+      width: 1400px
+      height: 875px
+      alt: "Adrián Mato - Azure Pipelines"
+    - url: /assets/work/pipelines/pipelines-04.png
+      width: 1400px
+      height: 875px
+      alt: "Adrián Mato - Azure Pipelines"
+    - url: /assets/work/pipelines/pipelines-03.png
+      width: 1400px
+      height: 875px
+      alt: "Adrián Mato - Azure Pipelines"
+
+- id: project-microsoft
+  title: "Microsoft: Yammer"
+  role: "Sr. Product Designer (2015 – 2018)"
+  description: "Designing product at the enterprise social network part of Microsoft Office 365. Groups of work, project and files management, social and communication capabilities and more available on mobile, tablet and desktop."
+  screenshots:
+    - url: /assets/work/yammer/yammer-01.webp
+      width: 1200px
+      height: 590px
+      alt: "Adrián Mato - Yammer Office 365"
+    - url: /assets/work/yammer/yammer-04.jpg
+      width: 1200px
+      height: 636px
+      alt: "Adrián Mato - Yammer Office 365"
+      loading: lazy
+      class: h-bradius
+    - url: /assets/work/yammer/yammer-03.webp
+      width: 1200px
+      height: 780px
+      alt: "Adrián Mato - Yammer Office 365"
+      loading: lazy
+    - url: /assets/work/yammer/yammer-02.webp
+      width: 1200px
+      height: 626px
+      alt: "Adrián Mato - Yammer Office 365"
+      loading: lazy
+
+- id: project-fever
+  title: "Fever: a social event discovery tool"
+  role: "Head of Product Design (2013 – 2014)"
+  description: "Leading the product, designing and coordinating the engineering team. People would discover new events based on purchases from friends and other interesting people, avoiding editorial content."
+  screenshots:
+    - url: /assets/work/fever/fever-01.jpg
+      width: 1200px
+      height: 626px
+      alt: "Adrián Mato - Fever"
+      loading: lazy
+    - url: /assets/work/fever/fever-02.webp
+      width: 1200px
+      height: 780px
+      alt: "Adrián Mato - Fever"
+      loading: lazy
+
+- id: project-aplazame
+  title: "Aplazame: deferred online payments made simple"
+  role: "Product Design and Front-End (2014)"
+  description: "Conceptualizing, designing and coding the front-end of an online payment solution that integrates with e-commerce platforms. Deferred payments made easy; you decide when you want to pay and how. Available on mobile, tablet and desktop."
+  screenshots:
+    - url: /assets/work/aplazame/aplazame-01.jpg
+      width: 1200px
+      height: 440px
+      alt: "Adrián Mato - Aplazame"
+      loading: lazy
+    - url: /assets/work/aplazame/aplazame-02.jpg
+      width: 1200px
+      height: 800px
+      alt: "Adrián Mato - Aplazame"
+      loading: lazy
+    - url: /assets/work/aplazame/aplazame-03.webp
+      width: 1200px
+      height: 780px
+      alt: "Adrián Mato - Aplazame"
+      loading: lazy
+
+- id: project-tuenti
+  title: "Tuenti: simplest way of sharing experiences"
+  role: "Senior UI Designer (2012 – 2013)"
+  description: "Designing at the biggest social network in Spain with 14 million users. Including Web, iOS, Android, Windows Phone and PSP. Real-time messages, photos and more, share life with your friends."
+  screenshots:
+    - url: /assets/work/tuenti/tuenti-01.jpg
+      width: 1200px
+      height: 780px
+      alt: "Adrián Mato - Tuenti"
+      loading: lazy
+
+- id: project-pewpew
+  title: "github-pewpew: clean up your GitHub repositories"
+  role: "Personal side project (2021 – 2022)"
+  description: "Designing, coding, and maintaining a CLI tool to clean up unused repositories. It's open-source and published as an npm package. Visit the <a href=\"/pewpew\">website</a> to learn more."
+  screenshots:
+    - url: /assets/work/pewpew/pewpew.webp
+      width: 1200px
+      height: 780px
+      alt: "Adrián Mato - github-pewpew"
+      loading: lazy
+
+- id: project-adrianmatoart
+  title: "adrianmato.art: a creative journey through 3D art"
+  role: "Personal side project (2022)"
+  description: "Designing and coding a project featuring inspiring 3D wallpapers crafted with love using Blender. Available for both Desktop &amp; Mobile. Visit the <a href=\"https://adrianmato.art\">website</a> to learn more."
+  screenshots:
+    - url: /assets/work/adrianmatoart/adrianmatoart.webp
+      width: 1200px
+      height: 780px
+      alt: "Adrián Mato - adrianmato.art"
+      loading: lazy
