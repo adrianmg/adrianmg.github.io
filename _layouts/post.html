@@ -6,8 +6,7 @@ layout: default
   <header>
     <div class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}">
-      {%- assign date_format = date_format | default: "%B %-d, %Y" -%}
-      {{ page.date | date: date_format }}
+      {% include format-date.html date=page.date %}
       </time>
     </div>
 
