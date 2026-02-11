@@ -1,18 +1,3 @@
-/*-------------------------------------------------------------------------------------
-  Styles for adrianmato.com, by @adrianmg
-
-   _       __     __                             __
-  | |     / /__  / /________  ____ ___  ___     / /
-  | | /| / / _ \/ / ___/ __ \/ __ `__ \/ _ \   / /
-  | |/ |/ /  __/ / /__/ /_/ / / / / / /  __/  /_/
-  |__/|__/\___/_/\___/\____/_/ /_/ /_/\___/  (_)
-
-  These styles are not minimized because we all love to learn and I inspected
-  lots of CSS from many sites, so it's fair to let you steal/copy/learn,
-  in fact I commented and clarified this CSS to help you :)
-  ------------------------------------------------------------------------------------- */
-
-
 /**
  * Reset some basic elements
  */
@@ -118,6 +103,49 @@ h1, h2, h3 {
 ul{
   list-style-type: none;
   list-style-position: inside;
+}
+
+
+/**
+ * Reusable Placeholders
+ */
+
+// Placeholder for common link hover effect
+%link-hover-brand {
+  &:hover {
+    color: var(--brand-color);
+  }
+}
+
+// Placeholder for link with underlay effect
+%link-with-underlay {
+  position: relative;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all var(--base-trans) ease-in-out;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: all var(--base-trans) ease-in-out;
+  }
+
+  &:hover:before {
+    background-color: rgba(var(--brand-color-rgb), 0.08);
+  }
+}
+
+// Standard transition
+%transition-standard {
+  transition: all var(--base-trans) ease-in-out;
+}
+
+%transition-slow {
+  transition: all var(--base-trans-slow) ease-in-out;
 }
 
 

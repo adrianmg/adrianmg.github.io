@@ -38,22 +38,31 @@
 
   // HELPERS
 
-  // HELPERS: scrolling function from A -> B (modified from: https://bit.ly/2H3JKMV)
-  function scrollToItem(destination, duration = 500, extraPadding) {
-    const start = window.pageYOffset;
-    const startTime = "now" in window.performance ? performance.now() : new Date().getTime();
-
-    const documentHeight = Math.max(
+  // Helper function to get document height
+  function getDocumentHeight() {
+    return Math.max(
       document.body.scrollHeight,
       document.body.offsetHeight,
       document.documentElement.clientHeight,
       document.documentElement.scrollHeight,
       document.documentElement.offsetHeight
     );
-    const windowHeight =
-      window.innerHeight ||
+  }
+
+  // Helper function to get window height
+  function getWindowHeight() {
+    return window.innerHeight ||
       document.documentElement.clientHeight ||
       document.getElementsByTagName("body")[0].clientHeight;
+  }
+
+  // HELPERS: scrolling function from A -> B (modified from: https://bit.ly/2H3JKMV)
+  function scrollToItem(destination, duration = 500, extraPadding) {
+    const start = window.pageYOffset;
+    const startTime = "now" in window.performance ? performance.now() : new Date().getTime();
+
+    const documentHeight = getDocumentHeight();
+    const windowHeight = getWindowHeight();
     const destinationOffset =
       typeof destination === "number" ? destination : destination.offsetTop;
     let destinationOffsetToScroll = Math.round(
