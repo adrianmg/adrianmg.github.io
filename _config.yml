@@ -13,6 +13,13 @@ linkedin: adrianmg
 github: adrianmg
 instagram: adrianmato
 
+# Robustness settings
+strict_front_matter: true
+liquid:
+  error_mode: warn
+  strict_filters: true
+  strict_variables: false
+
 # Custom Settings
 timezone: America/Los_Angeles
 permalink: /:categories/:title/
