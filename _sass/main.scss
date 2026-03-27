@@ -26,6 +26,11 @@
   --font-size-m:        1.4rem;
 }
 
+// Mixins
+@mixin transition-base($speed: var(--base-trans)) {
+  transition: all $speed ease-in-out;
+}
+
 // Import partials
 @import
   "base",
