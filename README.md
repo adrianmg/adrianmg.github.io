@@ -6,3 +6,20 @@
 [![adrianmato.com](/assets/preview.png)](https://adrianmato.com)
 
 [Visit my website](https://adrianmato.com)
+
+## 😄 Developer Jokes
+
+**Q:** Why do programmers prefer dark mode?  
+**A:** Because light attracts bugs!
+
+**Q:** How many designers does it take to change a lightbulb?  
+**A:** Does it have to be a lightbulb?
+
+**Q:** Why did the developer go broke?  
+**A:** Because they used up all their cache!
+
+**Q:** What's a programmer's favorite hangout place?  
+**A:** Foo Bar!
+
+**Q:** Why do programmers always mix up Halloween and Christmas?  
+**A:** Because Oct 31 == Dec 25! (31 in octal = 25 in decimal)
