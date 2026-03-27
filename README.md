@@ -1,8 +1,8 @@
 # adrianmato.com
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9482eaf2-54d5-4ee5-a190-5da6e2226aeb/deploy-status)](https://app.netlify.com/sites/adrianmato/deploys)
 
-*Personal website based on Dr Jekyll and Mr Hide running a custom theme.*
+*Site web personnel basé sur Dr Jekyll et M. Hyde utilisant un thème personnalisé.*
 
 [![adrianmato.com](/assets/preview.png)](https://adrianmato.com)
 
-[Visit my website](https://adrianmato.com)
+[Visitez mon site web](https://adrianmato.com)
