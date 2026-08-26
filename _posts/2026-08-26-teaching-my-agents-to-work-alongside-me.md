@@ -11,7 +11,7 @@ I'm more interested in something slower: teaching my own agents how I work, so I
 
 That's the idea I'm interested in: **reach without dilution**.
 
-Yesterday I watched a [great presentation by @poteto](https://x.com/0xCodez/status/2091980766372639135) where they compared building a team of agents to running an engineering team. That analogy stuck with me.
+Yesterday I watched a [great presentation](https://x.com/0xCodez/status/2091980766372639135) by [@poteto](https://x.com/poteto) where they compared building a team of agents to running an engineering team. That analogy stuck with me.
 
 A team doesn't become autonomous because you keep handing people tasks. In my experience leading teams, people gradually absorb what the work is for, what good looks like, and what you refuse to compromise on. They understand not just what you want, but why.
 
@@ -19,7 +19,7 @@ Looking through [pstack](https://github.com/poteto/pstack), what struck me wasn'
 
 This is also why I'm skeptical of blindly downloading someone else's giant pile of skills, pretending it'll just work, and calling it a day.
 
-The interesting part of `/poteto-mode` isn't the pile of skills. It's the work behind it: someone gradually making their instincts, standards, and way of building understandable to agents.
+The interesting part of **`/poteto-mode`** isn't the pile of skills. It's the work behind it: someone gradually making their instincts, standards, and way of building understandable to agents.
 
 Borrowing those skills can help. But using them as a substitute for figuring out my own way of working? Not super inspiring.
 
