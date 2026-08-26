@@ -1,0 +1,23 @@
+{
+  "name": "adrianmato.com",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm run og:generate && bundle exec jekyll build",
+    "og:generate": "node scripts/generate-og-images.mjs",
+    "og:preview": "node scripts/generate-og-images.mjs --preview"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@fontsource/eb-garamond": "^5.3.0",
+    "@fontsource/inter": "^5.3.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "@twemoji/svg": "^15.0.0",
+    "gray-matter": "^4.0.3",
+    "react": "^19.2.8",
+    "satori": "^0.29.1",
+    "twemoji": "^14.0.2"
+  }
+}

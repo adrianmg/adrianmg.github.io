@@ -1,4 +1,8 @@
 _site
+.og-preview
+.impeccable
+assets/og/posts
+node_modules
 .sass-cache
 .jekyll-metadata
 .jekyll-cache
