@@ -9,6 +9,10 @@
         {% seo %}
     {% endif %}
 
+    {% unless page.date %}
+        <meta property="og:type" content="website" />
+    {% endunless %}
+
     <meta property="og:image:alt" content="{{ page.title | default: site.title | escape }}" />
 
     <link rel="preload" as="style" href="{{ "/assets/css/style.css" | relative_url }}">
