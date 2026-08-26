@@ -24,13 +24,21 @@ node scripts/generate-og-images.mjs \
   --slug custom-preview
 ```
 
-Production cards are rendered at 2400×1260 and generated automatically before
-Jekyll builds the site. New posts only need their normal `title` front matter;
-the image path is derived from the dated post filename.
+Production cards are rendered at 2400×1260 and committed with the site. New
+posts only need their normal `title` front matter; the image path is derived
+from the dated post filename.
 
-Netlify restores `assets/og/posts` from its persistent build cache. The generator
-fingerprints each title and the renderer, so unchanged images are reused and only
-new or modified posts are rendered.
+After adding or retitling a post, generate and commit its card and the updated
+manifest:
+
+```sh
+npm ci
+npm run og:generate
+git add assets/og/posts
+```
+
+The pull request check rejects stale generated cards. Netlify publishes the
+committed images directly and does not regenerate them during deploys.
 
 To use custom artwork for a post, add an `image` override:
 

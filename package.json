@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npm run og:generate && bundle exec jekyll build",
+    "build": "bundle exec jekyll build",
+    "og:check": "npm run og:generate && git diff --exit-code -- assets/og/posts",
     "og:generate": "node scripts/generate-og-images.mjs",
     "og:preview": "node scripts/generate-og-images.mjs --preview"
   },

@@ -16,6 +16,16 @@ const HEIGHT = 630;
 const SCALE = 2;
 const OUTPUT_WIDTH = WIDTH * SCALE;
 const MAX_TITLE_GRAPHEMES = 110;
+const RENDER_DEPENDENCIES = [
+  "@fontsource/eb-garamond",
+  "@fontsource/inter",
+  "@resvg/resvg-js",
+  "@twemoji/svg",
+  "gray-matter",
+  "react",
+  "satori",
+  "twemoji",
+];
 const projectRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const postsDirectory = path.join(projectRoot, "_posts");
 const previewDirectory = path.join(projectRoot, ".og-preview");
@@ -291,14 +301,23 @@ async function writePreviewGallery(posts) {
 
 async function rendererFingerprint() {
   const sourcePath = fileURLToPath(import.meta.url);
-  const inputs = await Promise.all([
+  const [source, lockSource] = await Promise.all([
     fs.readFile(sourcePath),
-    fs.readFile(path.join(projectRoot, "package-lock.json")),
+    fs.readFile(path.join(projectRoot, "package-lock.json"), "utf8"),
   ]);
+  const lock = JSON.parse(lockSource);
   const hash = createHash("sha256");
 
-  for (const input of inputs) {
-    hash.update(input);
+  hash.update(source);
+
+  for (const dependency of RENDER_DEPENDENCIES) {
+    const version = lock.packages?.[`node_modules/${dependency}`]?.version;
+
+    if (!version) {
+      throw new Error(`Missing renderer dependency in package-lock.json: ${dependency}`);
+    }
+
+    hash.update(`\0${dependency}@${version}`);
   }
 
   return hash.digest("hex");
@@ -380,6 +399,7 @@ async function generateProductionImages(posts) {
   for (const entry of generatedFiles) {
     if (entry.isFile() && entry.name.endsWith(".png") && !expectedFiles.has(entry.name)) {
       await fs.unlink(path.join(generatedDirectory, entry.name));
+      console.log(`OG images: removed ${entry.name}`);
     }
   }
 

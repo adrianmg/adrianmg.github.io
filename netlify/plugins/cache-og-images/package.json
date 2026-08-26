@@ -1,7 +1,0 @@
-{
-  "name": "netlify-plugin-cache-og-images",
-  "version": "1.0.0",
-  "private": true,
-  "main": "index.cjs",
-  "type": "commonjs"
-}
