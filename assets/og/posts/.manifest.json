@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "renderer": "a9557208675f289d414b0fcfdd21722c6b33a5252be6d4e7968aa5bd2c0b2b27",
+  "images": {
+    "designer-dont-blame-the-client-its-your-fault": "b6dc97b5a8fd74d867c49626b28145aa811f716f0cf6186c47c4bfe8efa86f48",
+    "programa-vostok-iv-mission-accomplished": "f5ada75267564db42ccaf978c07ec650324f40f88f2f05894898b6661a08543c",
+    "fixing-myself-as-a-maker": "6630d56909caea0983a734b5d4c8736e7f5e683e9b6100292b14d578143dc24f",
+    "race-calculator": "bcefc86e3ea917bc0ee1a8b1694ea3f219ce8116911670bd5419c3156b66e03f",
+    "free-opportunities-become-software-developer": "374dea8ff247d63e840fbfc960ccef6fa868dce2e076133a2bbd1fc3c1d8635c",
+    "favorite-design-books": "f11977f6c3a8b66440308da38852b364cb0c5fa9f270a86754c3f77063f424d5",
+    "server-status": "50d16e74a2b3573772ddfb19215880c91d9105371564e569d5b8efbc40b43eb0",
+    "2018-great-year": "906923fd66bfe6e4aafca71437ebcf5794bbb19566125eed8828d59c3bd599d8",
+    "peeking-at-worklog": "6e1536fe14155b039559a582c86a8953db4b367a15aaeede06607ead373dcf5a",
+    "improving-experience-github-actions-logs": "36d204bb5c4b0a1c2eac1eba50f5671dd91870226772f619b0dcea8ec63cf210",
+    "github-pewpew-cli-delete-github-unnecessary-repositories": "8ca68154e4f97ef162ba9df409512df9ce9ec07d8c8f36e4d6be6289e7f3db19",
+    "speeding-up-typescript-development-flow-instant-feedback": "cc1f6bb72f7f52f6d70848b059bcff91181ef13501f250ef764f970e2f16bfb7",
+    "bigger-isnt-better-companies-scale-dilemma": "0a82aa00940900d5b7b93ba8979f0c6d964c523143ebfcec705cba4eb89f4a39",
+    "software-engineering-daily-interview-github-copilot": "74cecaca78106c9ecfd366dfaa5fab74f430dad5f55bd14a5daee104d5804cdb",
+    "remote-work-is-blessing-competitive-edge": "8da70f843c449c7e099eedffdb6a4250433219702a249bad55fa3da01b2730dd",
+    "teaching-my-agents-to-work-alongside-me": "90ee93d20c0cfc67217e9acfc12596a646ad45b161e89f08c206a1c472f101e8"
+  }
+}

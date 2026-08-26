@@ -74,6 +74,6 @@ This enables richer content and better integration when rendering information co
 
 ## Id’d love to hear your thoughts!
 
-I enjoy a conversation about design. I would love to hear any feedback you have—share your questions and comments, [find me on Twitter](https://twitter.com/{{ site.twitter }}).
+I enjoy a conversation about design. I would love to hear any feedback you have—share your questions and comments, [find me on Twitter](https://twitter.com/{{ site.twitter.username }}).
 
 Thanks!

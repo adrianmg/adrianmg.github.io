@@ -1,4 +1,7 @@
 _site
+.og-preview
+.impeccable
+node_modules
 .sass-cache
 .jekyll-metadata
 .jekyll-cache
