@@ -3,6 +3,15 @@
 
 *Personal website based on Dr Jekyll and Mr Hide running a custom theme.*
 
+## A Small Poem
+
+```
+In pixels and code, creativity flows,
+Where design meets function, beauty grows.
+From sketch to screen, ideas take flight,
+Crafting experiences that feel just right.
+```
+
 [![adrianmato.com](/assets/preview.png)](https://adrianmato.com)
 
 [Visit my website](https://adrianmato.com)
