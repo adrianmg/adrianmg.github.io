@@ -94,7 +94,7 @@ pre {
   text-decoration: none;
   padding: 2rem 1.4rem;
   position: relative;
-  transition: all var(--base-trans-slow) ease-in-out;
+  @include transition-base(var(--base-trans-slow));
 }
 
 .home-navigation a:hover {
@@ -114,7 +114,7 @@ pre {
   fill: var(--text-color);
   visibility: hidden;
   opacity: 0;
-  transition: all var(--base-trans) ease-in-out;
+  @include transition-base;
   position: fixed;
   bottom: 5.2rem;
   right: 4.8rem;
@@ -189,7 +189,7 @@ pre {
     color: var(--title-color);
     text-decoration: none;
     outline: none;
-    transition: all var(--base-trans-slow) ease-in-out;
+    @include transition-base(var(--base-trans-slow));
   }
 }
 
@@ -234,7 +234,7 @@ pre {
 }
 
 /**
- * HOME: Intro
+ * POST: Article Layout
  */
 
 .post {
@@ -262,7 +262,7 @@ pre {
   position: relative;
   text-decoration: none;
   font-weight: 500;
-  transition: all var(--base-trans) ease-in-out;
+  @include transition-base;
 }
 
 .post a:before {
@@ -272,7 +272,7 @@ pre {
   bottom: 0;
   left: 0;
   right: 0;
-  transition: all var(--base-trans) ease-in-out;
+  @include transition-base;
 }
 
 .post a:hover:before {
@@ -280,10 +280,20 @@ pre {
 }
 
 .post p a,
-.post li a {
+.post li a,
+.post h3 .anchor {
   color: var(--text-color);
   text-decoration: none;
 }
+
+.post h3 .anchor {
+  margin-left: -1.1em !important;
+  padding: 0;
+}
+.post h3 .anchor:before {
+  display: none;
+}
+
 .post-content a,
 .post-summary a {
   padding: 0.2rem 0;
@@ -300,16 +310,6 @@ pre {
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
   }
-}
-
-.post h3 .anchor {
-  color: var(--text-color);
-  text-decoration: none;
-  margin-left: -1.1em !important;
-  padding: 0;
-}
-.post h3 .anchor:before {
-  display: none;
 }
 
 .post a:hover {
@@ -335,10 +335,10 @@ pre {
 .post-meta {
   @extend %font-xs;
   line-height: 1.6rem;
-}
-
-.post-meta a {
-  color: var(--text-color);
+  
+  a {
+    color: var(--text-color);
+  }
 }
 
 .post-summary {
@@ -371,8 +371,10 @@ pre {
   border-radius: 1px;
 }
 
-.post-footer a {
-  color: var(--text-color);
+.post-footer {
+  a {
+    color: var(--text-color);
+  }
 }
 
 .post-footer-signature {
@@ -426,7 +428,7 @@ pre {
   padding: 1.6rem 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: all var(--base-trans-mid) ease-in-out;
+  @include transition-base(var(--base-trans-mid));
 }
 
 .blog-list-item a:before {

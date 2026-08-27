@@ -52,10 +52,7 @@ body {
 /**
  * Text selection
  */
-::selection {
-  color: var(--title-color);
-  background: var(--strong-color);
-}
+::selection,
 ::-moz-selection {
   color: var(--title-color);
   background: var(--strong-color);

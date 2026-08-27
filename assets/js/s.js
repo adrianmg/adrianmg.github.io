@@ -5,16 +5,16 @@
 
   // HOME
   if (isHome) {
-    let arrow = document.querySelector('.home-intro-scroll');
+    const arrow = document.querySelector('.home-intro-scroll');
     const arrowTreshold = 100; // when stops being visible
+
+    if (!arrow) return; // Early exit if arrow doesn't exist
 
     // scroll hint
     function showScrollHint(seconds) {
-      if (arrow && document.scrollingElement.scrollTop <= arrowTreshold) {
+      if (document.scrollingElement.scrollTop <= arrowTreshold) {
         setTimeout(function() {
-          if (arrow) {
-            arrow.classList.add("visible");
-          }
+          arrow.classList.add("visible");
         }, seconds * 1000);
       }
     }
@@ -23,11 +23,9 @@
     document.addEventListener("scroll", scrollHandler);
 
     function scrollHandler() {
-      // scroll hint
-      let scroll = document.scrollingElement.scrollTop;
-
       // hide arrow when needed
-      if (scroll >= arrowTreshold && arrow) {
+      const scroll = document.scrollingElement.scrollTop;
+      if (scroll >= arrowTreshold) {
         arrow.classList.remove("visible");
       }
     }
@@ -38,10 +36,15 @@
 
   // HELPERS
 
+  // Helper function to get current time consistently
+  function getTime() {
+    return "now" in window.performance ? performance.now() : new Date().getTime();
+  }
+
   // HELPERS: scrolling function from A -> B (modified from: https://bit.ly/2H3JKMV)
   function scrollToItem(destination, duration = 500, extraPadding) {
     const start = window.pageYOffset;
-    const startTime = "now" in window.performance ? performance.now() : new Date().getTime();
+    const startTime = getTime();
 
     const documentHeight = Math.max(
       document.body.scrollHeight,
@@ -71,8 +74,7 @@
     }
 
     function scroll() {
-      const now =
-        "now" in window.performance ? performance.now() : new Date().getTime();
+      const now = getTime();
 
       const time = Math.min(1, (now - startTime) / duration);
       const timeFunction = 0.5 * (1 - Math.cos(Math.PI * time));
