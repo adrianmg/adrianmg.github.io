@@ -15,7 +15,7 @@ Yesterday I watched a [great presentation](https://x.com/0xCodez/status/20919807
 
 A team doesn't become autonomous because you keep handing people tasks. In my experience leading teams, people gradually absorb what the work is for, what good looks like, and what you refuse to compromise on. They understand not just what you want, but why.
 
-Looking through [pstack](https://github.com/poteto/pstack), what struck me wasn't really the automation. It was seeing one person's way of building made explicit enough for an agent to actually use.
+Looking through [pstack](https://github.com/cursor/plugins/tree/main/pstack), what struck me wasn't really the automation. It was seeing one person's way of building made explicit enough for an agent to actually use.
 
 This is also why I'm skeptical of blindly downloading someone else's giant pile of skills, pretending it'll just work, and calling it a day.
 

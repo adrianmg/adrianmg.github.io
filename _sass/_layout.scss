@@ -219,6 +219,23 @@ pre {
   display: block;
 }
 
+.home-work-grid__project-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: .8rem;
+  clip-path: inset(0 round .8rem);
+}
+
+.home-work-grid__project-video:fullscreen {
+  border-radius: 0;
+  clip-path: none;
+}
+
+.home-work-grid__project-video--light {
+  background-color: rgb(255, 255, 255);
+}
+
 .home-work-grid__project-preview--collage {
   display: grid;
   grid-template-columns: 2fr 1fr;
