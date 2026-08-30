@@ -1,18 +1,34 @@
 # adrianmato.com
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9482eaf2-54d5-4ee5-a190-5da6e2226aeb/deploy-status)](https://app.netlify.com/sites/adrianmato/deploys)
 
-*Personal website based on Dr Jekyll and Mr Hide running a custom theme.*
+Personal website built with Astro and deployed as static HTML.
 
-[![adrianmato.com](/assets/preview.png)](https://adrianmato.com)
+[![adrianmato.com](/public/assets/preview.png)](https://adrianmato.com)
 
-[Visit my website](https://adrianmato.com)
+## Development
+
+```sh
+npm ci
+npm run dev
+```
+
+The site uses Astro templates, Markdown content, Sass, and vanilla browser
+JavaScript. It does not use a client-side UI framework or server rendering.
+
+Useful commands:
+
+```sh
+npm run build       # Build CSS and the production site, then verify its contract
+npm run check       # Type-check Astro and TypeScript
+npm run css:watch   # Rebuild the fixed-path stylesheet while editing Sass
+```
 
 ## Open Graph image previews
 
-Install the Node dependencies, then generate representative title cards:
+Generate representative title cards:
 
 ```sh
-npm install
 npm run og:preview
 ```
 
@@ -25,16 +41,14 @@ node scripts/generate-og-images.mjs \
 ```
 
 Production cards are rendered at 2400×1260 and committed with the site. New
-posts only need their normal `title` front matter; the image path is derived
+posts only need their normal `title` frontmatter; the image path is derived
 from the dated post filename.
 
-After adding or retitling a post, generate and commit its card and the updated
-manifest:
+After adding or retitling a post, generate and commit its card and manifest:
 
 ```sh
-npm ci
 npm run og:generate
-git add assets/og/posts
+git add public/assets/og/posts
 ```
 
 The pull request check rejects stale generated cards. Netlify publishes the
@@ -49,6 +63,6 @@ image:
   height: 1260
 ```
 
-The site-wide fallback card at `assets/og-image.png` is managed manually and is
-never generated during Netlify builds. After replacing it, bump the `?v=` query
-in `_config.yml` so social crawlers request the new image.
+The site-wide fallback card at `public/assets/og-image.png` is managed manually.
+After replacing it, bump its `?v=` value in `src/lib/site.ts` so social crawlers
+request the new image.

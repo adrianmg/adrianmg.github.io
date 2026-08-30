@@ -3,22 +3,32 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "bundle exec jekyll build",
-    "og:check": "npm run og:generate && git diff --exit-code -- assets/og/posts",
+    "build": "npm run css:build && astro build && npm run check:dist",
+    "check": "astro check",
+    "check:dist": "node scripts/check-site.mjs",
+    "css:build": "sass src/styles/main.scss public/assets/css/style.css --no-source-map",
+    "css:watch": "sass --watch src/styles/main.scss public/assets/css/style.css --no-source-map",
+    "dev": "npm run css:build && astro dev",
+    "og:check": "npm run og:generate && git diff --exit-code -- public/assets/og/posts",
     "og:generate": "node scripts/generate-og-images.mjs",
     "og:preview": "node scripts/generate-og-images.mjs --preview"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.12.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "@fontsource/eb-garamond": "^5.3.0",
     "@fontsource/inter": "^5.3.0",
     "@resvg/resvg-js": "^2.6.2",
     "@twemoji/svg": "^15.0.0",
+    "astro": "^7.2.9",
     "gray-matter": "^4.0.3",
+    "marked": "^18.0.11",
     "react": "^19.2.8",
+    "sass": "^1.103.1",
     "satori": "^0.29.1",
-    "twemoji": "^14.0.2"
+    "twemoji": "^14.0.2",
+    "typescript": "^6.0.3"
   }
 }

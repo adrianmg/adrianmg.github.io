@@ -1,0 +1,26 @@
+---
+import { getCollection, render } from "astro:content";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PostLayout from "../layouts/PostLayout.astro";
+import { SITE } from "../lib/site";
+
+const pages = await getCollection("pages");
+const page = pages.find((entry) => entry.id === "markdown-demo");
+
+if (!page) {
+  throw new Error("Missing Markdown demo content");
+}
+
+const { Content } = await render(page);
+---
+
+<BaseLayout
+  pageTitle={page.data.title}
+  description={SITE.description}
+  canonicalPath="/markdown-demo/"
+>
+  <PostLayout title={page.data.title}>
+    <Content />
+  </PostLayout>
+</BaseLayout>

@@ -1,4 +1,6 @@
 _site
+dist
+.astro
 .og-preview
 .impeccable
 node_modules
@@ -6,3 +8,4 @@ node_modules
 .jekyll-metadata
 .jekyll-cache
 .DS_Store
+/public/assets/css/style.css

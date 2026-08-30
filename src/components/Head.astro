@@ -1,0 +1,132 @@
+---
+import Analytics from "./Analytics.astro";
+import {
+  absoluteUrl,
+  DEFAULT_SOCIAL_IMAGE,
+  SITE,
+  smartTypography,
+  type SocialImage,
+} from "../lib/site";
+
+interface Props {
+  pageTitle: string;
+  browserTitle?: string;
+  description: string;
+  canonicalPath: string;
+  image?: SocialImage;
+  kind?: "page" | "post" | "site";
+  publishedTime?: string;
+  ogUrlPath?: string;
+}
+
+const {
+  pageTitle,
+  browserTitle,
+  description,
+  canonicalPath,
+  image = DEFAULT_SOCIAL_IMAGE,
+  kind = "page",
+  publishedTime,
+  ogUrlPath = canonicalPath,
+} = Astro.props;
+
+const title =
+  browserTitle ??
+  (kind === "site"
+    ? SITE.title
+    : `${smartTypography(pageTitle.trim())} | ${SITE.title}`);
+const seoTitle = smartTypography(pageTitle.trim());
+const canonicalUrl = absoluteUrl(canonicalPath);
+const imageUrl = absoluteUrl(image.path);
+const ogUrl = absoluteUrl(ogUrlPath);
+const jsonLd =
+  kind === "post"
+    ? {
+        "@type": "BlogPosting",
+        url: canonicalUrl,
+        image: {
+          width: image.width,
+          height: image.height,
+          url: imageUrl,
+          "@type": "imageObject",
+        },
+        headline: seoTitle,
+        dateModified: publishedTime,
+        datePublished: publishedTime,
+        author: { "@type": "Person", name: SITE.author },
+        mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
+        description,
+        "@context": "https://schema.org",
+      }
+    : {
+        "@type": kind === "site" ? "WebSite" : "WebPage",
+        url: canonicalUrl,
+        image: {
+          width: image.width,
+          height: image.height,
+          url: imageUrl,
+          "@type": "imageObject",
+        },
+        headline: seoTitle,
+        author: { "@type": "Person", name: SITE.author },
+        ...(kind === "site" ? { name: SITE.title } : {}),
+        description,
+        "@context": "https://schema.org",
+      };
+---
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta property="og:title" content={seoTitle} />
+  <meta name="author" content={SITE.author} />
+  <meta property="og:locale" content={SITE.locale} />
+  <meta name="description" content={description} />
+  <meta property="og:description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+  <meta property="og:url" content={ogUrl} />
+  <meta property="og:site_name" content={SITE.title} />
+  <meta property="og:image" content={imageUrl} />
+  <meta property="og:image:height" content={String(image.height)} />
+  <meta property="og:image:width" content={String(image.width)} />
+  <meta property="og:type" content={kind === "post" ? "article" : "website"} />
+  {
+    kind === "post" && publishedTime && (
+      <meta property="article:published_time" content={publishedTime} />
+    )
+  }
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:image" content={imageUrl} />
+  <meta property="twitter:title" content={seoTitle} />
+  <meta name="twitter:site" content={`@${SITE.twitter}`} />
+  <meta name="twitter:creator" content={`@${SITE.twitter}`} />
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(jsonLd)}
+  />
+  <meta property="og:image:alt" content={pageTitle} />
+
+  <link rel="preload" as="style" href="/assets/css/style.css" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    rel="preload"
+    as="style"
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap"
+    rel="stylesheet"
+  />
+  <link href="/assets/images/favicon.png" rel="icon" type="image/png" />
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title={SITE.title}
+    href="/feed.xml"
+  />
+  {import.meta.env.PROD && <Analytics />}
+</head>

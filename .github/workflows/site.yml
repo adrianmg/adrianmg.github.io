@@ -1,13 +1,17 @@
-name: Open Graph images
+name: Site
 
 on:
   pull_request:
     paths:
       - "_posts/**"
-      - "public/assets/og/posts/**"
+      - "public/**"
+      - "scripts/**"
+      - "src/**"
+      - "astro.config.mjs"
+      - "netlify.toml"
       - "package.json"
       - "package-lock.json"
-      - "scripts/generate-og-images.mjs"
+      - "tsconfig.json"
 
 permissions:
   contents: read
@@ -22,4 +26,5 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run og:check
+      - run: npm run check
+      - run: npm run build

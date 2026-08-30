@@ -1,11 +1,10 @@
 ---
-layout: post
 title: "Speeding up the TypeScript development flow for instant feedback"
-date: 2021-09-05 21:00:00
+date: "2021-09-05 21:00:00"
 categories: [blog, coding]
 ---
 
-I recently started porting [github-pewpew]({{ site.baseurl }}{% link _posts/2021-08-14-github-pewpew-cli-delete-github-unnecessary-repositories.md %}) to TypeScript. I enjoy using types, but I struggle with the developer velocity due to compilation times.
+I recently started porting [github-pewpew](/blog/worklog/github-pewpew-cli-delete-github-unnecessary-repositories/) to TypeScript. I enjoy using types, but I struggle with the developer velocity due to compilation times.
 
 I tried enabling a [`--watch`](https://www.typescriptlang.org/docs/handbook/configuring-watch.html) implementation so that my project will compile on the fly. That way, I have it ready to go when running my application. While the experience has improved, it’s still slow when I need instant feedback on my changes. I also tried turning on the [`--incremental`](https://www.typescriptlang.org/tsconfig#incremental) flag decreasing times by 200ms to 300ms.
 
@@ -13,11 +12,11 @@ I'm not alone, the community is [discussing about it](https://github.com/microso
 
 ## Aiming for instant feedback with SWC
 
-SWC is a typescript / javascript compiler written in Rust that's blazingly fast. They claim to be "<i>20x faster than babel on single thread, and 70x faster on 4 core benchmark</i>".
+SWC is a typescript / javascript compiler written in Rust that's blazingly fast. They claim to be “<i>20x faster than babel on single thread, and 70x faster on 4 core benchmark</i>”.
 
 Here's the comparison between `tsc` and `swc` transpiling a project with three simple files:
 
-![Preview comparison between tsc and swc]({{ "/assets/images/posts/2021/tsc-vs-swc.gif" | relative_url }})
+![Preview comparison between tsc and swc](/assets/images/posts/2021/tsc-vs-swc.gif)
 
 The left side is `tsc`; the right side is `swc`. SWC finishes way faster even when I run the command later. It's almost **1.5 seconds faster** compiling just three files.
 
@@ -37,7 +36,7 @@ The `dev` command calls `swc`, sets up the output folder, and makes sure previou
 
 It's even more noticeable when working in more complex projects. Here's another comparison running both at the same time using pipes:
 
-![Preview comparison between tsc and swc run at the same time]({{ "/assets/images/posts/2021/tsc-vs-swc-pipes.gif" | relative_url }})
+![Preview comparison between tsc and swc run at the same time](/assets/images/posts/2021/tsc-vs-swc-pipes.gif)
 
 
 ## What's the trick?

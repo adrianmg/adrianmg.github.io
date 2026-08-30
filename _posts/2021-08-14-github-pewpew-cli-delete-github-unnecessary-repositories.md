@@ -1,14 +1,13 @@
 ---
-layout: post
 title: "github-pewpew: a CLI tool to clean up and remove unnecessary GitHub repositories. 🔫 Pew pew!"
-date: 2021-08-11 13:56:00
+date: "2021-08-11 13:56:00"
 categories: [blog, worklog]
 ---
 
 
 <a href="https://badge.fury.io/js/github-pewpew"><img src="https://badge.fury.io/js/github-pewpew.svg" alt="npm version" height="18"></a>
 
-![github-pewpew preview]({{ "/assets/images/posts/2021/github-pewpew.gif" | relative_url }})
+![github-pewpew preview](/assets/images/posts/2021/github-pewpew.gif)
 
 ## Why?
 Have you ever had too much fun with the GitHub API and ended up creating too many dummy repos? Me too 😅!
@@ -18,14 +17,12 @@ I made this little CLI tool to clean up repositories quickly. I'm planning to ad
 Get the [latest version](https://www.npmjs.com/package/github-pewpew/) published in npm. It's [open-sourced on GitHub](https://github.com/adrianmg/github-pewpew) under MIT license.
 
 ### 📦 github-pewpew v1.2.2 on April 5, 2022
-{:.anchor }
 
 A new [version 1.2.2](https://www.npmjs.com/package/github-pewpew/v/1.2.2) has been published to npm. It's a minor update, but it's a special one: we are launching a brand [new website](/pewpew) and logo.
 
-![github-pewpew preview]({{ "/assets/images/posts/2022/github-pewpew-1.png" | relative_url }})
+![github-pewpew preview](/assets/images/posts/2022/github-pewpew-1.png)
 
 ### 📦 github-pewpew v1.2.0 on August 24, 2021
-{:.anchor }
 
 I published version [github-pewpew v 1.2.0](https://www.npmjs.com/package/github-pewpew/v/1.2.0) to npm. A much-needed refactor after v1.1.0 that improves the overall stability of the app. You can now get more than 100 results, as there was no pagination in prior versions.
 
@@ -34,7 +31,6 @@ Many bugs have been fixed, and the authentication process is now more robust whe
 Next, I'm porting everything to TypeScript. I hope you like it, and thanks for the feedback!
 
 ### 📦 github-pewpew v1.1.3 on August 14, 2021
-{:.anchor }
 
 A new version [github-pewpew v 1.1.3](https://www.npmjs.com/package/github-pewpew/v/1.1.3) is published in npm. It's an important update as it's making it way easier to use than before. It's also lighter in size.
 
@@ -63,11 +59,10 @@ function getConfigDir(homeDir) {
 The win32 solution won't work for systems older than Windows Vista. I guess that's OK in 2021? Some npm packages provide a robust solution covering all the different platforms, but it felt like a waste of weight for such a small tool. Plus, I'm learning a few things along the way.
 
 ### 📦 github-pewpew v1.0.0 on August 11, 2021
-{:.anchor }
 
 The first public version, [github-pewpew v 1.0.0](https://www.npmjs.com/package/github-pewpew/v/1.0.0) released on npm. The authentification is relying on both e-mail and PAT (Personal Acess Token) with a `repo_delete` scope. Although it works, it’s adding too much friction as the user must constantly copy and paste the value to get permissions to delete repositories.
 
-![github-pewpew preview]({{ "/assets/images/posts/2021/github-pewpew-1.gif" | relative_url }})
+![github-pewpew preview](/assets/images/posts/2021/github-pewpew-1.gif)
 
 I'm planning to reduce friction via a refactor that will use OAuth as the mechanism to get permissions.
 

@@ -1,7 +1,6 @@
 ---
-layout: post
 title: "Teaching my agents to work alongside me"
-date: 2026-08-26 13:06:00
+date: "2026-08-26 13:06:00"
 categories: [blog, agents]
 ---
 
