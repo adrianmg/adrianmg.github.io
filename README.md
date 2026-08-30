@@ -24,6 +24,22 @@ npm run check       # Type-check Astro and TypeScript
 npm run css:watch   # Rebuild the fixed-path stylesheet while editing Sass
 ```
 
+### Faster local builds with Bun
+
+The committed `package-lock.json`, CI, and Netlify continue to use npm. After
+installing dependencies with `npm ci`, Bun 1.3.13 or newer can run the same
+scripts with lower startup overhead:
+
+```sh
+bun run dev
+bun run build
+bun run check
+```
+
+In local benchmarks, `bun run build` completed in 1.03 seconds versus 1.56
+seconds with npm. Bun is an optional runner here, not a second package manager,
+so do not commit a Bun lockfile.
+
 ## Open Graph image previews
 
 Generate representative title cards:
