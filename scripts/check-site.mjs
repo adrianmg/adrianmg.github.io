@@ -142,11 +142,14 @@ const requiredRoutes = [
   "/feed.xml",
   "/robots.txt",
   "/sitemap.xml",
+  "/redirects.json",
+  "/LICENSE.txt",
   ...posts.flatMap(({ data }) => {
     if (!data.redirect_from) return [];
-    return Array.isArray(data.redirect_from)
+    const redirects = Array.isArray(data.redirect_from)
       ? data.redirect_from
       : [data.redirect_from];
+    return redirects.map((redirect) => `${redirect}.html`);
   }),
 ];
 
@@ -232,11 +235,28 @@ for (const post of posts) {
     : [];
 
   for (const redirect of redirects) {
-    const html = await fs.readFile(routeFile(redirect), "utf8");
+    const html = await fs.readFile(routeFile(`${redirect}.html`), "utf8");
     const destination = `${SITE_URL}${postPath(post)}`;
     assert(html.includes(`rel="canonical" href="${destination}"`), `Redirect canonical changed for ${redirect}`);
     assert(html.includes(`http-equiv="refresh"`), `Redirect refresh missing for ${redirect}`);
     assert(html.includes(`name="robots" content="noindex"`), `Redirect noindex missing for ${redirect}`);
+  }
+}
+
+const redirectsJson = JSON.parse(
+  await fs.readFile(routeFile("/redirects.json"), "utf8"),
+);
+for (const post of posts) {
+  const redirects = post.data.redirect_from
+    ? Array.isArray(post.data.redirect_from)
+      ? post.data.redirect_from
+      : [post.data.redirect_from]
+    : [];
+  for (const redirect of redirects) {
+    assert(
+      redirectsJson[redirect] === `${SITE_URL}${postPath(post)}`,
+      `redirects.json entry changed for ${redirect}`,
+    );
   }
 }
 

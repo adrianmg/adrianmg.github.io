@@ -2,15 +2,12 @@
 import { getCollection, render } from "astro:content";
 import { marked } from "marked";
 
-import RedirectPage from "../components/RedirectPage.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PostLayout from "../layouts/PostLayout.astro";
 import {
-  absoluteUrl,
   formatXmlDate,
   postDescription,
   postPath,
-  postRedirects,
   postSocialImage,
   smartTypography,
   type PostEntry,
@@ -18,55 +15,37 @@ import {
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
-  return posts.flatMap((post) => [
-    {
-      params: { slug: postPath(post).slice(1, -1) },
-      props: { post },
-    },
-    ...postRedirects(post).map((redirect) => ({
-      params: { slug: redirect.slice(1) },
-      props: { redirectTo: absoluteUrl(postPath(post)) },
-    })),
-  ]);
+  return posts.map((post) => ({
+    params: { slug: postPath(post).slice(1, -1) },
+    props: { post },
+  }));
 }
 
 interface Props {
-  post?: PostEntry;
-  redirectTo?: string;
+  post: PostEntry;
 }
 
-const { post, redirectTo } = Astro.props;
-if (!post && !redirectTo) {
-  throw new Error("Post route has neither content nor redirect data");
-}
-
-const rendered = post ? await render(post) : undefined;
-const Content = rendered?.Content;
-const description = post ? postDescription(post.body ?? "") : "";
-const summaryHtml = post?.data.summary
+const { post } = Astro.props;
+const { Content } = await render(post);
+const description = postDescription(post.body ?? "");
+const summaryHtml = post.data.summary
   ? await marked.parse(smartTypography(post.data.summary))
   : undefined;
 ---
 
-{
-  redirectTo ? (
-    <RedirectPage destination={redirectTo} />
-  ) : post && Content ? (
-    <BaseLayout
-      pageTitle={post.data.title}
-      description={description}
-      canonicalPath={postPath(post)}
-      image={postSocialImage(post)}
-      kind="post"
-      publishedTime={formatXmlDate(post.data.date)}
-    >
-      <PostLayout
+<BaseLayout
+  pageTitle={post.data.title}
+  description={description}
+  canonicalPath={postPath(post)}
+  image={postSocialImage(post)}
+  kind="post"
+  publishedTime={formatXmlDate(post.data.date)}
+>
+  <PostLayout
     title={post.data.title}
     date={post.data.date}
     summaryHtml={summaryHtml}
   >
     <Content />
   </PostLayout>
-    </BaseLayout>
-  ) : null
-}
+</BaseLayout>
