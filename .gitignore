@@ -4,6 +4,8 @@ dist
 .og-preview
 .impeccable
 node_modules
+bun.lock
+bun.lockb
 .sass-cache
 .jekyll-metadata
 .jekyll-cache
