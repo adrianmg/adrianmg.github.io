@@ -1,0 +1,18 @@
+---
+import { SITE } from "../lib/site";
+---
+
+<nav class="home-navigation">
+  <ul>
+    <li><a href="#home-work">Portfolio</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li class="home-navigation-resume">
+      <a href={`https://linkedin.com/in/${SITE.linkedin}`}>Resume</a>
+    </li>
+    <li><a href={`https://github.com/${SITE.github}`}>GitHub</a></li>
+    <li class="home-navigation-bluesky">
+      <a href={`https://bsky.app/profile/${SITE.bluesky}`}>Bluesky</a>
+    </li>
+    <li><a href={`mailto:${SITE.email}`}>Contact</a></li>
+  </ul>
+</nav>

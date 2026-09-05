@@ -1,0 +1,26 @@
+---
+import Head from "../components/Head.astro";
+import type { SocialImage } from "../lib/site";
+
+interface Props {
+  pageTitle: string;
+  browserTitle?: string;
+  description: string;
+  canonicalPath: string;
+  image?: SocialImage;
+  kind?: "page" | "post" | "site";
+  publishedTime?: string;
+  ogUrlPath?: string;
+  bodyClass?: string;
+}
+
+const { bodyClass, ...headProps } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <Head {...headProps} />
+  <body class={bodyClass}>
+    <slot />
+  </body>
+</html>
