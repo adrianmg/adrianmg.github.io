@@ -1,5 +1,5 @@
-import { getCollection } from "astro:content";
-import { marked } from "marked";
+import { getCollection, render } from "astro:content";
+import { experimental_AstroContainer as AstroContainer } from "astro/container";
 
 import {
   absoluteUrl,
@@ -13,13 +13,15 @@ import {
 
 export async function GET() {
   const posts = sortPostsNewestFirst(await getCollection("posts")).slice(0, 10);
+  const container = await AstroContainer.create();
   const entries = await Promise.all(
     posts.map(async (post) => {
       const path = postPath(post);
       const url = absoluteUrl(path);
       const id = url.endsWith("/") ? url.slice(0, -1) : url;
       const published = formatXmlDate(post.data.date);
-      const content = await marked.parse(smartTypography(post.body ?? ""));
+      const { Content } = await render(post);
+      const content = await container.renderToString(Content);
 
       return `<entry><title type="html">${xmlEscape(xmlEscape(smartTypography(post.data.title.trim())))}</title><link href="${xmlEscape(url)}" rel="alternate" type="text/html" title="${xmlEscape(smartTypography(post.data.title.trim()))}" /><published>${published}</published><updated>${published}</updated><id>${xmlEscape(id)}</id><content type="html" xml:base="${xmlEscape(url)}">${xmlEscape(content)}</content><author><name>${xmlEscape(SITE.author)}</name></author></entry>`;
     }),

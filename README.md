@@ -22,7 +22,28 @@ Useful commands:
 npm run build       # Build CSS and the production site, then verify its contract
 npm run check       # Type-check Astro and TypeScript
 npm run css:watch   # Rebuild the fixed-path stylesheet while editing Sass
+npm test           # Exercise authoring changes in a disposable copy of the site
 ```
+
+## Authoring posts and pages
+
+Add posts as dated `.md` files under `_posts/` with `title`,
+`date` (a quoted `YYYY-MM-DD HH:mm:ss` timestamp), and ordered `categories`.
+Generate their social cards with `npm run og:generate` before building.
+The build accepts additional posts while protecting the existing URLs listed
+in `scripts/fixtures/published-routes.json`; adding a post does not require
+changing a count. The feed includes the newest ten posts.
+
+Article bodies and the Atom feed use the same Astro-rendered content.
+Summaries use the same Markdown processor and settings, including smart
+punctuation for prose without altering code. Use public `/assets/` paths for
+images in summaries.
+
+For a new standalone page, add its public URL to `SITEMAP_PAGES` in
+`src/lib/sitemap.mjs`, or add a documented `SITEMAP_EXCLUSIONS` entry if it
+should not be listed. Post URLs are included automatically and legacy redirects
+are excluded. The build independently compares the sitemap with all generated
+HTML files, so a forgotten page fails with an actionable message.
 
 ### Faster local builds with Bun
 
@@ -78,6 +99,12 @@ image:
   width: 2400
   height: 1260
 ```
+
+Run `npm run og:generate` after setting or removing an override to refresh the
+manifest and remove any unused generated card. The build validates the override
+URL and dimensions instead of requiring a generated image for that post.
+Local image paths must exist; external image availability is not checked by the
+offline build.
 
 The site-wide fallback card at `public/assets/og-image.png` is managed manually.
 After replacing it, bump its `?v=` value in `src/lib/site.ts` so social crawlers

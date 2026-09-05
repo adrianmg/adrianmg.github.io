@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
-import { marked } from "marked";
+import { renderSummary } from "../lib/markdown.mjs";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PostLayout from "../layouts/PostLayout.astro";
@@ -9,7 +9,6 @@ import {
   postDescription,
   postPath,
   postSocialImage,
-  smartTypography,
   type PostEntry,
 } from "../lib/site";
 
@@ -29,7 +28,7 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 const description = postDescription(post.body ?? "");
 const summaryHtml = post.data.summary
-  ? await marked.parse(smartTypography(post.data.summary))
+  ? await renderSummary(post.data.summary)
   : undefined;
 ---
 
