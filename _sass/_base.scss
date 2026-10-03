@@ -41,10 +41,7 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-font-feature-settings: "kern" 1;
-     -moz-font-feature-settings: "kern" 1;
-       -o-font-feature-settings: "kern" 1;
-          font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
   font-kerning: normal;
 }
 
@@ -127,8 +124,7 @@ ul{
 a {
   color: var(--brand-color);
   text-decoration: none;
-  -webkit-transition: none;
-          transition: none;
+  transition: none;
 
   &:visited {
     color: var(--brand-color);
