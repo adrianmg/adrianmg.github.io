@@ -1,8 +1,8 @@
 livereload: true
 
 # Site settings
-title: "Adrián Mato – Designer at XBOX, leading developer & creator tools"
-description: "Designing & building tools for developers at XBOX. Startup investor."
+title: "Adrián Mato – Designer at XBOX Labs, leading developer & creator tools"
+description: "Designing & building tools at XBOX Labs. Startup investor."
 email: hello@adrianmato.com
 baseurl: "" # the subpath of your site, e.g. /blog
 baseurl_blog: "/blog" # the subpath of the blog
