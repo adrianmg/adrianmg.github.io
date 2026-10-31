@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../lib/site";
+---
+
+<BaseLayout
+  pageTitle="404 Page not found!"
+  description="Page not found! :("
+  canonicalPath="/404.html"
+>
+  <div class="error-page">
+    <div class="post">
+      <h1>404: This page doesn't exist! 🤧</h1>
+      <a href={SITE.url}>Let's find out something interesting →</a>
+    </div>
+  </div>
+</BaseLayout>

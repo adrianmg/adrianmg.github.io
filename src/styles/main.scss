@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+@use "base";
+@use "layout";
+
+// Define defaults for each variable.
+:root {
+  --base-font-family:   -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --base-font-serif:    'EB Garamond', serif;
+  --base-font-size:     2.3rem;
+  --base-font-weight:   400;
+  --small-font-size:    calc(var(--base-font-size) * 0.875);
+  --base-line-height:   1;
+  --base-trans:         .1s;
+  --base-trans-mid:     .2s;
+  --base-trans-slow:    .25s;
+
+  --text-color-rgb:     145, 145, 161;
+  --brand-color-rgb:    255, 184, 122;
+  --text-color:         rgb(var(--text-color-rgb));
+  --brand-color:        rgb(var(--brand-color-rgb));
+  --background-color: rgb(18, 18, 26);
+  --title-color:      rgb(242, 243, 251);
+  --strong-color:     rgb(156, 164, 225);
+
+  --base-padding:       3.4em;
+  --base-max-width:     120.0rem;
+
+  --font-size-m:        1.4rem;
+}

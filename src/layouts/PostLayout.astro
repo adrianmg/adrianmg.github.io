@@ -1,0 +1,44 @@
+---
+import { formatPostDate, formatXmlDate, SITE } from "../lib/site";
+
+interface Props {
+  title: string;
+  date?: string;
+  summaryHtml?: string;
+}
+
+const { title, date, summaryHtml } = Astro.props;
+---
+
+<div class="post">
+  <article>
+    <header>
+      <div class="post-meta">
+        {
+          date && (
+            <time datetime={formatXmlDate(date)}>{formatPostDate(date)}</time>
+          )
+        }
+      </div>
+
+      <h1>{title}</h1>
+
+      {
+        summaryHtml && (
+          <div class="post-summary" set:html={summaryHtml} />
+        )
+      }
+    </header>
+
+    <div class="post-content">
+      <slot />
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-footer-signature">
+        Written &hearts; by <a itemprop="name" href="/">{SITE.author}</a>
+      </div>
+      <div class="post-footer-back"><a href="/blog">← Blog</a></div>
+    </footer>
+  </article>
+</div>

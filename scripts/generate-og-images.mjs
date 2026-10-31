@@ -16,20 +16,24 @@ const HEIGHT = 630;
 const SCALE = 2;
 const OUTPUT_WIDTH = WIDTH * SCALE;
 const MAX_TITLE_GRAPHEMES = 110;
-const RENDER_DEPENDENCIES = [
-  "@fontsource/eb-garamond",
-  "@fontsource/inter",
-  "@resvg/resvg-js",
-  "@twemoji/svg",
-  "gray-matter",
-  "react",
-  "satori",
-  "twemoji",
-];
+const LEGACY_RENDERER_FINGERPRINT =
+  "a9557208675f289d414b0fcfdd21722c6b33a5252be6d4e7968aa5bd2c0b2b27";
+const MIGRATION_RENDER_SOURCE_FINGERPRINT =
+  "ef44ddb4ef872c4e0dc565ed8571f8135f0e2eff11443c52e2a339ce34b55207";
+const LEGACY_RENDER_DEPENDENCIES = {
+  "@fontsource/eb-garamond": "5.3.0",
+  "@fontsource/inter": "5.3.0",
+  "@resvg/resvg-js": "2.6.2",
+  "@twemoji/svg": "15.0.0",
+  "gray-matter": "4.0.3",
+  react: "19.2.8",
+  satori: "0.29.1",
+  twemoji: "14.0.2",
+};
 const projectRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const postsDirectory = path.join(projectRoot, "_posts");
 const previewDirectory = path.join(projectRoot, ".og-preview");
-const generatedDirectory = path.join(projectRoot, "assets", "og", "posts");
+const generatedDirectory = path.join(projectRoot, "public", "assets", "og", "posts");
 const manifestPath = path.join(generatedDirectory, ".manifest.json");
 const segmenter = new Intl.Segmenter("en", { granularity: "grapheme" });
 
@@ -300,23 +304,54 @@ async function writePreviewGallery(posts) {
 }
 
 async function rendererFingerprint() {
-  const sourcePath = fileURLToPath(import.meta.url);
-  const [source, lockSource] = await Promise.all([
-    fs.readFile(sourcePath),
-    fs.readFile(path.join(projectRoot, "package-lock.json"), "utf8"),
-  ]);
+  const lockSource = await fs.readFile(
+    path.join(projectRoot, "package-lock.json"),
+    "utf8",
+  );
   const lock = JSON.parse(lockSource);
-  const hash = createHash("sha256");
 
-  hash.update(source);
+  const dependencies = Object.keys(LEGACY_RENDER_DEPENDENCIES).map(
+    (dependency) => {
+      const version = lock.packages?.[`node_modules/${dependency}`]?.version;
 
-  for (const dependency of RENDER_DEPENDENCIES) {
-    const version = lock.packages?.[`node_modules/${dependency}`]?.version;
+      if (!version) {
+        throw new Error(`Missing renderer dependency: ${dependency}`);
+      }
 
-    if (!version) {
-      throw new Error(`Missing renderer dependency in package-lock.json: ${dependency}`);
-    }
+      return [dependency, version];
+    },
+  );
 
+  const sourceHash = createHash("sha256");
+  sourceHash.update(
+    JSON.stringify({ WIDTH, HEIGHT, SCALE, OUTPUT_WIDTH, MAX_TITLE_GRAPHEMES }),
+  );
+  for (const rendererFunction of [
+    loadFonts,
+    normalizeTitle,
+    truncateTitle,
+    titleCard,
+    loadEmoji,
+    renderCard,
+  ]) {
+    sourceHash.update(`\0${rendererFunction.toString()}`);
+  }
+
+  const sourceFingerprint = sourceHash.digest("hex");
+  const matchesLegacyDependencies = dependencies.every(
+    ([dependency, version]) =>
+      LEGACY_RENDER_DEPENDENCIES[dependency] === version,
+  );
+
+  if (
+    sourceFingerprint === MIGRATION_RENDER_SOURCE_FINGERPRINT &&
+    matchesLegacyDependencies
+  ) {
+    return LEGACY_RENDERER_FINGERPRINT;
+  }
+
+  const hash = createHash("sha256").update(sourceFingerprint);
+  for (const [dependency, version] of dependencies) {
     hash.update(`\0${dependency}@${version}`);
   }
 

@@ -1,7 +1,6 @@
 ---
-layout: post
 title: "Remote work is a blessing and a competitive edge"
-date: 2025-01-31 09:30:00
+date: "2025-01-31 09:30:00"
 categories: [blog, design, hiring, startups, remote]
 ---
 

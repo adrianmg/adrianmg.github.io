@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+  BLOG_DESCRIPTION,
+  formatBlogDate,
+  formatXmlDate,
+  postPath,
+  sortPostsNewestFirst,
+} from "../../lib/site";
+
+const posts = sortPostsNewestFirst(await getCollection("posts"));
+---
+
+<BaseLayout
+  pageTitle="Blog"
+  description={BLOG_DESCRIPTION}
+  canonicalPath="/blog/"
+>
+  <div class="post blog">
+    <div class="post-meta"><a href="/">← Home</a></div>
+    <h1>Blog</h1>
+    <div class="blog-content">
+      <ul class="blog-list">
+        {
+          posts.map((post) => (
+            <li class="blog-list-item">
+              <a href={postPath(post)}>
+                <span class="blog-list-item-date">
+                  <time datetime={formatXmlDate(post.data.date)}>
+                    {formatBlogDate(post.data.date)}
+                  </time>
+                </span>
+                <span class="blog-list-item-title">{post.data.title}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</BaseLayout>

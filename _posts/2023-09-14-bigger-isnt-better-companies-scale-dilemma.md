@@ -1,7 +1,6 @@
 ---
-layout: post
 title: "Bigger isn't better: the companies scale dilemma"
-date: 2023-09-14 17:34:00
+date: "2023-09-14 17:34:00"
 categories: [blog, industry, opinion]
 summary: "The tech industry has witnessed tremendous growth, but with this growth comes challenges. Massive teams and lofty financial targets have rendered a significant portion of the sector daunting and less enjoyable."
 ---

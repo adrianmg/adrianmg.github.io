@@ -1,7 +1,6 @@
 ---
-layout: post
 title: "Programa Vostok IV: Mission accomplished"
-date: 2013-07-06 17:16:10
+date: "2013-07-06 17:16:10"
 categories: [blog, personal]
 redirect_from: /2013/07/programa-vostok-iv-mission-accomplished
 ---
