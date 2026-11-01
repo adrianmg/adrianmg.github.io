@@ -95,6 +95,41 @@ test("post authoring, feed, sitemap, and JSON-LD contracts", async (t) => {
   await t.test("the unmodified site satisfies its published contract", () => {
     assert.match(check(), /Site contract passed/);
   });
+  await t.test("category folders in post URLs list their posts", async () => {
+    const read = (route) => fs.readFile(path.join(workspace, "dist", route, "index.html"), "utf8");
+    const titles = (html) => elements(parse(html))
+      .filter((node) => attr(node, "class") === "blog-list-item-title").map(text);
+    const worklog = titles(await read("blog/worklog"));
+    assert(worklog.some((title) => title.includes("Race Calculator")), "Worklog misses its posts");
+    const design = titles(await read("blog/design"));
+    const nested = titles(await read("blog/design/opinion"));
+    assert(nested.length > 0 && nested.every((title) => design.includes(title)), "Nested category is not a subset");
+    const sitemap = await fs.readFile(path.join(workspace, "dist/sitemap.xml"), "utf8");
+    assert.match(sitemap, /https:\/\/adrianmato\.com\/blog\/worklog\/<\/loc>/);
+  });
+  await t.test("the projects grid lists only the three side projects", async () => {
+    for (const route of ["projects/index.html"]) {
+      const html = await fs.readFile(path.join(workspace, "dist", route), "utf8");
+      const nodes = elements(parse(html));
+      const headings = nodes.filter((node) => node.tagName === "h2");
+      assert.deepEqual(headings.map((node) => text(node).trim()), ["noted", "adrianmato.art", "github-pewpew"]);
+      assert.equal(nodes.filter((node) => attr(node, "class") === "projects-link").length, 0);
+      assert.deepEqual(
+        headings.map((node) => attr(elements(node).find((child) => child.tagName === "a"), "href")),
+        ["https://noted.computer", "https://adrianmato.art", "/pewpew/"],
+      );
+      const times = nodes.filter((node) => node.tagName === "time");
+      assert.deepEqual(times.map(text), ["2026", "2022", "2021"]);
+      const dates = nodes.filter((node) => attr(node, "class") === "projects-date");
+      assert.deepEqual(
+        dates.map((node) => text(node).trim()),
+        ["2026", "2022", "2021"],
+      );
+      assert.equal(nodes.filter((node) => node.tagName === "img").length, 3);
+      const canonical = nodes.find((node) => node.tagName === "link" && attr(node, "rel") === "canonical");
+      assert.equal(attr(canonical, "href"), "https://adrianmato.com/projects/");
+    }
+  });
   const baselineSitemap = await fs.readFile(path.join(workspace, "dist/sitemap.xml"), "utf8");
   const baselineSitemapCount = [...baselineSitemap.matchAll(/<loc>/g)].length;
   const baselinePostFiles = (await fs.readdir(path.join(workspace, "_posts")))
@@ -242,15 +277,17 @@ Inline code: \`isn't changed -- ...\`.
   const sitemapSource = await fs.readFile(sitemapFile, "utf8");
   await fs.writeFile(sitemapFile, `${sitemapSource}\nSITEMAP_PAGES.push("/review-mini-site/");\n`);
   build();
+  // The fixture post adds its own page plus a /blog/fixtures/ category page.
+  const fixtureRoutes = 2;
   await t.test("explicitly including a new mini-site passes", () => {
-    assert(check().includes(`${baselineSitemapCount + 2} sitemap routes`));
+    assert(check().includes(`${baselineSitemapCount + fixtureRoutes + 1} sitemap routes`));
   });
 
   await fs.writeFile(sitemapFile,
     `${sitemapSource}\nSITEMAP_EXCLUSIONS["/review-mini-site/"] = "Unlisted preview";\n`);
   build();
   await t.test("a documented mini-site exclusion passes", () => {
-    assert(check().includes(`${baselineSitemapCount + 1} sitemap routes`));
+    assert(check().includes(`${baselineSitemapCount + fixtureRoutes} sitemap routes`));
   });
 
   // A generated card still works when an author removes a custom override.

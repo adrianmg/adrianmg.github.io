@@ -257,9 +257,67 @@ pre {
  */
 
 .post {
-  max-width: 66rem;
+  max-width: 96rem;
   margin: 6.4rem auto 7.2rem;
   @extend %font-body;
+}
+
+// Posts use a 960px frame so media can breathe, with prose kept to 664px.
+.post article > header,
+.post article > footer,
+.post .post-content > * {
+  max-width: 66.4rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.post .post-content > p:has(> img),
+.post .post-content > p:has(> a:only-child > img:only-child) {
+  max-width: none;
+  text-align: center;
+}
+
+.post .post-content > p:has(> img[height]),
+.post .post-content > p:has(> a:only-child > img[height]:only-child) {
+  max-width: 66.4rem;
+  text-align: left;
+}
+
+// Linked images get no text-link highlight; it misaligns over centered media.
+.post .post-content a:has(> img) {
+  display: inline-block;
+  padding: 0;
+  vertical-align: top;
+}
+
+.post .post-content > .post-note {
+  margin-top: 4rem;
+  padding-top: 2.4rem;
+  border-top: 0.05rem solid rgba(var(--text-color-rgb), 0.15);
+  @extend %font-s;
+}
+
+.post .post-content a:has(> img)::before {
+  display: none;
+}
+
+.post .post-content > .post-media {
+  max-width: none;
+  margin: 3.2rem auto 4rem;
+  text-align: center;
+}
+
+.post .post-media video,
+.post .post-media img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+
+.post-media video {
+  width: 100%;
 }
 
 .post h1 {
@@ -482,6 +540,11 @@ pre {
  * MEDIA QUERIES:
  */
 
+@media screen and (max-width: 700px) {
+  .home-navigation .home-navigation-github {
+    display: none;
+  }
+}
 @media screen and (max-width: 620px) {
   // mobile-XXL
   body {
@@ -502,8 +565,16 @@ pre {
   body {
     --body-padding: 2.4rem;
   }
-  .home-navigation .home-navigation-bluesky {
+  .home-navigation .home-navigation-x {
     display: none;
+  }
+}
+@media screen and (max-width: 400px) {
+  .home-navigation ul {
+    left: -1rem;
+  }
+  .home-navigation a {
+    padding: 2rem 1rem;
   }
 }
 @media screen and (max-width: 380px) {

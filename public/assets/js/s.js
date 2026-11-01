@@ -34,23 +34,37 @@
 
     // initialize scroll hint
     showScrollHint(3);
+  }
 
-    // Play project videos only while they are visible and motion is welcome.
+  // Play inline videos only while they are visible and motion is welcome.
+  if (document.querySelector('[data-autoplay-video]')) {
     const autoplayVideos = Array.from(document.querySelectorAll('[data-autoplay-video]'));
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const programmaticPauses = new WeakSet();
     const programmaticPlays = new WeakSet();
+    const connection = navigator.connection;
     let preloadObserver;
     let videoObserver;
 
-    function preloadVideo(video) {
-      if (video.dataset.preloaded === 'true') {
+    // Data Saver and reduced motion both mean: never fetch or play without a tap.
+    function autoplayAllowed() {
+      return !reducedMotion.matches && !(connection && connection.saveData);
+    }
+
+    // 'metadata' fetches only the header and first frame; 'auto' buffers for playback.
+    function preloadVideo(video, level) {
+      const current = video.dataset.preloaded;
+
+      if (current === 'auto' || current === level) {
         return;
       }
 
-      video.dataset.preloaded = 'true';
-      video.preload = 'auto';
-      video.load();
+      video.dataset.preloaded = level;
+      video.preload = level;
+
+      if (!current) {
+        video.load();
+      }
     }
 
     function playVideo(video) {
@@ -89,7 +103,7 @@
       });
 
       video.addEventListener('play', function() {
-        video.dataset.preloaded = 'true';
+        video.dataset.preloaded = 'auto';
 
         if (!programmaticPlays.delete(video)) {
           delete video.dataset.userPaused;
@@ -102,21 +116,22 @@
         preloadObserver.disconnect();
       }
 
-      if (reducedMotion.matches || !('IntersectionObserver' in window)) {
+      if (!autoplayAllowed() || !('IntersectionObserver' in window)) {
         return;
       }
 
+      // Half a screen ahead, fetch just enough to start instantly; full buffering waits until visible.
       preloadObserver = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
-            preloadVideo(entry.target);
+            preloadVideo(entry.target, 'metadata');
             preloadObserver.unobserve(entry.target);
           }
         });
-      }, { rootMargin: '400px 0px' });
+      }, { rootMargin: '50% 0px' });
 
       autoplayVideos.forEach(function(video) {
-        if (video.dataset.preloaded !== 'true') {
+        if (!video.dataset.preloaded) {
           preloadObserver.observe(video);
         }
       });
@@ -132,7 +147,7 @@
         delete video.dataset.inViewport;
       });
 
-      if (reducedMotion.matches || !('IntersectionObserver' in window)) {
+      if (!autoplayAllowed() || !('IntersectionObserver' in window)) {
         return;
       }
 
@@ -144,7 +159,7 @@
             video.dataset.inViewport = 'true';
 
             if (!document.hidden) {
-              preloadVideo(video);
+              preloadVideo(video, 'auto');
               playVideo(video);
             }
           } else {
@@ -167,16 +182,22 @@
       window.addEventListener('load', configureVideoPreload, { once: true });
     }
 
-    reducedMotion.addEventListener('change', function() {
+    function reconfigureVideos() {
       configureVideoAutoplay();
       configureVideoPreload();
-    });
+    }
+
+    reducedMotion.addEventListener('change', reconfigureVideos);
+
+    if (connection && connection.addEventListener) {
+      connection.addEventListener('change', reconfigureVideos);
+    }
 
     document.addEventListener('visibilitychange', function() {
       autoplayVideos.forEach(function(video) {
         if (document.hidden) {
           pauseVideo(video);
-        } else if (video.dataset.inViewport === 'true' && !reducedMotion.matches) {
+        } else if (video.dataset.inViewport === 'true' && autoplayAllowed()) {
           playVideo(video);
         }
       });

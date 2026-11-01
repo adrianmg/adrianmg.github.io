@@ -3,6 +3,7 @@ import { SITEMAP_PAGES, SITEMAP_EXCLUSIONS } from "../lib/sitemap.mjs";
 
 import {
   absoluteUrl,
+  categoryPaths,
   formatXmlDate,
   parseLegacyDate,
   postPath,
@@ -19,10 +20,13 @@ export async function GET() {
     (post) =>
       `<url><loc>${xmlEscape(absoluteUrl(postPath(post)))}</loc><lastmod>${formatXmlDate(post.data.date)}</lastmod></url>`,
   );
+  const categoryUrls = categoryPaths(posts).map(
+    (path) => `<url><loc>${xmlEscape(absoluteUrl(path))}</loc></url>`,
+  );
   const pageUrls = SITEMAP_PAGES.filter((path) => !(path in SITEMAP_EXCLUSIONS)).map(
     (path) => `<url><loc>${xmlEscape(absoluteUrl(path))}</loc></url>`,
   );
-  const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...postUrls, ...pageUrls].join("\n")}\n</urlset>\n`;
+  const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...postUrls, ...pageUrls, ...categoryUrls].join("\n")}\n</urlset>\n`;
 
   return new Response(body, {
     headers: { "Content-Type": "application/xml; charset=utf-8" },

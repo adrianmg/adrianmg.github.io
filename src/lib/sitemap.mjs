@@ -1,4 +1,4 @@
-export const SITEMAP_PAGES = ["/blog/", "/", "/markdown-demo/", "/pewpew/"];
+export const SITEMAP_PAGES = ["/blog/", "/", "/markdown-demo/", "/pewpew/", "/projects/"];
 
 // Post redirects are excluded automatically. Other exclusions need a reason.
 export const SITEMAP_EXCLUSIONS = {

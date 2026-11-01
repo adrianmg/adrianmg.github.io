@@ -27,6 +27,11 @@ npm test           # Exercise authoring changes in a disposable copy of the site
 
 ## Authoring posts and pages
 
+The `/projects/` page lists personal side projects as a grid, rendered from
+`src/lib/projects.ts`. Keep entries newest first and use existing project
+dates rather than inventing exact launch dates. Project artwork lives under
+`public/assets/work/`.
+
 Add posts as dated `.md` files under `_posts/` with `title`,
 `date` (a quoted `YYYY-MM-DD HH:mm:ss` timestamp), and ordered `categories`.
 Generate their social cards with `npm run og:generate` before building.

@@ -47,4 +47,9 @@ const summaryHtml = post.data.summary
   >
     <Content />
   </PostLayout>
+  {
+    post.body?.includes("data-autoplay-video") && (
+      <script is:inline src="/assets/js/s.js"></script>
+    )
+  }
 </BaseLayout>

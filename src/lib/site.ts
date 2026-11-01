@@ -124,6 +124,34 @@ export function sortPostsNewestFirst(posts: PostEntry[]): PostEntry[] {
   );
 }
 
+// Every folder in a post URL below /blog/ gets its own listing page.
+export function categoryPaths(posts: PostEntry[]): string[] {
+  const paths = new Set<string>();
+  for (const post of posts) {
+    const [root, ...categories] = post.data.categories;
+    if (root !== "blog") continue;
+    for (let depth = 1; depth <= categories.length; depth++) {
+      paths.add(`/blog/${categories.slice(0, depth).join("/")}/`);
+    }
+  }
+  return [...paths].sort();
+}
+
+const CATEGORY_LABELS: Record<string, string> = {
+  agents: "Agents",
+  worklog: "Worklog",
+};
+
+export function categoryLabel(segment: string): string {
+  return (
+    CATEGORY_LABELS[segment] ??
+    segment
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ")
+  );
+}
+
 export function postSocialImage(post: PostEntry): SocialImage {
   if (post.data.image) return post.data.image;
 
