@@ -283,6 +283,14 @@ pre {
   text-align: left;
 }
 
+// Raw image tags written straight into older posts sit in the text column, left-aligned.
+.post .post-content > img {
+  display: block;
+  max-width: min(100%, 66.4rem);
+  margin-left: max(0px, calc((100% - 66.4rem) / 2));
+  margin-right: auto;
+}
+
 // Linked images get no text-link highlight; it misaligns over centered media.
 .post .post-content a:has(> img) {
   display: inline-block;

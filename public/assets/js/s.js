@@ -124,6 +124,10 @@
 
     autoplayVideos.forEach(function(video) {
       video.addEventListener('pause', function() {
+        if (video.dataset.switchingSource) {
+          return;
+        }
+
         if (!programmaticPauses.delete(video)) {
           video.dataset.userPaused = 'true';
         }
@@ -219,6 +223,44 @@
     if (connection && connection.addEventListener) {
       connection.addEventListener('change', reconfigureVideos);
     }
+
+    // Browsers pick a <source> only on load, so reload when a source's media query flips.
+    const responsiveVideos = autoplayVideos.filter(function(video) {
+      return video.querySelector('source[media]');
+    });
+    const sourceQueries = new Set();
+
+    responsiveVideos.forEach(function(video) {
+      video.querySelectorAll('source[media]').forEach(function(source) {
+        sourceQueries.add(source.media);
+      });
+    });
+
+    function reloadSource(video) {
+      if (!video.currentSrc) {
+        return;
+      }
+
+      const time = video.currentTime;
+      const wasPlaying = !video.paused;
+
+      video.dataset.switchingSource = 'true';
+      video.addEventListener('loadedmetadata', function() {
+        video.currentTime = Math.min(time, video.duration || time);
+        delete video.dataset.switchingSource;
+
+        if (wasPlaying) {
+          playVideo(video);
+        }
+      }, { once: true });
+      video.load();
+    }
+
+    sourceQueries.forEach(function(query) {
+      window.matchMedia(query).addEventListener('change', function() {
+        responsiveVideos.forEach(reloadSource);
+      });
+    });
 
     document.addEventListener('visibilitychange', function() {
       autoplayVideos.forEach(function(video) {

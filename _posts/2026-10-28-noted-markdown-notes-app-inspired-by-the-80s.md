@@ -83,7 +83,6 @@ It's part nostalgia and part a belief that software can feel immediate and tacti
 <figure class="post-media">
   <video data-autoplay-video controls loop muted playsinline preload="none" data-poster="/assets/images/posts/2026/noted/eighties-poster.webp" width="1920" height="1070" aria-label="Noted's DOS-style menus, themes, and the noted.computer website">
     <source src="/assets/images/posts/2026/noted/eighties-mobile.mp4" media="(max-width: 620px)" type="video/mp4">
-    <source src="/assets/images/posts/2026/noted/eighties.av1.mp4" type="video/mp4; codecs=av01.0.08M.08">
     <source src="/assets/images/posts/2026/noted/eighties.mp4" type="video/mp4">
   </video>
 </figure>
