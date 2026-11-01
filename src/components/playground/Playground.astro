@@ -309,6 +309,7 @@ const { name, fallback, scripts = [] } = Astro.props;
   .playground-segmented span {
     display: block;
     text-align: center;
+    white-space: nowrap;
     padding: 0.3rem 1.2rem;
     border-radius: 2px;
     color: var(--text-color);
@@ -334,15 +335,15 @@ const { name, fallback, scripts = [] } = Astro.props;
 
   .playground-options-row .playground-segmented {
     flex: 1;
+    min-width: 0;
   }
 
   /* Icon squares as tall as the segmented track beside them. */
   .playground-actions button {
     display: grid;
     place-items: center;
-    width: 3.4rem;
     height: 100%;
-    min-height: 3.4rem;
+    aspect-ratio: 1;
     padding: 0;
     border: 0;
     border-radius: 2px;
