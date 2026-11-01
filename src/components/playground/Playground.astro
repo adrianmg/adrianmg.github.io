@@ -287,9 +287,7 @@ const { name, fallback, scripts = [] } = Astro.props;
 
   /* Choices sit on one soft track; the chosen one is raised out of it. */
   .playground-segmented {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(0, 1fr);
+    display: flex;
     gap: 0.2rem;
     padding: 0.3rem;
     border-radius: 2px;
@@ -298,6 +296,7 @@ const { name, fallback, scripts = [] } = Astro.props;
 
   .playground-segmented label {
     position: relative;
+    flex: 1 1 auto;
   }
 
   .playground-segmented input,
@@ -311,9 +310,7 @@ const { name, fallback, scripts = [] } = Astro.props;
     display: block;
     text-align: center;
     white-space: nowrap;
-    padding: 0.3rem 0.8rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    padding: 0.3rem 0.6rem;
     border-radius: 2px;
     color: var(--text-color);
     font: inherit;
