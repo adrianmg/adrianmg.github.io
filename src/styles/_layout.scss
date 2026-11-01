@@ -61,6 +61,8 @@ pre {
 
 .home-intro-bio-desc h2 {
   @extend %font-l;
+  // Geist Serif's tall lowercase reads larger than the type ramp's 2.4rem.
+  font-size: 2.2rem;
   color: var(--brand-color);
   margin-bottom: 2.2rem;
   font-family: var(--base-font-serif);

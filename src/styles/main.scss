@@ -3,10 +3,29 @@
 @use "base";
 @use "layout";
 
+// Self-hosted, Latin-subset Geist Serif (SIL OFL); only fetched on pages that use it.
+@font-face {
+  font-family: "Geist Serif";
+  src: url("/assets/fonts/GeistSerif-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Baskerville is an Apple system font; elsewhere the ampersand falls back to this one-glyph italic.
+@font-face {
+  font-family: "Libre Baskerville Ampersand";
+  src: url("/assets/fonts/LibreBaskerville-Italic-ampersand.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0026;
+}
+
 // Define defaults for each variable.
 :root {
   --base-font-family:   -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  --base-font-serif:    'EB Garamond', serif;
+  --base-font-serif:    "Geist Serif", Georgia, serif;
   --base-font-size:     2.3rem;
   --base-font-weight:   400;
   --small-font-size:    calc(var(--base-font-size) * 0.875);

@@ -21,7 +21,6 @@ const LEGACY_RENDERER_FINGERPRINT =
 const MIGRATION_RENDER_SOURCE_FINGERPRINT =
   "ef44ddb4ef872c4e0dc565ed8571f8135f0e2eff11443c52e2a339ce34b55207";
 const LEGACY_RENDER_DEPENDENCIES = {
-  "@fontsource/eb-garamond": "5.3.0",
   "@fontsource/inter": "5.3.0",
   "@resvg/resvg-js": "2.6.2",
   "@twemoji/svg": "15.0.0",
@@ -36,6 +35,9 @@ const previewDirectory = path.join(projectRoot, ".og-preview");
 const generatedDirectory = path.join(projectRoot, "public", "assets", "og", "posts");
 const manifestPath = path.join(generatedDirectory, ".manifest.json");
 const segmenter = new Intl.Segmenter("en", { granularity: "grapheme" });
+// Geist Serif (SIL OFL) with its GPOS table removed: Satori sizes words without
+// kerning but draws them kerned, which leaves uneven gaps between words.
+const SERIF_FONT_PATH = path.join(projectRoot, "scripts", "fonts", "GeistSerif-Regular-og.ttf");
 
 function fontPath(family, file) {
   return path.join(projectRoot, "node_modules", "@fontsource", family, "files", file);
@@ -56,10 +58,8 @@ async function loadFonts() {
       style: "normal",
     },
     {
-      name: "EB Garamond",
-      data: await fs.readFile(
-        fontPath("eb-garamond", "eb-garamond-latin-400-normal.woff"),
-      ),
+      name: "Geist Serif",
+      data: await fs.readFile(SERIF_FONT_PATH),
       weight: 400,
       style: "normal",
     },
@@ -165,8 +165,8 @@ function titleCard(title) {
           left: 96,
           width: 1008,
           color: "rgb(255, 184, 122)",
-          fontFamily: "EB Garamond",
-          fontSize: 48,
+          fontFamily: "Geist Serif",
+          fontSize: 44,
           fontWeight: 400,
           lineHeight: "64px",
         },
@@ -337,6 +337,8 @@ async function rendererFingerprint() {
     sourceHash.update(`\0${rendererFunction.toString()}`);
   }
 
+  // Font files are inputs too, so swapping a font regenerates every card.
+  sourceHash.update(await fs.readFile(SERIF_FONT_PATH));
   const sourceFingerprint = sourceHash.digest("hex");
   const matchesLegacyDependencies = dependencies.every(
     ([dependency, version]) =>

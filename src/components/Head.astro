@@ -17,6 +17,7 @@ interface Props {
   kind?: "page" | "post" | "site";
   publishedTime?: string;
   ogUrlPath?: string;
+  preloadSerif?: boolean;
 }
 
 const {
@@ -28,6 +29,7 @@ const {
   kind = "page",
   publishedTime,
   ogUrlPath = canonicalPath,
+  preloadSerif = false,
 } = Astro.props;
 
 const title =
@@ -111,16 +113,17 @@ const jsonLd =
 
   <link rel="preload" as="style" href="/assets/css/style.css" />
   <link rel="stylesheet" href="/assets/css/style.css" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link
-    rel="preload"
-    as="style"
-    href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap"
-  />
-  <link
-    href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap"
-    rel="stylesheet"
-  />
+  {
+    preloadSerif && (
+      <link
+        rel="preload"
+        as="font"
+        type="font/woff2"
+        href="/assets/fonts/GeistSerif-Regular.woff2"
+        crossorigin
+      />
+    )
+  }
   <link href="/assets/images/favicon.png" rel="icon" type="image/png" />
   <!-- Fetch blog and project pages on hover or press so they open instantly. Browsers without support ignore this. -->
   <script
