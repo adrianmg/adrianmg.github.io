@@ -23,7 +23,7 @@ I love Markdown, but opening a whole workspace just to write down a thought alwa
 Everything saves as you type, straight to plain Markdown files, so there's no save button and nothing to set up. You open it, write, and close it. That's pretty much the whole idea.
 
 <figure class="post-media">
-  <video data-autoplay-video controls loop muted playsinline preload="none" poster="/assets/images/posts/2026/noted/idea-poster.webp" width="1920" height="1194" aria-label="Writing a note in Noted while it saves automatically">
+  <video data-autoplay-video controls loop muted playsinline preload="none" data-poster="/assets/images/posts/2026/noted/idea-poster.webp" width="1920" height="1194" aria-label="Writing a note in Noted while it saves automatically">
     <source src="/assets/images/posts/2026/noted/idea-mobile.mp4" media="(max-width: 620px)" type="video/mp4">
     <source src="/assets/images/posts/2026/noted/idea.mp4" type="video/mp4">
   </video>
@@ -46,7 +46,7 @@ Writing notes quickly only helps if you can find them again. We've all lost time
 Noted uses fuzzy search for when you only remember bits and pieces, and exact matching for when you know precisely what you're looking for. Either way, results appear as you type.
 
 <figure class="post-media">
-  <video data-autoplay-video controls loop muted playsinline preload="none" poster="/assets/images/posts/2026/noted/search-poster.webp" width="1920" height="1194" aria-label="Searching notes in Noted with results appearing as you type">
+  <video data-autoplay-video controls loop muted playsinline preload="none" data-poster="/assets/images/posts/2026/noted/search-poster.webp" width="1920" height="1194" aria-label="Searching notes in Noted with results appearing as you type">
     <source src="/assets/images/posts/2026/noted/search-mobile.mp4" media="(max-width: 620px)" type="video/mp4">
     <source src="/assets/images/posts/2026/noted/search.mp4" type="video/mp4">
   </video>
@@ -59,7 +59,7 @@ My favorite part of any side project is obsessing over the small interactions. I
 There are plenty of other small details like these waiting to be discovered.
 
 <figure class="post-media">
-  <video data-autoplay-video controls loop muted playsinline preload="none" poster="/assets/images/posts/2026/noted/details-poster.webp" width="1920" height="1194" aria-label="Checking off tasks and editing an auto-aligned Markdown table in Noted">
+  <video data-autoplay-video controls loop muted playsinline preload="none" data-poster="/assets/images/posts/2026/noted/details-poster.webp" width="1920" height="1194" aria-label="Checking off tasks and editing an auto-aligned Markdown table in Noted">
     <source src="/assets/images/posts/2026/noted/details-mobile.mp4" media="(max-width: 620px)" type="video/mp4">
     <source src="/assets/images/posts/2026/noted/details.mp4" type="video/mp4">
   </video>
@@ -68,7 +68,7 @@ There are plenty of other small details like these waiting to be discovered.
 And if your notes start to pile up, you can organize them into folders and arrange them however you like, without leaving the keyboard.
 
 <figure class="post-media">
-  <video data-autoplay-video controls loop muted playsinline preload="none" poster="/assets/images/posts/2026/noted/folders-poster.webp" width="1920" height="1194" aria-label="Organizing notes into folders in Noted">
+  <video data-autoplay-video controls loop muted playsinline preload="none" data-poster="/assets/images/posts/2026/noted/folders-poster.webp" width="1920" height="1194" aria-label="Organizing notes into folders in Noted">
     <source src="/assets/images/posts/2026/noted/folders-mobile.mp4" media="(max-width: 620px)" type="video/mp4">
     <source src="/assets/images/posts/2026/noted/folders.mp4" type="video/mp4">
   </video>
@@ -81,7 +81,7 @@ Then there's the part that gives Noted its personality: DOS-style menus, Turbo b
 It's part nostalgia and part a belief that software can feel immediate and tactile again. That spirit carried over to [the website](https://noted.computer), which was a lot of fun to build.
 
 <figure class="post-media">
-  <video data-autoplay-video controls loop muted playsinline preload="none" poster="/assets/images/posts/2026/noted/eighties-poster.webp" width="1920" height="1070" aria-label="Noted's DOS-style menus, themes, and the noted.computer website">
+  <video data-autoplay-video controls loop muted playsinline preload="none" data-poster="/assets/images/posts/2026/noted/eighties-poster.webp" width="1920" height="1070" aria-label="Noted's DOS-style menus, themes, and the noted.computer website">
     <source src="/assets/images/posts/2026/noted/eighties-mobile.mp4" media="(max-width: 620px)" type="video/mp4">
     <source src="/assets/images/posts/2026/noted/eighties.av1.mp4" type="video/mp4; codecs=av01.0.08M.08">
     <source src="/assets/images/posts/2026/noted/eighties.mp4" type="video/mp4">

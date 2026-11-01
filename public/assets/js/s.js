@@ -46,6 +46,33 @@
     let preloadObserver;
     let videoObserver;
 
+    // Posters below the fold arrive as data-poster and load about a screen and a half ahead.
+    const lazyPosters = autoplayVideos.filter(function(video) {
+      return video.dataset.poster;
+    });
+
+    function showPoster(video) {
+      video.poster = video.dataset.poster;
+      delete video.dataset.poster;
+    }
+
+    if ('IntersectionObserver' in window) {
+      const posterObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            showPoster(entry.target);
+            posterObserver.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '150% 0px' });
+
+      lazyPosters.forEach(function(video) {
+        posterObserver.observe(video);
+      });
+    } else {
+      lazyPosters.forEach(showPoster);
+    }
+
     // Data Saver and reduced motion both mean: never fetch or play without a tap.
     function autoplayAllowed() {
       return !reducedMotion.matches && !(connection && connection.saveData);

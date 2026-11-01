@@ -122,6 +122,20 @@ const jsonLd =
     rel="stylesheet"
   />
   <link href="/assets/images/favicon.png" rel="icon" type="image/png" />
+  <!-- Fetch blog and project pages on hover or press so they open instantly. Browsers without support ignore this. -->
+  <script
+    is:inline
+    type="speculationrules"
+    set:html={JSON.stringify({
+      prefetch: [
+        {
+          source: "document",
+          where: { href_matches: ["/blog/*", "/projects/"] },
+          eagerness: "moderate",
+        },
+      ],
+    })}
+  />
   <link
     rel="alternate"
     type="application/rss+xml"
