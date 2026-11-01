@@ -37,7 +37,7 @@ async function isFile(filePath) {
 function postSlug(filename) {
   return filename
     .replace(/^\d{4}-\d{2}-\d{2}-/, "")
-    .replace(/\.(?:md|markdown)$/, "");
+    .replace(/\.(?:md|markdown|mdx)$/, "");
 }
 
 function postPath(post) {
@@ -88,7 +88,7 @@ function redirectsFor(post) {
 
 async function loadPosts() {
   const filenames = (await fs.readdir(postsDirectory))
-    .filter((filename) => /\.(?:md|markdown)$/.test(filename))
+    .filter((filename) => /\.(?:md|markdown|mdx)$/.test(filename))
     .sort();
 
   return Promise.all(

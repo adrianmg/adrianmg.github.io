@@ -3,15 +3,15 @@ title: "Worklog: Running Race Calculator "
 date: "2018-08-11 22:30:00"
 categories: [blog, worklog]
 summary: "
-I’m pairing with [Lucia](http://luciagm.net) to build a pet project that would let people estimate the race pace and total time when running races. It’s the perfect excuse to do two things:
+  I’m pairing with [Lucia](http://luciagm.net) to build a pet project that would let people estimate the race pace and total time when running races. It’s the perfect excuse to do two things:
 
-- She’d  <a href='https://github.com/lucia-gm/race-calculator'>code</a> all the project to keep improving her front-end skills
+  - She’d  <a href='https://github.com/lucia-gm/race-calculator'>code</a> all the project to keep improving her front-end skills
 
-- I’d stretch the creativity muscle and create a small UI kit to facilitate side projects
+  - I’d stretch the creativity muscle and create a small UI kit to facilitate side projects
 
 
-I’ve been pondering about the idea of having a daily worklog, let’s give it a try! If you got comments or suggestions please do [share them](http://twitter.com/adrianmg).
-"
+  I’ve been pondering about the idea of having a daily worklog, let’s give it a try! If you got comments or suggestions please do [share them](http://twitter.com/adrianmg).
+  "
 ---
 
 ### August 26, 2018 at 19:14

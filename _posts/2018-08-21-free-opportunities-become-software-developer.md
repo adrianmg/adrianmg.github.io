@@ -5,10 +5,10 @@ categories: [blog, community]
 summary: "As some of you may know I’ve been supporting and helping [Lucia](https://luciagm.net) to pivot from Economics, Operations and Customer Support to make a career change and become a Front-End Developer.
 
 
-One of the many good parts is discovering a **new world full of opportunities** that range from non-profit organizations up to generous scholarships to access different courses that would help you take the first steps into the Software Development world.
+  One of the many good parts is discovering a **new world full of opportunities** that range from non-profit organizations up to generous scholarships to access different courses that would help you take the first steps into the Software Development world.
 
 
-I’m **sharing the programs to learn to code** that I’ve found the most fascinating for different reasons. Hopefully, it would inspire others to take action across the world. I hope this encourages other people to make a change in their career."
+  I’m **sharing the programs to learn to code** that I’ve found the most fascinating for different reasons. Hopefully, it would inspire others to take action across the world. I hope this encourages other people to make a change in their career."
 ---
 
 ### [**The Odin Project**](https://theodinproject.com): the all-around program

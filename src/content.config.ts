@@ -9,7 +9,7 @@ const imageSchema = z.object({
 });
 
 const posts = defineCollection({
-  loader: glob({ pattern: "*.{md,markdown}", base: "./_posts" }),
+  loader: glob({ pattern: "*.{md,markdown,mdx}", base: "./_posts" }),
   schema: z.object({
     title: z.string().min(1),
     date: z.string().regex(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/),

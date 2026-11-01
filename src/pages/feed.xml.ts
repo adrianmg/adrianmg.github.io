@@ -1,5 +1,7 @@
 import { getCollection, render } from "astro:content";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
+import { loadRenderers } from "astro:container";
+import { getContainerRenderer as getMdxRenderer } from "@astrojs/mdx/container-renderer";
 
 import {
   absoluteUrl,
@@ -13,7 +15,9 @@ import {
 
 export async function GET() {
   const posts = sortPostsNewestFirst(await getCollection("posts")).slice(0, 10);
-  const container = await AstroContainer.create();
+  // MDX posts render through their own renderer, so the container needs it too.
+  const renderers = await loadRenderers([getMdxRenderer()]);
+  const container = await AstroContainer.create({ renderers });
   const entries = await Promise.all(
     posts.map(async (post) => {
       const path = postPath(post);

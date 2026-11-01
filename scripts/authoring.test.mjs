@@ -133,7 +133,7 @@ test("post authoring, feed, sitemap, and JSON-LD contracts", async (t) => {
   const baselineSitemap = await fs.readFile(path.join(workspace, "dist/sitemap.xml"), "utf8");
   const baselineSitemapCount = [...baselineSitemap.matchAll(/<loc>/g)].length;
   const baselinePostFiles = (await fs.readdir(path.join(workspace, "_posts")))
-    .filter((filename) => filename.endsWith(".md"));
+    .filter((filename) => /\.(?:md|mdx)$/.test(filename));
   const baselineDates = await Promise.all(baselinePostFiles.map(async (filename) => {
     const { data } = matter(await fs.readFile(path.join(workspace, "_posts", filename), "utf8"));
     return Date.parse(`${data.date.replace(" ", "T")}Z`);

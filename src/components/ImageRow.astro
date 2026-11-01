@@ -1,0 +1,45 @@
+---
+// A row of same-size images with a short label under each, for side-by-side
+// comparisons in posts. Stacks on narrow screens.
+interface Props {
+  images: { src: string; alt: string; label: string; width: number; height: number }[];
+}
+
+const { images } = Astro.props;
+---
+
+<figure class="post-media image-row">
+  {
+    images.map((image) => (
+      <div class="image-row-item">
+        <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" />
+        <span>{image.label}</span>
+      </div>
+    ))
+  }
+</figure>
+
+<style is:inline>
+  .image-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+    gap: 1.6rem;
+  }
+
+  .image-row-item {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .image-row-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 2px;
+  }
+
+  .image-row-item span {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+</style>

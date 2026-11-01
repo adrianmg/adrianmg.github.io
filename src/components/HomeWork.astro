@@ -1,3 +1,7 @@
+---
+const showSideProjects = false;
+---
+
 <section class="home-work-grid">
     <!-- Project GitHub -->
     <div class="home-work-grid__project">
@@ -147,37 +151,48 @@
                 alt="Adrián Mato - Tuenti"></figure>
     </div>
 
-    <!-- Project pewpew -->
-    <div class="home-work-grid__project">
-        <div class="home-work-grid__project-description">
-            <h2><a id="project-pewpew" href="#project-pewpew">github-pewpew: clean up your GitHub repositories</a></h2>
-            <h3>Personal side project (2021 – 2022)</h3>
-            <p>
-                Designing, coding, and maintaining a CLI tool to clean up unused repositories. It's open-source and
-                published as an npm package.
-                Visit the <a href="/pewpew/">website</a> to learn more.
-            </p>
+    {/* Side projects now live on /projects/. Set showSideProjects to true to list them here again. */}
+    {showSideProjects && (
+      <Fragment>
+        <div class="home-work-grid__project">
+            <div class="home-work-grid__project-description">
+                <h2><a id="project-pewpew" href="#project-pewpew">github-pewpew: clean up your GitHub repositories</a></h2>
+                <h3>Personal side project (2021 – 2022)</h3>
+                <p>
+                    Designing, coding, and maintaining a CLI tool to clean up unused repositories. It's open-source and
+                    published as an npm package.
+                    Visit the <a href="/pewpew/">website</a> to learn more.
+                </p>
+            </div>
+            <figure class="home-work-grid__project-screenshot"><img loading="lazy"
+                    src="/assets/work/pewpew/pewpew.webp" width="1200px" height="780px"
+                    alt="Adrián Mato - github-pewpew"></figure>
         </div>
-        <figure class="home-work-grid__project-screenshot"><img loading="lazy"
-                src="/assets/work/pewpew/pewpew.webp" width="1200px" height="780px"
-                alt="Adrián Mato - github-pewpew"></figure>
-    </div>
 
-    <!-- Project adrianmato.art -->
-    <div class="home-work-grid__project">
-        <div class="home-work-grid__project-description">
-            <h2><a id="project-adrianmatoart" href="#project-adrianmatoart">adrianmato.art: a creative journey through
-                    3D art</a></h2>
-            <h3>Personal side project (2022)</h3>
-            <p>
-                Designing and coding a project featuring inspiring 3D wallpapers crafted with love using Blender.
-                Available for both Desktop &amp; Mobile.
-                Visit the <a href="https://adrianmato.art">website</a> to learn more.
-            </p>
+        <div class="home-work-grid__project">
+            <div class="home-work-grid__project-description">
+                <h2><a id="project-adrianmatoart" href="#project-adrianmatoart">adrianmato.art: a creative journey through
+                        3D art</a></h2>
+                <h3>Personal side project (2022)</h3>
+                <p>
+                    Designing and coding a project featuring inspiring 3D wallpapers crafted with love using Blender.
+                    Available for both Desktop &amp; Mobile.
+                    Visit the <a href="https://adrianmato.art">website</a> to learn more.
+                </p>
+            </div>
+            <figure class="home-work-grid__project-screenshot"><img loading="lazy"
+                    src="/assets/work/adrianmatoart/adrianmatoart.webp" width="1200px" height="780px"
+                    alt="Adrián Mato - adrianmato.art"></figure>
         </div>
-        <figure class="home-work-grid__project-screenshot"><img loading="lazy"
-                src="/assets/work/adrianmatoart/adrianmatoart.webp" width="1200px" height="780px"
-                alt="Adrián Mato - adrianmato.art"></figure>
+      </Fragment>
+    )}
+
+    <!-- Side projects -->
+    <div class="home-work-grid__project home-work-grid__project--cta">
+        <div class="home-work-grid__project-description">
+            <h2>Side projects</h2>
+            <h3>I also build things on the side. <a href="/projects/">Here's where they all live →</a></h3>
+        </div>
     </div>
 
     <!-- Still around? -->

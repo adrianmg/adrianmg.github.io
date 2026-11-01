@@ -174,7 +174,9 @@ export function absoluteUrl(path: string): string {
 }
 
 export function postDescription(body: string): string {
-  const firstBlock = body.trim().split(/\n\s*\n/, 1)[0] ?? "";
+  // MDX posts start with import lines, which aren't part of the prose.
+  const prose = body.replace(/^(?:import|export)\s.*$/gm, "");
+  const firstBlock = prose.trim().split(/\n\s*\n/, 1)[0] ?? "";
   const text = smartTypography(firstBlock)
     .replace(/^#{1,6}\s+/gm, "")
     .replace(/!\[[^\]]*\]\([^)]+\)/g, "")

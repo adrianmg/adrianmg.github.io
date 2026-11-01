@@ -22,10 +22,73 @@ img {
   height: auto;
 }
 
+code,
+pre {
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* Inline code reads as a small chip, so characters and names stand out in prose. */
+:not(pre) > code {
+  padding: 0.1em 0.4em;
+  border-radius: 2px;
+  background-color: rgba(var(--text-color-rgb), 0.14);
+  color: var(--title-color);
+  font-size: 0.88em;
+  white-space: nowrap;
+}
+
+.code-block {
+  position: relative;
+}
+
+/* A quiet copy button in the block's corner, clearer on hover and focus. */
+.code-copy {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  padding: 0;
+  border: 0.05rem solid transparent;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 150ms ease-out, color 150ms ease-out, background-color 150ms ease-out, border-color 150ms ease-out;
+}
+
+.code-block:hover .code-copy,
+.code-copy:focus-visible,
+.code-copy.is-copied {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .code-copy {
+    opacity: 1;
+  }
+}
+
+/* Just the icon until the button itself is hovered. */
+.code-copy:hover {
+  border-color: rgba(var(--text-color-rgb), 0.2);
+  background: var(--background-color);
+  color: var(--title-color);
+}
+
+.code-copy.is-copied {
+  color: var(--strong-color);
+}
+
 pre {
   overflow-x: auto;
   background-color: rgba(var(--text-color-rgb), 0.08);
-  border-radius: 3px;
+  border: 0.05rem solid rgba(var(--text-color-rgb), 0.15);
+  border-radius: 2px;
+  color: var(--title-color);
   padding: 2rem 1.4rem;
   font-size: var(--font-size-m);
   scrollbar-color: rgba(var(--text-color-rgb), 0.3) transparent;
@@ -207,6 +270,10 @@ pre {
 
 .home-work-grid__project-description a:hover {
   color: var(--brand-color);
+}
+
+.home-work-grid__project--cta .home-work-grid__project-description {
+  margin-bottom: 0;
 }
 
 .home-work-grid__project-screenshot {

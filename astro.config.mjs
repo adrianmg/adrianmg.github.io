@@ -1,3 +1,4 @@
+import mdx from "@astrojs/mdx";
 import { defineConfig } from "astro/config";
 import { markdownOptions } from "./src/lib/markdown.mjs";
 
@@ -6,4 +7,5 @@ export default defineConfig({
   output: "static",
   trailingSlash: "always",
   markdown: markdownOptions,
+  integrations: [mdx()],
 });

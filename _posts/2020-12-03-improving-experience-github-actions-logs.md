@@ -3,8 +3,8 @@ title: "Improving the experience of GitHub Actions Logs"
 date: "2020-12-03 18:00:00"
 categories: [blog, design]
 summary: "
-This article was originally posted on the official [GitHub blog](https://github.blog/2020-09-23-a-better-logs-experience-with-github-actions/). I think it reflects nicely my thinking and how I approach design, so I'm sharing it here for whoever is interested in my work.
-"
+  This article was originally posted on the official [GitHub blog](https://github.blog/2020-09-23-a-better-logs-experience-with-github-actions/). I think it reflects nicely my thinking and how I approach design, so I'm sharing it here for whoever is interested in my work.
+  "
 ---
 
 ![GitHub Logs improvements](/assets/images/posts/2020/github-logs/cover.png)

@@ -3,8 +3,8 @@ title: "Worklog: Sharing your process and work in progress"
 date: "2019-12-12 22:30:00"
 categories: [blog, worklog]
 summary: "
-Updates on a small project aiming to improve how people collaborate by sharing their process, work in progress, and receive feedback.
-"
+  Updates on a small project aiming to improve how people collaborate by sharing their process, work in progress, and receive feedback.
+  "
 ---
 
 ### December 16, 2019 at 22:30

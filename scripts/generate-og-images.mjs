@@ -89,7 +89,7 @@ function truncateTitle(title) {
 }
 
 function postSlug(filename) {
-  const match = filename.match(/^\d{4}-\d{2}-\d{2}-(.+)\.(?:md|markdown)$/);
+  const match = filename.match(/^\d{4}-\d{2}-\d{2}-(.+)\.(?:md|markdown|mdx)$/);
 
   if (!match) {
     throw new Error(`Post filename does not match Jekyll's dated format: ${filename}`);
@@ -101,7 +101,7 @@ function postSlug(filename) {
 async function loadPosts() {
   const entries = await fs.readdir(postsDirectory, { withFileTypes: true });
   const filenames = entries
-    .filter((entry) => entry.isFile() && /\.(?:md|markdown)$/.test(entry.name))
+    .filter((entry) => entry.isFile() && /\.(?:md|markdown|mdx)$/.test(entry.name))
     .map((entry) => entry.name)
     .sort();
 

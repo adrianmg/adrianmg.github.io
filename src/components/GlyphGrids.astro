@@ -1,0 +1,76 @@
+---
+// Draws how much ink each given character leaves on the 9 × 20 spots of a
+// cell, from the same measurements the ASCII playground fits against. Static
+// SVG, so it reads the table out of the playground script at build time.
+import script from "../../public/assets/js/ascii-lab.js?raw";
+
+interface Props {
+  characters: string[];
+}
+
+const { characters } = Astro.props;
+const WIDTH = 9;
+const HEIGHT = 20;
+
+const table = script.match(/const MARKS = (\[.*?\]\]);/s);
+if (!table) {
+  throw new Error("GlyphGrids: couldn't find the MARKS table in ascii-lab.js");
+}
+const marks = new Map<string, string>(JSON.parse(table[1]));
+
+const grids = characters.map((character) => {
+  const coverage = marks.get(character);
+  if (!coverage) {
+    throw new Error(`GlyphGrids: no measurements for "${character}"`);
+  }
+  const spots = [...coverage].map((digit, i) => ({
+    x: i % WIDTH,
+    y: Math.floor(i / WIDTH),
+    ink: parseInt(digit, 16) / 15,
+  }));
+  return { character, spots };
+});
+---
+
+<figure class="post-media glyph-grids">
+  {
+    grids.map(({ character, spots }) => (
+      <div class="glyph-grid">
+        <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} role="img" aria-label={`How much ink “${character}” leaves on each spot of a 9 by 20 cell`}>
+          {spots.map(({ x, y, ink }) => (
+            <rect class={ink ? "glyph-ink" : "glyph-empty"} x={x + 0.06} y={y + 0.06} width="0.88" height="0.88" fill-opacity={ink ? ink.toFixed(2) : undefined} />
+          ))}
+        </svg>
+        <code>{character}</code>
+      </div>
+    ))
+  }
+</figure>
+
+<style is:inline>
+  .glyph-grids {
+    display: flex;
+    justify-content: center;
+    gap: clamp(1.6rem, 5vw, 4.8rem);
+  }
+
+  .glyph-grid {
+    display: grid;
+    justify-items: center;
+    gap: 1.2rem;
+  }
+
+  .glyph-grid svg {
+    display: block;
+    width: clamp(5.4rem, 14vw, 9rem);
+    height: auto;
+  }
+
+  .glyph-grid .glyph-empty {
+    fill: rgba(var(--text-color-rgb), 0.08);
+  }
+
+  .glyph-grid .glyph-ink {
+    fill: var(--title-color);
+  }
+</style>
