@@ -120,3 +120,12 @@ offline build.
 The site-wide fallback card at `public/assets/og-image.png` is managed manually.
 After replacing it, bump its `?v=` value in `src/lib/site.ts` so social crawlers
 request the new image.
+
+The `/investments/` card at `public/assets/og/investments.png` uses the post
+card renderer. To change it, regenerate, copy it over, and bump the `?v=` value
+in `src/pages/investments/index.astro`:
+
+```sh
+node scripts/generate-og-images.mjs --title "Angel investments" --slug investments
+cp .og-preview/investments.png public/assets/og/investments.png
+```
