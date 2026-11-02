@@ -217,7 +217,7 @@ const homeLinks = elements(homeNavigation)
   .filter((node) => node.tagName === "a")
   .map((node) => `${textContent(node)} ${attribute(node, "href")}`);
 const expectedHomeLinks = [
-  "Portfolio #home-work",
+  "Work #home-work",
   "Projects /projects/",
   "Blog /blog/",
   "Investments /investments/",
