@@ -112,7 +112,7 @@ test("post authoring, feed, sitemap, and JSON-LD contracts", async (t) => {
       const html = await fs.readFile(path.join(workspace, "dist", route), "utf8");
       const nodes = elements(parse(html));
       const headings = nodes.filter((node) => node.tagName === "h2");
-      assert.deepEqual(headings.map((node) => text(node).trim()), ["noted", "adrianmato.art", "github-pewpew"]);
+      assert.deepEqual(headings.map((node) => text(node).trim()), ["noted.computer", "adrianmato.art", "github-pewpew"]);
       assert.equal(nodes.filter((node) => attr(node, "class") === "projects-link").length, 0);
       assert.deepEqual(
         headings.map((node) => attr(elements(node).find((child) => child.tagName === "a"), "href")),
