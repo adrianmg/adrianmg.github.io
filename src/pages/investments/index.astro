@@ -29,12 +29,18 @@ import { INVESTMENTS } from "../../lib/investments";
                     <path d="M4.5 11.5l7-7M5.5 4.5h6v6" />
                   </svg>
                 </span>
-                <p>{investment.description}</p>
+                <div class="investments-meta">
+                  <p>{investment.description}</p>
+                  {investment.year && <time datetime={String(investment.year)}>{investment.year}</time>}
+                </div>
               </a>
             ) : (
               <div class="investments-entry">
                 <span class="blog-list-item-title">{investment.name}</span>
-                <p>{investment.description}</p>
+                <div class="investments-meta">
+                  <p>{investment.description}</p>
+                  {investment.year && <time datetime={String(investment.year)}>{investment.year}</time>}
+                </div>
               </div>
             )}
           </li>
@@ -62,9 +68,27 @@ import { INVESTMENTS } from "../../lib/investments";
   }
 
   .investments .blog-list-item p {
+    flex: 1;
+    min-width: 0;
     margin: 0;
     font-size: 1.4rem;
     line-height: 2rem;
+    color: var(--text-color);
+  }
+
+  /* The year sits at the far right of the description line, like /blog dates. */
+  .investments-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 1.6rem;
+  }
+
+  .investments-meta time {
+    flex: none;
+    font-size: 1.2rem;
+    line-height: 2rem;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
     color: var(--text-color);
   }
 

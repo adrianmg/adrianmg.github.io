@@ -206,6 +206,10 @@ for (const [index, row] of investmentRows.entries()) {
     elements(row).some((node) => node.tagName === "p" && textContent(node)),
     `Investment needs a one-line description: ${investmentNames[index]}`,
   );
+  assert(
+    elements(row).some((node) => node.tagName === "time" && /^\d{4}$/.test(textContent(node))),
+    `Investment needs a year: ${investmentNames[index]}`,
+  );
 }
 
 const homeNodes = elements(parse(await fs.readFile(routeFile("/"), "utf8")));

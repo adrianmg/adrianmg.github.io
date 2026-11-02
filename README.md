@@ -34,8 +34,9 @@ dates rather than inventing exact launch dates. Project artwork lives under
 
 The `/investments/` page lists the startup portfolio from
 `src/lib/investments.ts` in its curated order. Add only verified company
-websites and a short `description` for each entry; omit `url` to show a company
-without a link. The listing shares the blog's layout and list styles.
+websites, a short `description`, and the investment `year` for each entry; omit
+`url` to show a company without a link. The listing shares the blog's layout
+and list styles.
 
 Add posts as dated `.md` files under `_posts/` with `title`,
 `date` (a quoted `YYYY-MM-DD HH:mm:ss` timestamp), and ordered `categories`.
