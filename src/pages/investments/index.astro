@@ -1,0 +1,140 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { INVESTMENTS } from "../../lib/investments";
+---
+
+<BaseLayout
+  pageTitle="Investments"
+  description="Startups I've backed as an investor."
+  canonicalPath="/investments/"
+>
+  <main class="post blog investments">
+    <div class="post-meta"><a href="/">← Home</a></div>
+    <h1>Investments</h1>
+
+    <ul class="blog-list" aria-label="Startup portfolio">
+      {
+        INVESTMENTS.map((investment) => (
+          <li class="blog-list-item">
+            {investment.url ? (
+              <a href={investment.url}>
+                <span class="blog-list-item-title">
+                  {investment.name}
+                  <svg
+                    class="investments-arrow"
+                    viewBox="0 0 16 16"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M4.5 11.5l7-7M5.5 4.5h6v6" />
+                  </svg>
+                </span>
+                <div class="investments-meta">
+                  <p>{investment.description}</p>
+                  {investment.year && <time datetime={String(investment.year)}>{investment.year}</time>}
+                </div>
+              </a>
+            ) : (
+              <div class="investments-entry">
+                <span class="blog-list-item-title">{investment.name}</span>
+                <div class="investments-meta">
+                  <p>{investment.description}</p>
+                  {investment.year && <time datetime={String(investment.year)}>{investment.year}</time>}
+                </div>
+              </div>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</BaseLayout>
+
+<style is:inline>
+  .investments .blog-list-item a,
+  .investments-entry {
+    display: block;
+    padding: 1.2rem 0;
+    border-bottom: 0.05rem solid rgba(var(--text-color-rgb), 0.15);
+  }
+
+  .investments .blog-list-item a span,
+  .investments-entry .blog-list-item-title {
+    display: block;
+    padding: 0;
+    line-height: 2.2rem;
+    color: var(--title-color);
+    overflow-wrap: anywhere;
+  }
+
+  .investments .blog-list-item p {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: var(--text-color);
+  }
+
+  /* The year sits at the far right of the description line, like /blog dates. */
+  .investments-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 1.6rem;
+  }
+
+  .investments-meta time {
+    flex: none;
+    font-size: 1.2rem;
+    line-height: 2rem;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-color);
+  }
+
+  .investments-arrow {
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-left: 0.4rem;
+    vertical-align: -0.05em;
+    fill: none;
+    stroke: var(--brand-color);
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
+    transform: translate(-0.4rem, 0.4rem);
+    transition:
+      opacity 200ms ease-out,
+      transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .investments a:hover .investments-arrow,
+  .investments a:focus-visible .investments-arrow {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Without hover, keep a quiet arrow so linked rows still read as links. */
+  @media (hover: none) {
+    .investments-arrow {
+      opacity: 0.6;
+      transform: none;
+      stroke: var(--text-color);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .investments-arrow {
+      transform: none;
+      transition: opacity 150ms linear;
+    }
+  }
+
+  .investments a:focus-visible {
+    outline: 2px solid var(--brand-color);
+    outline-offset: 6px;
+    border-radius: 2px;
+  }
+</style>
