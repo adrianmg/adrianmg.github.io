@@ -186,7 +186,14 @@ for (const route of requiredRoutes) {
 }
 
 const investmentsHtml = await fs.readFile(routeFile("/investments/"), "utf8");
-const portfolioList = elements(parse(investmentsHtml)).find(
+const investmentsNodes = elements(parse(investmentsHtml));
+assert(
+  meta(investmentsNodes, "og:image") === `${SITE_URL}/assets/og/investments.png?v=1` &&
+    meta(investmentsNodes, "og:image:width") === "2400" &&
+    meta(investmentsNodes, "og:image:height") === "1260",
+  "Investments page must use its Angel investments social card",
+);
+const portfolioList = investmentsNodes.find(
   (node) => node.tagName === "ul" && attribute(node, "aria-label") === "Startup portfolio",
 );
 assert(portfolioList, "Investments page must expose its startup portfolio as a list");

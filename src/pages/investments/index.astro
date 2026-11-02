@@ -1,12 +1,20 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { INVESTMENTS } from "../../lib/investments";
+
+// Rendered with the post card renderer; see "Open Graph image previews" in the README.
+const SOCIAL_IMAGE = {
+  path: "/assets/og/investments.png?v=1",
+  width: 2400,
+  height: 1260,
+};
 ---
 
 <BaseLayout
   pageTitle="Investments"
   description="Startups I've backed as an investor."
   canonicalPath="/investments/"
+  image={SOCIAL_IMAGE}
 >
   <main class="post blog investments">
     <div class="post-meta"><a href="/">← Home</a></div>
