@@ -42,3 +42,13 @@ export const SIDE_PROJECTS = [
     imageAlt: "The github-pewpew website and repository cleanup tool",
   },
 ] as const;
+
+// How project covers are offered and sized on /projects/, shared with links that
+// warm them up ahead of a visit.
+export const PROJECT_IMAGE_WIDTHS = [640, 960, 1280];
+export const PROJECT_IMAGE_SIZES =
+  "(max-width: 720px) calc(100vw - 48px), (max-width: 1008px) calc((100vw - 112px) / 3), 299px";
+
+export function projectImageSrcset(image: string) {
+  return PROJECT_IMAGE_WIDTHS.map((width) => `${image}-${width}.webp ${width}w`).join(", ");
+}

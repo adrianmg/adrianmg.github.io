@@ -130,7 +130,15 @@ const jsonLd =
       prefetch: [
         {
           source: "document",
-          where: { href_matches: ["/blog/*", "/projects/"] },
+          where: { href_matches: ["/blog/*"] },
+          eagerness: "moderate",
+        },
+      ],
+      // The projects page is mostly pictures, so render it ahead, covers and all.
+      prerender: [
+        {
+          source: "document",
+          where: { href_matches: ["/projects/"] },
           eagerness: "moderate",
         },
       ],

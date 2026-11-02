@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { SIDE_PROJECTS } from "../../lib/projects";
+import { PROJECT_IMAGE_SIZES, projectImageSrcset, SIDE_PROJECTS } from "../../lib/projects";
 ---
 
 <BaseLayout
@@ -37,8 +37,8 @@ import { SIDE_PROJECTS } from "../../lib/projects";
               >
                 <img
                   src={`${project.image}-960.webp`}
-                  srcset={[640, 960, 1280].map((w) => `${project.image}-${w}.webp ${w}w`).join(", ")}
-                  sizes="(max-width: 720px) calc(100vw - 48px), (max-width: 1008px) calc((100vw - 112px) / 3), 299px"
+                  srcset={projectImageSrcset(project.image)}
+                  sizes={PROJECT_IMAGE_SIZES}
                   alt={project.imageAlt}
                   width={1280}
                   height={720}
