@@ -10,10 +10,12 @@ interface Props {
   options: { value: string; label: string; thumb: string }[];
   value: string;
   upload?: { name: string; label: string; accept?: string; drop?: boolean };
+  // A live camera tile, hidden until the demo shows it can use one.
+  camera?: { value: string; label: string };
   hint?: string;
 }
 
-const { name, label, hideLabel = false, options, value, upload, hint } = Astro.props;
+const { name, label, hideLabel = false, options, value, upload, camera, hint } = Astro.props;
 ---
 
 <fieldset class="playground-control" data-fixed aria-label={hideLabel ? label : undefined}>
@@ -26,6 +28,17 @@ const { name, label, hideLabel = false, options, value, upload, hint } = Astro.p
           <img src={option.thumb} alt={option.label} width="96" height="96" loading="lazy" decoding="async" />
         </label>
       ))
+    }
+    {
+      camera && (
+        <label class="playground-swatch-camera" title={camera.label} data-playground-camera hidden>
+          <input type="radio" name={name} value={camera.value} />
+          <span aria-hidden="true">
+            <svg viewBox="0 0 16 16" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" d="M1.75 4.75h8.5v6.5h-8.5zM10.25 7l4-2.25v6.5l-4-2.25" /></svg>
+          </span>
+          <span class="playground-visually-hidden">{camera.label}</span>
+        </label>
+      )
     }
     {
       upload && (

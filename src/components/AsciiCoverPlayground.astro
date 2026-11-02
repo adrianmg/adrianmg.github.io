@@ -28,13 +28,14 @@ const samples = [
     width: 1356,
     height: 1356,
   }}
-  scripts={["/assets/js/ascii-lab.js"]}
+  scripts={["/assets/js/ascii-lab-gpu.js", "/assets/js/ascii-lab.js"]}
 >
   <PlaygroundSwatches name="sample" label="Picture"
     hideLabel
     options={samples}
     value={samples[0].value}
-    upload={{ name: "picture", label: "Use your own picture", accept: "image/*", drop: true }}
+    camera={{ value: "camera", label: "Use your camera" }}
+    upload={{ name: "picture", label: "Use your own picture or video", accept: "image/*,video/*", drop: true }}
   />
   <PlaygroundOptions
     name="view"

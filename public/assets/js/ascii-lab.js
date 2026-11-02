@@ -46,14 +46,22 @@
     };
   }
 
+  // A Gaussian's weights for three samples either side; no blur leaves only the middle.
+  function kernelFor(sigma) {
+    if (sigma <= 0) {
+      return [0, 0, 0, 1, 0, 0, 0];
+    }
+    const weights = Array.from({ length: 7 }, (_, i) => Math.exp(-((i - 3) ** 2) / (2 * sigma * sigma)));
+    const total = weights.reduce((a, b) => a + b, 0);
+    return weights.map((w) => w / total);
+  }
+
   // A Gaussian blur over one cell, three samples either side, edges mirrored.
   function blurrer(sigma) {
     if (sigma <= 0) {
       return (cell) => Float64Array.from(cell);
     }
-    const weights = Array.from({ length: 7 }, (_, i) => Math.exp(-((i - 3) ** 2) / (2 * sigma * sigma)));
-    const total = weights.reduce((a, b) => a + b, 0);
-    const kernel = weights.map((w) => w / total);
+    const kernel = kernelFor(sigma);
     const mirror = (i, length) => (i < 0 ? -i : i >= length ? 2 * (length - 1) - i : i);
     return (cell) => {
       const across = new Float64Array(PIXELS);
@@ -141,28 +149,138 @@
     return `rgb(${from.map((c, i) => Math.round(c + (to[i] - c) * along)).join(',')})`;
   }
 
+
+  // Which marks a fit may try. Tiny grids and "Half blocks only" keep to half
+  // blocks and blanks.
+  function allowed(mark, choice, small) {
+    if (small || choice === 'blocks') {
+      return mark.block || mark.mark === ' ';
+    }
+    return choice === 'strokes' ? !mark.block : true;
+  }
+
+  const CAMERA = 'camera';
+  const isLive = (picture) => typeof HTMLVideoElement !== 'undefined' && picture instanceof HTMLVideoElement;
+  const sizeOf = (picture) => (isLive(picture) ? [picture.videoWidth, picture.videoHeight] : [picture.width, picture.height]);
+
+  function makeVideo() {
+    const video = document.createElement('video');
+    video.muted = true;
+    video.playsInline = true;
+    video.loop = true;
+    return video;
+  }
+
+  function stopVideo(video) {
+    video.pause();
+    if (video.srcObject) {
+      video.srcObject.getTracks().forEach((track) => track.stop());
+      video.srcObject = null;
+    }
+    if (video.src.startsWith('blob:')) {
+      URL.revokeObjectURL(video.src);
+    }
+    video.removeAttribute('src');
+  }
+
   window.Playground.register('ascii-cover', (stage, initial) => {
     const font = measureMarks();
-    const canvas = document.createElement('canvas');
-    canvas.setAttribute('role', 'img');
-    stage.prepend(canvas);
     const scratch = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+    // What the GPU version copies in each frame: the picture at the fit's
+    // size, the original at the grid's size, and every mark drawn once.
+    const sourceCanvas = document.createElement('canvas');
+    const originalCanvas = document.createElement('canvas');
+    const atlasCanvas = document.createElement('canvas');
     const figure = stage.closest('[data-playground]');
     const fileInput = figure.querySelector('input[type="file"]');
+    const cameraTile = figure.querySelector('[data-playground-camera]');
     const samples = new Map();
+    let canvas = null;
+    let gpu = null;
+    let started = false;
     let picture = null;
     let pictureKey = '';
+    let mirrored = false;
     let pictureFile = null;
     let uploads = 0;
     let sampleUrl = '';
+    let cameraOpening = false;
     let state = initial;
     let fitted = null;
     let fitKey = '';
+    let inkKey = null;
+    let atlasKey = '';
+    let shown = { columns: 1, rows: 1 };
     let markCache = { blur: null, marks: null };
 
+    // Clicking the picture flips between the text version and the original.
+    function makeCanvas() {
+      const next = document.createElement('canvas');
+      next.setAttribute('role', 'img');
+      next.style.cursor = 'pointer';
+      next.title = 'Click to compare with the original';
+      next.addEventListener('click', () => {
+        const other = figure.querySelector(`input[name="view"]:not(:checked)`);
+        if (other) {
+          other.checked = true;
+          other.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+      if (canvas) {
+        canvas.replaceWith(next);
+      } else {
+        stage.prepend(next);
+      }
+      canvas = next;
+    }
+    makeCanvas();
+
+    // WebGPU fits every frame, so the camera and videos can play through it.
+    // Without it, the same fit runs on the CPU once per change, for pictures.
+    function useCpu() {
+      gpu = null;
+      makeCanvas();
+      fitKey = '';
+      if (cameraTile) {
+        cameraTile.hidden = true;
+      }
+      if (fileInput) {
+        fileInput.accept = 'image/*';
+      }
+    }
+    const starting = window.AsciiLabGpu
+      ? window.AsciiLabGpu.create(canvas, { markCount: font.marks.length, onLost: lost })
+      : Promise.resolve(null);
+    starting.catch(() => null).then((renderer) => {
+      started = true;
+      if (renderer) {
+        gpu = renderer;
+        gpu.onStats = () => describe(shown.columns, shown.rows, gpu.blocks);
+        if (cameraTile && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          cameraTile.hidden = false;
+        }
+      } else {
+        useCpu();
+      }
+      refresh();
+      startLoop();
+    });
+
+    function lost() {
+      useCpu();
+      if (picture && isLive(picture)) {
+        pickDefault();
+      }
+      refresh();
+    }
+
     // Sample pictures load once each and stay cached for switching back.
-    function loadSample(url) {
+    function loadSource(url) {
       sampleUrl = url;
+      if (url === CAMERA) {
+        openCamera();
+        return;
+      }
       let image = samples.get(url);
       if (!image) {
         image = new Image();
@@ -172,9 +290,7 @@
       }
       const use = () => {
         if (sampleUrl === url && !pictureFile) {
-          picture = image;
-          pictureKey = url;
-          refresh();
+          setPicture(image, url);
         }
       };
       if (image.complete && image.naturalWidth) {
@@ -184,21 +300,61 @@
       }
     }
 
-    // Clicking the picture flips between the text version and the original.
-    canvas.style.cursor = 'pointer';
-    canvas.title = 'Click to compare with the original';
-    canvas.addEventListener('click', () => {
-      const next = figure.querySelector(`input[name="view"]:not(:checked)`);
-      if (next) {
-        next.checked = true;
-        next.dispatchEvent(new Event('change', { bubbles: true }));
+    function setPicture(next, key, mirror = false) {
+      if (picture && picture !== next && isLive(picture)) {
+        stopVideo(picture);
       }
-    });
+      picture = next;
+      pictureKey = key;
+      mirrored = mirror;
+      refresh();
+      startLoop();
+    }
+
+    function openCamera() {
+      if (cameraOpening || pictureKey === CAMERA || !gpu) {
+        return;
+      }
+      cameraOpening = true;
+      const video = makeVideo();
+      navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false,
+      }).then((stream) => {
+        video.srcObject = stream;
+        return video.play();
+      }).then(() => {
+        cameraOpening = false;
+        if (sampleUrl === CAMERA && !pictureFile) {
+          // Mirrored, so it moves the way you do.
+          setPicture(video, CAMERA, true);
+        } else {
+          stopVideo(video);
+        }
+      }).catch(() => {
+        cameraOpening = false;
+        stopVideo(video);
+        if (sampleUrl === CAMERA && !pictureFile) {
+          pickDefault();
+        }
+      });
+    }
+
+    function pickDefault() {
+      const fallback = [...sampleInputs()].find((input) => input.value === defaultSample);
+      if (fallback) {
+        fallback.checked = true;
+        fallback.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+
     // The marks are drawn in the font they were measured in.
     const fontFace = new FontFace('JetBrains Mono', 'url(/assets/fonts/JetBrainsMono-Regular.woff2)');
     document.fonts.add(fontFace);
     fontFace.load().then(() => {
       Object.assign(font, measureMarks());
+      markCache = { blur: null, marks: null };
+      inkKey = null;
       refresh();
     }).catch(() => {});
 
@@ -213,9 +369,7 @@
       return markCache.marks;
     }
 
-    function fit() {
-      const columns = state.columns;
-      const rows = Math.max(1, Math.round(columns * (picture.height / picture.width) * (CELL_W / CELL_H)));
+    function fit(columns, rows) {
       const width = columns * CELL_W;
       const height = rows * CELL_H;
       scratch.canvas.width = width;
@@ -238,12 +392,7 @@
 
       const small = rows < SMALL;
       const blur = blurrer(state.squint);
-      const marks = marksFor(state.squint).filter((mark) => {
-        if (small || state.marks === 'blocks') {
-          return mark.block || mark.mark === ' ';
-        }
-        return state.marks === 'strokes' ? !mark.block : true;
-      });
+      const marks = marksFor(state.squint).filter((mark) => allowed(mark, state.marks, small));
       const cost = state.blockCost / 1000;
       const cells = [];
       const cell = new Float64Array(PIXELS);
@@ -283,43 +432,173 @@
       return { columns, rows, cells };
     }
 
-    function render() {
-      if (!picture) {
-        return 'Loading the picture…';
-      }
-      const key = [state.columns, state.squint, state.marks, state.blockCost, state.stretch, pictureKey].join('|');
-      if (key !== fitKey) {
-        fitted = fit();
-        fitKey = key;
-      }
-      const { columns, rows, cells } = fitted;
-      // A square frame, like an album cover, for every picture and setting, so
-      // the page never shifts; the grid of cells is fitted and centered in it.
+    // A square frame, like an album cover, for every picture and setting, so
+    // the page never shifts; the grid of cells is fitted and centered in it.
+    function layoutFor(columns, rows) {
       const ratio = window.devicePixelRatio || 1;
       // Work in whole device pixels so nothing gets resampled or antialiased.
       const pixels = Math.round((stage.getBoundingClientRect().width || 960) * ratio);
-      canvas.width = pixels;
-      canvas.height = pixels;
-      canvas.style.width = `${pixels / ratio}px`;
-      canvas.style.height = `${pixels / ratio}px`;
-      const cssWidth = pixels;
-      const cssHeight = pixels;
-      const fitScale = Math.min(1, cssHeight / ((cssWidth / columns) * (CELL_H / CELL_W) * rows));
+      const fitScale = Math.min(1, pixels / ((pixels / columns) * (CELL_H / CELL_W) * rows));
       // Grids within a few percent of the frame stretch to fill it, so rounding
       // rows doesn't leave thin black bands at the edges.
       const snug = fitScale > 0.95;
-      const cellWidth = snug ? cssWidth / columns : (cssWidth / columns) * fitScale;
-      const cellHeight = snug ? Math.min(cssHeight / rows, cellWidth * (CELL_H / CELL_W) / 0.95) : cellWidth * (CELL_H / CELL_W);
-      const left = (cssWidth - cellWidth * columns) / 2;
-      const top = (cssHeight - cellHeight * rows) / 2;
+      const cellWidth = snug ? pixels / columns : (pixels / columns) * fitScale;
+      const cellHeight = snug ? Math.min(pixels / rows, cellWidth * (CELL_H / CELL_W) / 0.95) : cellWidth * (CELL_H / CELL_W);
+      const left = (pixels - cellWidth * columns) / 2;
+      const top = (pixels - cellHeight * rows) / 2;
       // Cell edges snapped to whole pixels, so neighbours meet without seams.
       const xs = Array.from({ length: columns + 1 }, (_, c) => Math.round(left + c * cellWidth));
       const ys = Array.from({ length: rows + 1 }, (_, r) => Math.round(top + r * cellHeight));
+      return { ratio, pixels, cellWidth, cellHeight, left, top, xs, ys };
+    }
+
+    function render() {
+      if (!picture || !started) {
+        return 'Loading the picture…';
+      }
+      const [pictureWidth, pictureHeight] = sizeOf(picture);
+      if (!pictureWidth || !pictureHeight) {
+        return 'Loading the picture…';
+      }
+      const columns = state.columns;
+      const rows = Math.max(1, Math.round(columns * (pictureHeight / pictureWidth) * (CELL_W / CELL_H)));
+      const layout = layoutFor(columns, rows);
+      if (canvas.width !== layout.pixels || canvas.height !== layout.pixels) {
+        canvas.width = layout.pixels;
+        canvas.height = layout.pixels;
+      }
+      canvas.style.width = `${layout.pixels / layout.ratio}px`;
+      canvas.style.height = `${layout.pixels / layout.ratio}px`;
+      const blocks = gpu ? drawGpu(columns, rows, layout) : drawCpu(columns, rows, layout);
+      figure.classList.add('is-ready');
+      shown = { columns, rows };
+      return describe(columns, rows, blocks);
+    }
+
+    function describe(columns, rows, blocks) {
+      const share = Math.min(100, Math.round((blocks / (columns * rows)) * 100));
+      canvas.setAttribute('aria-label', `The picture drawn as ${columns} by ${rows} text cells, ${blocks} of them half blocks.`);
+      return [`${columns} × ${rows} cells`, `${share}% half blocks`].join(' · ');
+    }
+
+    // Draws the picture onto a 2D canvas at the size the GPU will read it.
+    function paint(target, width, height) {
+      if (target.width !== width || target.height !== height) {
+        target.width = width;
+        target.height = height;
+      }
+      const context = target.getContext('2d');
+      context.setTransform(1, 0, 0, 1, 0, 0);
+      context.imageSmoothingEnabled = true;
+      context.imageSmoothingQuality = 'high';
+      context.fillStyle = '#000';
+      context.fillRect(0, 0, width, height);
+      if (mirrored) {
+        context.setTransform(-1, 0, 0, 1, width, 0);
+      }
+      context.drawImage(picture, 0, 0, width, height);
+      return target;
+    }
+
+    // Every mark drawn once at this size, as the canvas version would draw
+    // it in a cell, for the GPU to look up per pixel.
+    function atlasFor(layout) {
+      const size = Math.round(layout.cellHeight * 0.75);
+      const scale = size / 30;
+      const pad = 4;
+      const width = Math.ceil(layout.cellWidth) + 1 + pad * 2;
+      const height = Math.ceil(layout.cellHeight) + 1;
+      const row = window.AsciiLabGpu.ATLAS_ROW;
+      const key = [size, width, height, font.ascent, font.descent].join('|');
+      if (key !== atlasKey) {
+        atlasCanvas.width = width * row;
+        atlasCanvas.height = height * Math.ceil(font.marks.length / row);
+        const context = atlasCanvas.getContext('2d');
+        context.clearRect(0, 0, atlasCanvas.width, atlasCanvas.height);
+        context.font = `${size}px ${FONT}`;
+        context.textBaseline = 'alphabetic';
+        context.fillStyle = '#fff';
+        const baseline = Math.round(((CELL_H * 2 - font.ascent - font.descent) / 2 + font.ascent) * scale);
+        font.marks.forEach((mark, i) => {
+          if (mark.block || mark.mark === ' ') {
+            return;
+          }
+          const x = (i % row) * width;
+          const y = Math.floor(i / row) * height;
+          context.save();
+          context.beginPath();
+          context.rect(x, y, width, height);
+          context.clip();
+          context.fillText(mark.mark, x + pad, y + baseline);
+          context.restore();
+        });
+        gpu.setAtlas(atlasCanvas);
+        atlasKey = key;
+      }
+      const index = (character) => font.marks.findIndex((mark) => mark.mark === character);
+      return {
+        advance: font.advance * scale,
+        width,
+        height,
+        pad,
+        lower: index('▄'),
+        right: index('▐'),
+        blank: index(' '),
+      };
+    }
+
+    function drawGpu(columns, rows, layout) {
+      const marks = marksFor(state.squint);
+      if (inkKey !== state.squint) {
+        const ink = new Float32Array(marks.length * PIXELS);
+        marks.forEach((mark, i) => ink.set(mark.pixels, i * PIXELS));
+        gpu.setInk(ink);
+        inkKey = state.squint;
+      }
+      const small = rows < SMALL;
+      const cost = state.blockCost / 1000;
+      const info = new Float32Array(marks.length * 4);
+      marks.forEach((mark, i) => {
+        const use = allowed(mark, state.marks, small);
+        info.set([mark.total, mark.squares, mark.block && !small ? cost : 0, use ? (mark.block ? 2 : 1) : 0], i * 4);
+      });
+      const { xs, ys } = layout;
+      const stops = TINTS[state.theme];
+      gpu.frame({
+        source: paint(sourceCanvas, columns * CELL_W, rows * CELL_H),
+        original: state.view === 'original'
+          ? paint(originalCanvas, Math.max(1, xs[columns] - xs[0]), Math.max(1, ys[rows] - ys[0]))
+          : null,
+        columns,
+        rows,
+        stretch: state.stretch,
+        kernel: kernelFor(state.squint),
+        info,
+        layout,
+        stops,
+        screen: stops ? stops[0] : [0, 0, 0],
+        grid: state.grid,
+        crt: state.crt / 100,
+        // Lines every three CSS pixels, each one device pixel thick or more.
+        line: Math.max(1, Math.round(layout.ratio)),
+        glyph: atlasFor(layout),
+      });
+      return gpu.blocks;
+    }
+
+    function drawCpu(columns, rows, layout) {
+      const key = [columns, state.squint, state.marks, state.blockCost, state.stretch, pictureKey].join('|');
+      if (key !== fitKey) {
+        fitted = fit(columns, rows);
+        fitKey = key;
+      }
+      const { cells } = fitted;
+      const { ratio, pixels, cellHeight, xs, ys } = layout;
       const context = canvas.getContext('2d');
       context.setTransform(1, 0, 0, 1, 0, 0);
       const stops = TINTS[state.theme];
       context.fillStyle = stops ? `rgb(${stops[0].join(',')})` : '#000';
-      context.fillRect(0, 0, cssWidth, cssHeight);
+      context.fillRect(0, 0, pixels, pixels);
 
       if (state.view === 'original') {
         context.imageSmoothingEnabled = true;
@@ -385,23 +664,20 @@
         context.fillStyle = `rgba(0, 0, 0, ${opacity})`;
         // Lines every three CSS pixels, each one device pixel thick or more.
         const line = Math.max(1, Math.round(ratio));
-        for (let y = 0; y < cssHeight; y += line * 3) {
-          context.fillRect(0, y, cssWidth, line);
+        for (let y = 0; y < pixels; y += line * 3) {
+          context.fillRect(0, y, pixels, line);
         }
         const glow = context.createRadialGradient(
-          cssWidth / 2, cssHeight / 2, cssWidth * 0.35,
-          cssWidth / 2, cssHeight / 2, cssWidth * 0.75,
+          pixels / 2, pixels / 2, pixels * 0.35,
+          pixels / 2, pixels / 2, pixels * 0.75,
         );
         glow.addColorStop(0, 'rgba(0, 0, 0, 0)');
         glow.addColorStop(1, `rgba(0, 0, 0, ${0.6 * opacity})`);
         context.fillStyle = glow;
-        context.fillRect(0, 0, cssWidth, cssHeight);
+        context.fillRect(0, 0, pixels, pixels);
       }
 
-      figure.classList.add('is-ready');
-      const blocks = cells.filter((cell) => BLOCKS.includes(cell.mark)).length;
-      canvas.setAttribute('aria-label', `The picture drawn as ${columns} by ${rows} text cells, ${blocks} of them half blocks.`);
-      return `${columns} × ${rows} cells · ${Math.round((blocks / cells.length) * 100)}% half blocks`;
+      return cells.filter((cell) => BLOCKS.includes(cell.mark)).length;
     }
 
     function loadFile(file) {
@@ -409,12 +685,32 @@
         return;
       }
       pictureFile = file;
+      if (file.type.startsWith('video/')) {
+        if (!gpu) {
+          pictureFile = null;
+          return;
+        }
+        const video = makeVideo();
+        video.src = URL.createObjectURL(file);
+        video.play().then(() => {
+          if (pictureFile === file) {
+            uploads += 1;
+            setPicture(video, `file:${uploads}`);
+          } else {
+            stopVideo(video);
+          }
+        }).catch(() => {
+          stopVideo(video);
+          if (pictureFile === file) {
+            pictureFile = null;
+          }
+        });
+        return;
+      }
       createImageBitmap(file).then((bitmap) => {
         if (pictureFile === file) {
-          picture = bitmap;
           uploads += 1;
-          pictureKey = `file:${uploads}`;
-          refresh();
+          setPicture(bitmap, `file:${uploads}`);
         }
       }).catch(() => {
         pictureFile = null;
@@ -425,12 +721,36 @@
     const status = figure.querySelector('[data-playground-status]');
     function refresh() {
       const line = render();
-      if (status) {
+      if (status && status.textContent !== line) {
         status.textContent = line;
       }
     }
 
-    window.addEventListener('resize', () => requestAnimationFrame(render));
+    // A camera or video is fitted and drawn again every frame while in view.
+    let visible = true;
+    let looping = false;
+    function tick() {
+      if (!gpu || !visible || !picture || !isLive(picture)) {
+        looping = false;
+        return;
+      }
+      refresh();
+      requestAnimationFrame(tick);
+    }
+    function startLoop() {
+      if (!looping && gpu && visible && picture && isLive(picture)) {
+        looping = true;
+        requestAnimationFrame(tick);
+      }
+    }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        visible = entries.some((entry) => entry.isIntersecting);
+        startLoop();
+      }).observe(figure);
+    }
+
+    window.addEventListener('resize', () => requestAnimationFrame(refresh));
 
     const defaultSample = initial.sample;
     const sampleInputs = () => figure.querySelectorAll('input[name="sample"]');
@@ -462,7 +782,7 @@
         } else {
           pictureFile = null;
           if (pickedSample || state.sample !== sampleUrl || !picture) {
-            loadSample(state.sample);
+            loadSource(state.sample);
           }
         }
         return render();

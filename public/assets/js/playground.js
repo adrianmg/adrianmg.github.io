@@ -136,7 +136,8 @@
       if (shown) {
         URL.revokeObjectURL(shown.url);
       }
-      const url = file ? URL.createObjectURL(file) : '';
+      // Only pictures can be a tile's background; a video keeps the plus.
+      const url = file && file.type.startsWith('image/') ? URL.createObjectURL(file) : '';
       previews.set(tile, file ? { file, url } : null);
       face.style.backgroundImage = url ? `url("${url}")` : '';
       face.classList.toggle('has-picture', Boolean(url));

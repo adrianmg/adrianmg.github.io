@@ -27,7 +27,7 @@ The familiar approach is to replace bright and dark areas with characters like `
 
 That’s the idea behind this renderer: treat each character as a tiny shape, with a foreground and background color, and find a combination that matches that part of the image. Then comes the interesting part: deciding how closely to follow the picture, and how much of the text to keep visible.
 
-Try your own image below. I’ll walk through what the settings change and how to build something similar, or [skip straight to the code](#build-your-own).
+Try your own image below. Where your browser supports WebGPU, the whole fit runs on your graphics card every frame, so you can also point your camera at it or drop in a video. I’ll walk through what the settings change and how to build something similar, or [skip straight to the code](#build-your-own).
 
 <AsciiCoverPlayground />
 
@@ -198,7 +198,7 @@ For original color, run `fitShades` again on the red, green, and blue samples us
 
 The useful part to experiment with is the scoring. Start with the image difference, then see what happens when you change the character set, blur amount, or half-block penalty.
 
-My player also splits the work across processor cores and evaluates candidates in batches. Those optimizations help with speed, but you can explore the visual approach with a straightforward loop first.
+My player also splits the work across processor cores and evaluates candidates in batches. The playground does the same on the GPU: a WebGPU compute shader gives each cell its own workgroup and tries every character in parallel, fast enough to redraw the whole picture every frame. Those optimizations help with speed, but you can explore the visual approach with a straightforward loop first.
 
 ## What I learned
 
