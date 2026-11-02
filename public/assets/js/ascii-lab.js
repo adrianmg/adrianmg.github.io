@@ -186,16 +186,12 @@
   window.Playground.register('ascii-cover', (stage, initial) => {
     const font = measureMarks();
     const scratch = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
-    // What the GPU version copies in each frame: the picture at the fit's
-    // size, the original at the grid's size, and every mark drawn once.
+    // The picture at the fit's size, for the GPU to read.
     const sourceCanvas = document.createElement('canvas');
-    const originalCanvas = document.createElement('canvas');
-    const atlasCanvas = document.createElement('canvas');
     const figure = stage.closest('[data-playground]');
     const fileInput = figure.querySelector('input[type="file"]');
     const cameraTile = figure.querySelector('[data-playground-camera]');
     const samples = new Map();
-    let canvas = null;
     let gpu = null;
     let started = false;
     let picture = null;
@@ -209,37 +205,30 @@
     let fitted = null;
     let fitKey = '';
     let inkKey = null;
-    let atlasKey = '';
-    let shown = { columns: 1, rows: 1 };
+    let fitting = false;
+    let fitAgain = false;
     let markCache = { blur: null, marks: null };
 
-    // Clicking the picture flips between the text version and the original.
-    function makeCanvas() {
-      const next = document.createElement('canvas');
-      next.setAttribute('role', 'img');
-      next.style.cursor = 'pointer';
-      next.title = 'Click to compare with the original';
-      next.addEventListener('click', () => {
-        const other = figure.querySelector(`input[name="view"]:not(:checked)`);
-        if (other) {
-          other.checked = true;
-          other.dispatchEvent(new Event('change', { bubbles: true }));
-        }
-      });
-      if (canvas) {
-        canvas.replaceWith(next);
-      } else {
-        stage.prepend(next);
-      }
-      canvas = next;
-    }
-    makeCanvas();
+    const canvas = document.createElement('canvas');
+    canvas.setAttribute('role', 'img');
+    stage.prepend(canvas);
 
-    // WebGPU fits every frame, so the camera and videos can play through it.
+    // Clicking the picture flips between the text version and the original.
+    canvas.style.cursor = 'pointer';
+    canvas.title = 'Click to compare with the original';
+    canvas.addEventListener('click', () => {
+      const other = figure.querySelector(`input[name="view"]:not(:checked)`);
+      if (other) {
+        other.checked = true;
+        other.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+
+    // WebGPU fits every cell at once, fast enough for the camera and videos.
     // Without it, the same fit runs on the CPU once per change, for pictures.
+    // Either way the cells are drawn by the same canvas code below.
     function useCpu() {
       gpu = null;
-      makeCanvas();
       fitKey = '';
       if (cameraTile) {
         cameraTile.hidden = true;
@@ -249,13 +238,12 @@
       }
     }
     const starting = window.AsciiLabGpu
-      ? window.AsciiLabGpu.create(canvas, { markCount: font.marks.length, onLost: lost })
+      ? window.AsciiLabGpu.create({ markCount: font.marks.length, onLost: lost })
       : Promise.resolve(null);
     starting.catch(() => null).then((renderer) => {
       started = true;
       if (renderer) {
         gpu = renderer;
-        gpu.onStats = () => describe(shown.columns, shown.rows, gpu.blocks);
         if (cameraTile && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
           cameraTile.hidden = false;
         }
@@ -452,31 +440,104 @@
       return { ratio, pixels, cellWidth, cellHeight, left, top, xs, ys };
     }
 
-    function render() {
-      if (!picture || !started) {
-        return 'Loading the picture…';
-      }
+    function gridFor() {
       const [pictureWidth, pictureHeight] = sizeOf(picture);
       if (!pictureWidth || !pictureHeight) {
-        return 'Loading the picture…';
+        return null;
       }
       const columns = state.columns;
-      const rows = Math.max(1, Math.round(columns * (pictureHeight / pictureWidth) * (CELL_W / CELL_H)));
-      const layout = layoutFor(columns, rows);
-      if (canvas.width !== layout.pixels || canvas.height !== layout.pixels) {
-        canvas.width = layout.pixels;
-        canvas.height = layout.pixels;
+      return { columns, rows: Math.max(1, Math.round(columns * (pictureHeight / pictureWidth) * (CELL_W / CELL_H))) };
+    }
+
+    // Fits when the picture or a setting that changes the fit does, and every
+    // frame for a moving picture; then draws the latest cells.
+    function render() {
+      const grid = picture && started ? gridFor() : null;
+      if (!grid) {
+        return 'Loading the picture…';
       }
-      canvas.style.width = `${layout.pixels / layout.ratio}px`;
-      canvas.style.height = `${layout.pixels / layout.ratio}px`;
-      const blocks = gpu ? drawGpu(columns, rows, layout) : drawCpu(columns, rows, layout);
-      figure.classList.add('is-ready');
-      shown = { columns, rows };
-      return describe(columns, rows, blocks);
+      const key = [grid.columns, grid.rows, state.squint, state.marks, state.blockCost, state.stretch, pictureKey].join('|');
+      if (gpu) {
+        if (key !== fitKey || isLive(picture)) {
+          fitKey = key;
+          fitOnGpu();
+        }
+      } else if (key !== fitKey) {
+        fitted = fit(grid.columns, grid.rows);
+        fitKey = key;
+      }
+      return fitted ? draw() : 'Loading the picture…';
+    }
+
+    // One fit in flight at a time; a change while it runs fits again after.
+    function fitOnGpu() {
+      if (fitting) {
+        fitAgain = true;
+        return;
+      }
+      const grid = gridFor();
+      if (!grid) {
+        return;
+      }
+      const { columns, rows } = grid;
+      const marks = marksFor(state.squint);
+      if (inkKey !== state.squint) {
+        const ink = new Float32Array(marks.length * PIXELS);
+        marks.forEach((mark, i) => ink.set(mark.pixels, i * PIXELS));
+        gpu.setInk(ink);
+        inkKey = state.squint;
+      }
+      const small = rows < SMALL;
+      const cost = state.blockCost / 1000;
+      const info = new Float32Array(marks.length * 4);
+      marks.forEach((mark, i) => {
+        info.set([mark.total, mark.squares, mark.block && !small ? cost : 0, allowed(mark, state.marks, small) ? 1 : 0], i * 4);
+      });
+      fitting = true;
+      gpu.fit({
+        source: paint(sourceCanvas, columns * CELL_W, rows * CELL_H),
+        columns,
+        rows,
+        stretch: state.stretch,
+        kernel: kernelFor(state.squint),
+        marks: info,
+      }).then((result) => {
+        fitted = { columns, rows, cells: unpack(result, columns * rows) };
+        const line = draw();
+        if (status) {
+          status.textContent = line;
+        }
+      }).catch(() => {}).finally(() => {
+        fitting = false;
+        if (fitAgain && gpu) {
+          fitAgain = false;
+          fitOnGpu();
+        }
+      });
+    }
+
+    // The GPU's cells in the shape the CPU fit makes them.
+    function unpack(buffer, count) {
+      const floats = new Float32Array(buffer);
+      const marks = new Uint32Array(buffer);
+      const stride = window.AsciiLabGpu.CELL_FLOATS;
+      const byte = (value) => Math.round(value * 255);
+      const cells = new Array(count);
+      for (let i = 0; i < count; i++) {
+        const at = i * stride;
+        cells[i] = {
+          mark: font.marks[marks[at + 8]].mark,
+          fg: floats[at + 3],
+          bg: floats[at + 7],
+          fgRgb: [byte(floats[at]), byte(floats[at + 1]), byte(floats[at + 2])],
+          bgRgb: [byte(floats[at + 4]), byte(floats[at + 5]), byte(floats[at + 6])],
+        };
+      }
+      return cells;
     }
 
     function describe(columns, rows, blocks) {
-      const share = Math.min(100, Math.round((blocks / (columns * rows)) * 100));
+      const share = Math.round((blocks / (columns * rows)) * 100);
       canvas.setAttribute('aria-label', `The picture drawn as ${columns} by ${rows} text cells, ${blocks} of them half blocks.`);
       return [`${columns} × ${rows} cells`, `${share}% half blocks`].join(' · ');
     }
@@ -500,109 +561,15 @@
       return target;
     }
 
-    // Every mark drawn once at this size, as the canvas version would draw
-    // it in a cell, for the GPU to look up per pixel. Browsers draw light text
-    // on dark a little heavier than dark text on light, so the atlas has both:
-    // light on black above, dark on white below, blended by the mark's color.
-    function atlasFor(layout) {
-      const size = Math.round(layout.cellHeight * 0.75);
-      const scale = size / 30;
-      const pad = 4;
-      const width = Math.ceil(layout.cellWidth) + 1 + pad * 2;
-      const height = Math.ceil(layout.cellHeight) + 1;
-      const row = window.AsciiLabGpu.ATLAS_ROW;
-      const half = height * Math.ceil(font.marks.length / row);
-      const key = [size, width, height, font.ascent, font.descent].join('|');
-      if (key !== atlasKey) {
-        atlasCanvas.width = width * row;
-        atlasCanvas.height = half * 2;
-        const context = atlasCanvas.getContext('2d');
-        context.fillStyle = '#000';
-        context.fillRect(0, 0, atlasCanvas.width, half);
-        context.fillStyle = '#fff';
-        context.fillRect(0, half, atlasCanvas.width, half);
-        context.font = `${size}px ${FONT}`;
-        context.textBaseline = 'alphabetic';
-        const baseline = Math.round(((CELL_H * 2 - font.ascent - font.descent) / 2 + font.ascent) * scale);
-        [['#fff', 0], ['#000', half]].forEach(([ink, offset]) => {
-          context.fillStyle = ink;
-          font.marks.forEach((mark, i) => {
-            if (mark.block || mark.mark === ' ') {
-              return;
-            }
-            const x = (i % row) * width;
-            const y = Math.floor(i / row) * height + offset;
-            context.save();
-            context.beginPath();
-            context.rect(x, y, width, height);
-            context.clip();
-            context.fillText(mark.mark, x + pad, y + baseline);
-            context.restore();
-          });
-        });
-        gpu.setAtlas(atlasCanvas);
-        atlasKey = key;
+    function draw() {
+      const { columns, rows, cells } = fitted;
+      const { ratio, pixels, cellHeight, xs, ys } = layoutFor(columns, rows);
+      if (canvas.width !== pixels || canvas.height !== pixels) {
+        canvas.width = pixels;
+        canvas.height = pixels;
       }
-      const index = (character) => font.marks.findIndex((mark) => mark.mark === character);
-      return {
-        advance: font.advance * scale,
-        width,
-        height,
-        pad,
-        lower: index('▄'),
-        right: index('▐'),
-        blank: index(' '),
-        half,
-      };
-    }
-
-    function drawGpu(columns, rows, layout) {
-      const marks = marksFor(state.squint);
-      if (inkKey !== state.squint) {
-        const ink = new Float32Array(marks.length * PIXELS);
-        marks.forEach((mark, i) => ink.set(mark.pixels, i * PIXELS));
-        gpu.setInk(ink);
-        inkKey = state.squint;
-      }
-      const small = rows < SMALL;
-      const cost = state.blockCost / 1000;
-      const info = new Float32Array(marks.length * 4);
-      marks.forEach((mark, i) => {
-        const use = allowed(mark, state.marks, small);
-        info.set([mark.total, mark.squares, mark.block && !small ? cost : 0, use ? (mark.block ? 2 : 1) : 0], i * 4);
-      });
-      const { xs, ys } = layout;
-      const stops = TINTS[state.theme];
-      gpu.frame({
-        source: paint(sourceCanvas, columns * CELL_W, rows * CELL_H),
-        original: state.view === 'original'
-          ? paint(originalCanvas, Math.max(1, xs[columns] - xs[0]), Math.max(1, ys[rows] - ys[0]))
-          : null,
-        columns,
-        rows,
-        stretch: state.stretch,
-        kernel: kernelFor(state.squint),
-        info,
-        layout,
-        stops,
-        screen: stops ? stops[0] : [0, 0, 0],
-        grid: state.grid,
-        crt: state.crt / 100,
-        // Lines every three CSS pixels, each one device pixel thick or more.
-        line: Math.max(1, Math.round(layout.ratio)),
-        glyph: atlasFor(layout),
-      });
-      return gpu.blocks;
-    }
-
-    function drawCpu(columns, rows, layout) {
-      const key = [columns, state.squint, state.marks, state.blockCost, state.stretch, pictureKey].join('|');
-      if (key !== fitKey) {
-        fitted = fit(columns, rows);
-        fitKey = key;
-      }
-      const { cells } = fitted;
-      const { ratio, pixels, cellHeight, xs, ys } = layout;
+      canvas.style.width = `${pixels / ratio}px`;
+      canvas.style.height = `${pixels / ratio}px`;
       const context = canvas.getContext('2d');
       context.setTransform(1, 0, 0, 1, 0, 0);
       const stops = TINTS[state.theme];
@@ -612,7 +579,11 @@
       if (state.view === 'original') {
         context.imageSmoothingEnabled = true;
         context.imageSmoothingQuality = 'high';
+        if (mirrored) {
+          context.setTransform(-1, 0, 0, 1, xs[0] + xs[columns], 0);
+        }
         context.drawImage(picture, xs[0], ys[0], xs[columns] - xs[0], ys[rows] - ys[0]);
+        context.setTransform(1, 0, 0, 1, 0, 0);
       } else {
         const color = (cell, which) => (stops
           ? tint(stops, cell[which])
@@ -686,8 +657,10 @@
         context.fillRect(0, 0, pixels, pixels);
       }
 
-      return cells.filter((cell) => BLOCKS.includes(cell.mark)).length;
+      figure.classList.add('is-ready');
+      return describe(columns, rows, cells.filter((cell) => BLOCKS.includes(cell.mark)).length);
     }
+
 
     function loadFile(file) {
       if (!file || file === pictureFile) {
@@ -743,7 +716,7 @@
         looping = false;
         return;
       }
-      refresh();
+      fitOnGpu();
       requestAnimationFrame(tick);
     }
     function startLoop() {

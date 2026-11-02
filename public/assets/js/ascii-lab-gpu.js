@@ -1,10 +1,10 @@
 // The ASCII cover playground's fit on the GPU. It's the same least-squares
-// search as ascii-lab.js, but WebGPU runs it for every cell on every frame, so
-// moving pictures and every slider update immediately.
+// search as ascii-lab.js, but a WebGPU compute shader runs it for every cell
+// at once, fast enough to redo the whole picture every frame. The cells come
+// back to the page, which draws them exactly as the CPU version does.
 //
-// Each frame: a histogram of brightness for the contrast stretch, one
-// workgroup per cell to blur it and try every mark, then one pass that draws
-// the chosen marks, colors, cell lines and scanlines straight to the canvas.
+// Each fit: a histogram of brightness for the contrast stretch, then one
+// workgroup per cell to blur it, try every mark, and fit the winner's colors.
 (() => {
   'use strict';
 
@@ -14,13 +14,8 @@
   const BINS = 4096;
   const CLIP = 0.02;
   const LANES = 64;
-  const CELL_BYTES = 48;
-  // Glyphs sit in the atlas this many to a row.
-  const ATLAS_ROW = 8;
-
-  const CELL = /* wgsl */ `
-struct Cell { fg: vec4f, bg: vec4f, mark: u32, p0: u32, p1: u32, p2: u32 };
-const LUMA = vec3f(0.2126, 0.7152, 0.0722);`;
+  // A cell as the shader writes it: two colors with their brightness, then the mark.
+  const CELL_FLOATS = 12;
 
   // Counts every sample's brightness into fine bins.
   const HISTOGRAM = /* wgsl */ `
@@ -72,20 +67,21 @@ fn main() {
 
   // One workgroup per cell: load and blur its 9×20 samples, let each lane try
   // one mark, keep the closest, then fit that mark's colors per channel.
-  const FIT = /* wgsl */ `${CELL}
+  const FIT = /* wgsl */ `
+struct Cell { fg: vec4f, bg: vec4f, mark: u32, p0: u32, p1: u32, p2: u32 };
 struct Params { columns: u32, rows: u32, stretch: u32, marks: u32, k0: vec4f, k1: vec4f };
 
 @group(0) @binding(0) var source: texture_2d<f32>;
 @group(0) @binding(1) var<uniform> params: Params;
 @group(0) @binding(2) var<storage, read> ink: array<f32>;
-// Per mark: its blurred ink's total and sum of squares, penalty, and 0 if
-// it's not allowed, 1 if it is, 2 if it's an allowed half block.
+// Per mark: its blurred ink's total and sum of squares, its penalty, and
+// whether this fit may use it.
 @group(0) @binding(3) var<storage, read> info: array<vec4f>;
 @group(0) @binding(4) var<storage, read> levels: vec2f;
 @group(0) @binding(5) var<storage, read_write> cells: array<Cell>;
-@group(0) @binding(6) var<storage, read_write> blocks: atomic<u32>;
 
 const N = ${PIXELS}u;
+const LUMA = vec3f(0.2126, 0.7152, 0.0722);
 var<workgroup> raw: array<vec4f, ${PIXELS}>;
 var<workgroup> across: array<vec4f, ${PIXELS}>;
 var<workgroup> blurred: array<vec4f, ${PIXELS}>;
@@ -213,141 +209,14 @@ fn main(@builtin(workgroup_id) group: vec3u, @builtin(local_invocation_index) la
       bg[c] = fit.y;
     }
     cells[group.y * params.columns + group.x] = Cell(fg, bg, best, 0u, 0u, 0u);
-    if (mark.w > 1.5) {
-      atomicAdd(&blocks, 1u);
-    }
   }
 }`;
 
-  // Draws every device pixel: which cell it's in, with the cell edges snapped
-  // to whole pixels exactly as the canvas version does, then its mark.
-  const DRAW = /* wgsl */ `${CELL}
-struct View {
-  frame: vec4f,  // canvas width, height, grid left, top
-  cell: vec4f,   // cell width, height, columns, rows
-  screen: vec4f, // screen color, then 1 to show the original picture
-  low: vec4f,    // a theme's screen, shadow and highlight, each with its brightness
-  mid: vec4f,
-  high: vec4f,
-  look: vec4f,   // themed, show cells, scanline opacity, scanline thickness
-  glyph: vec4f,  // advance, atlas box width and height, left padding
-  marks: vec4f,  // the lower half block, the right half block, the blank, the dark-on-light atlas's top
-};
-
-@group(0) @binding(0) var<uniform> view: View;
-@group(0) @binding(1) var<storage, read> cells: array<Cell>;
-@group(0) @binding(2) var atlas: texture_2d<f32>;
-@group(0) @binding(3) var original: texture_2d<f32>;
-
-@vertex
-fn vertex(@builtin(vertex_index) i: u32) -> @builtin(position) vec4f {
-  let corner = vec2f(f32((i << 1u) & 2u), f32(i & 2u));
-  return vec4f(corner * 2.0 - 1.0, 0.0, 1.0);
-}
-
-// Math.round, which rounds halves up.
-fn snap(value: f32) -> f32 {
-  return floor(value + 0.5);
-}
-
-// The cell a pixel falls in along one axis, given snapped edges.
-fn find(at: f32, start: f32, size: f32, count: f32) -> f32 {
-  var index = clamp(floor((at - start) / size), 0.0, count - 1.0);
-  if (at < snap(start + index * size)) {
-    index -= 1.0;
-  } else if (at >= snap(start + (index + 1.0) * size)) {
-    index += 1.0;
-  }
-  return clamp(index, 0.0, count - 1.0);
-}
-
-fn tint(t: f32) -> vec3f {
-  let wanted = view.low.w + clamp(t, 0.0, 1.0) * (view.high.w - view.low.w);
-  if (wanted > view.mid.w) {
-    return mix(view.mid.rgb, view.high.rgb, clamp((wanted - view.mid.w) / max(view.high.w - view.mid.w, 1e-6), 0.0, 1.0));
-  }
-  return mix(view.low.rgb, view.mid.rgb, clamp((wanted - view.low.w) / max(view.mid.w - view.low.w, 1e-6), 0.0, 1.0));
-}
-
-fn coverage(mark: u32, local: vec2f, size: vec2f, light: f32) -> f32 {
-  if (mark == u32(view.marks.z)) {
-    return 0.0;
-  }
-  let lower = mark == u32(view.marks.x);
-  if (lower || mark == u32(view.marks.y)) {
-    // Exactly half the cell; on an odd span the middle line is half strength.
-    let span = select(size.x, size.y, lower);
-    let at = select(local.x, local.y, lower);
-    let half = floor(span / 2.0);
-    if (at >= span - half) {
-      return 1.0;
-    }
-    return select(0.0, 0.5, span - 2.0 * half > 0.5 && at == half);
-  }
-  let x = local.x - snap((size.x - view.glyph.x) / 2.0) + view.glyph.w;
-  if (x < 0.0 || x >= view.glyph.y || local.y >= view.glyph.z) {
-    return 0.0;
-  }
-  let box = vec2u(mark % ${ATLAS_ROW}u, mark / ${ATLAS_ROW}u) * vec2u(u32(view.glyph.y), u32(view.glyph.z));
-  let at = box + vec2u(u32(x), u32(local.y));
-  // Light marks take their shape from light-on-dark text, dark marks from
-  // dark-on-light, and the shades between from a blend of the two.
-  let onDark = textureLoad(atlas, at, 0).r;
-  let onLight = 1.0 - textureLoad(atlas, at + vec2u(0u, u32(view.marks.w)), 0).r;
-  return mix(onLight, onDark, light);
-}
-
-@fragment
-fn fragment(@builtin(position) position: vec4f) -> @location(0) vec4f {
-  let p = floor(position.xy);
-  let start = view.frame.zw;
-  let size = view.cell.xy;
-  let count = view.cell.zw;
-  let first = vec2f(snap(start.x), snap(start.y));
-  let last = vec2f(snap(start.x + count.x * size.x), snap(start.y + count.y * size.y));
-  var color = view.screen.rgb;
-
-  if (all(p >= first) && all(p < last)) {
-    let index = vec2f(find(p.x, start.x, size.x, count.x), find(p.y, start.y, size.y, count.y));
-    let corner = vec2f(snap(start.x + index.x * size.x), snap(start.y + index.y * size.y));
-    let span = vec2f(snap(start.x + (index.x + 1.0) * size.x), snap(start.y + (index.y + 1.0) * size.y)) - corner;
-    if (view.screen.w > 0.5) {
-      color = textureLoad(original, vec2u(p - first), 0).rgb;
-    } else {
-      let cell = cells[u32(index.y) * u32(count.x) + u32(index.x)];
-      var fg = cell.fg.rgb;
-      var bg = cell.bg.rgb;
-      if (view.look.x > 0.5) {
-        fg = tint(cell.fg.w);
-        bg = tint(cell.bg.w);
-      }
-      color = mix(bg, fg, coverage(cell.mark, p - corner, span, dot(fg, LUMA)));
-    }
-    if (view.look.y > 0.5 && ((p.x == corner.x && index.x > 0.0) || (p.y == corner.y && index.y > 0.0))) {
-      color = mix(color, vec3f(1.0), 0.18);
-    }
-  }
-
-  let crt = view.look.z;
-  if (crt > 0.0) {
-    // Thin dark lines and darker corners, like an old monitor.
-    let line = view.look.w;
-    if (p.y - floor(p.y / (line * 3.0)) * line * 3.0 < line) {
-      color *= 1.0 - crt;
-    }
-    let width = view.frame.x;
-    let fade = clamp((distance(p + 0.5, view.frame.xy / 2.0) - width * 0.35) / (width * 0.4), 0.0, 1.0);
-    color *= 1.0 - 0.6 * crt * fade;
-  }
-  return vec4f(color, 1.0);
-}`;
-
-  async function create(canvas, { markCount, onLost }) {
+  async function create({ markCount, onLost }) {
     if (!navigator.gpu || markCount > LANES) {
       return null;
     }
     let device;
-    let context;
     let pipelines;
     try {
       const adapter = await navigator.gpu.requestAdapter();
@@ -359,25 +228,7 @@ fn fragment(@builtin(position) position: vec4f) -> @location(0) vec4f {
         layout: 'auto',
         compute: { module: device.createShaderModule({ code }), entryPoint: 'main' },
       });
-      const format = navigator.gpu.getPreferredCanvasFormat();
-      const drawModule = device.createShaderModule({ code: DRAW });
-      pipelines = await Promise.all([
-        compute(HISTOGRAM),
-        compute(LEVELS),
-        compute(FIT),
-        device.createRenderPipelineAsync({
-          layout: 'auto',
-          vertex: { module: drawModule, entryPoint: 'vertex' },
-          fragment: { module: drawModule, entryPoint: 'fragment', targets: [{ format }] },
-          primitive: { topology: 'triangle-list' },
-        }),
-      ]);
-      context = canvas.getContext('webgpu');
-      if (!context) {
-        device.destroy();
-        return null;
-      }
-      context.configure({ device, format, alphaMode: 'opaque' });
+      pipelines = await Promise.all([compute(HISTOGRAM), compute(LEVELS), compute(FIT)]);
     } catch (error) {
       if (device) {
         device.destroy();
@@ -385,49 +236,22 @@ fn fragment(@builtin(position) position: vec4f) -> @location(0) vec4f {
       return null;
     }
 
-    const [histogramPipeline, levelsPipeline, fitPipeline, drawPipeline] = pipelines;
+    const [histogramPipeline, levelsPipeline, fitPipeline] = pipelines;
     const { STORAGE, UNIFORM, COPY_DST, COPY_SRC, MAP_READ } = GPUBufferUsage;
     const buffer = (size, usage) => device.createBuffer({ size, usage });
     const bins = buffer(BINS * 4, STORAGE | COPY_DST);
-    const levels = buffer(8, STORAGE | COPY_DST);
-    const blocks = buffer(4, STORAGE | COPY_DST | COPY_SRC);
-    const blocksRead = buffer(4, COPY_DST | MAP_READ);
+    const levels = buffer(8, STORAGE);
     const params = buffer(48, UNIFORM | COPY_DST);
     const info = buffer(markCount * 16, STORAGE | COPY_DST);
     const ink = buffer(markCount * PIXELS * 4, STORAGE | COPY_DST);
-    const viewUniform = buffer(9 * 16, UNIFORM | COPY_DST);
     let cells = null;
-
-    const textures = {};
-    const placeholder = device.createTexture({
-      size: [1, 1],
-      format: 'rgba8unorm',
-      usage: GPUTextureUsage.TEXTURE_BINDING,
-    });
-    // A texture for canvases copied in each frame, replaced when they resize.
-    function upload(name, source) {
-      let texture = textures[name];
-      if (!texture || texture.width !== source.width || texture.height !== source.height) {
-        if (texture) {
-          texture.destroy();
-        }
-        texture = device.createTexture({
-          size: [source.width, source.height],
-          format: 'rgba8unorm',
-          usage: GPUTextureUsage.TEXTURE_BINDING | GPUTextureUsage.COPY_DST | GPUTextureUsage.RENDER_ATTACHMENT,
-        });
-        textures[name] = texture;
-      }
-      device.queue.copyExternalImageToTexture({ source }, { texture }, [source.width, source.height]);
-      return texture;
-    }
-
+    let readback = null;
+    let source = null;
     let lost = false;
-    let reading = false;
-    const renderer = { blocks: 0, onStats: null };
-    device.lost.then((info) => {
+
+    device.lost.then((reason) => {
       lost = true;
-      if (info.reason !== 'destroyed' && onLost) {
+      if (reason.reason !== 'destroyed' && onLost) {
         onLost();
       }
     });
@@ -440,110 +264,77 @@ fn fragment(@builtin(position) position: vec4f) -> @location(0) vec4f {
       })),
     });
 
-    // The marks' blurred ink, one row of 9×20 samples each, for a new squint.
-    renderer.setInk = (values) => {
-      device.queue.writeBuffer(ink, 0, values);
-    };
+    return {
+      // The marks' blurred ink, one row of 9×20 samples each, for a new squint.
+      setInk(values) {
+        device.queue.writeBuffer(ink, 0, values);
+      },
 
-    renderer.setAtlas = (atlasCanvas) => {
-      upload('atlas', atlasCanvas);
-    };
-
-    // Fits and draws one frame from `source`, a canvas of columns×9 by rows×20.
-    renderer.frame = (options) => {
-      if (lost || !textures.atlas) {
-        return;
-      }
-      const { source, columns, rows } = options;
-      const sourceTexture = upload('source', source);
-      const originalTexture = options.original ? upload('original', options.original) : placeholder;
-
-      const needed = columns * rows * CELL_BYTES;
-      if (!cells || cells.size < needed) {
-        if (cells) {
-          cells.destroy();
+      // Fits `options.source`, a canvas of columns×9 by rows×20, and resolves
+      // with each cell's colors and brightness (12 floats a cell: fg rgb and
+      // brightness, bg rgb and brightness, then the mark's index as a u32).
+      // One fit at a time: wait for it before asking for the next.
+      async fit({ source: canvas, columns, rows, stretch, kernel, marks }) {
+        if (lost) {
+          throw new Error('The GPU was lost');
         }
-        cells = buffer(needed, STORAGE);
-      }
-
-      const fitParams = new ArrayBuffer(48);
-      new Uint32Array(fitParams, 0, 4).set([columns, rows, options.stretch ? 1 : 0, markCount]);
-      new Float32Array(fitParams, 16, 8).set(options.kernel);
-      device.queue.writeBuffer(params, 0, fitParams);
-      device.queue.writeBuffer(info, 0, options.info);
-
-      const { layout, stops, screen } = options;
-      const light = (rgb) => (0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]) / 255;
-      const stop = (rgb) => (rgb ? [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255, light(rgb)] : [0, 0, 0, 0]);
-      device.queue.writeBuffer(viewUniform, 0, new Float32Array([
-        layout.pixels, layout.pixels, layout.left, layout.top,
-        layout.cellWidth, layout.cellHeight, columns, rows,
-        screen[0] / 255, screen[1] / 255, screen[2] / 255, options.original ? 1 : 0,
-        ...stop(stops && stops[0]),
-        ...stop(stops && stops[1]),
-        ...stop(stops && stops[2]),
-        stops ? 1 : 0, options.grid ? 1 : 0, options.crt, options.line,
-        options.glyph.advance, options.glyph.width, options.glyph.height, options.glyph.pad,
-        options.glyph.lower, options.glyph.right, options.glyph.blank, options.glyph.half,
-      ]));
-
-      const encoder = device.createCommandEncoder();
-      if (options.stretch) {
-        encoder.clearBuffer(bins);
-        const histogram = encoder.beginComputePass();
-        histogram.setPipeline(histogramPipeline);
-        histogram.setBindGroup(0, group(histogramPipeline, [sourceTexture, bins]));
-        histogram.dispatchWorkgroups(Math.ceil(source.width / 16), Math.ceil(source.height / 16));
-        histogram.end();
-        const range = encoder.beginComputePass();
-        range.setPipeline(levelsPipeline);
-        range.setBindGroup(0, group(levelsPipeline, [bins, levels]));
-        range.dispatchWorkgroups(1);
-        range.end();
-      }
-      encoder.clearBuffer(blocks);
-      const fit = encoder.beginComputePass();
-      fit.setPipeline(fitPipeline);
-      fit.setBindGroup(0, group(fitPipeline, [sourceTexture, params, ink, info, levels, cells, blocks]));
-      fit.dispatchWorkgroups(columns, rows);
-      fit.end();
-
-      const draw = encoder.beginRenderPass({
-        colorAttachments: [{
-          view: context.getCurrentTexture().createView(),
-          loadOp: 'clear',
-          storeOp: 'store',
-          clearValue: { r: 0, g: 0, b: 0, a: 1 },
-        }],
-      });
-      draw.setPipeline(drawPipeline);
-      draw.setBindGroup(0, group(drawPipeline, [viewUniform, cells, textures.atlas, originalTexture]));
-      draw.draw(3);
-      draw.end();
-
-      // The half-block count comes back a frame or so later, one read at a time.
-      const read = !reading;
-      if (read) {
-        encoder.copyBufferToBuffer(blocks, 0, blocksRead, 0, 4);
-      }
-      device.queue.submit([encoder.finish()]);
-      if (read) {
-        reading = true;
-        blocksRead.mapAsync(GPUMapMode.READ).then(() => {
-          renderer.blocks = new Uint32Array(blocksRead.getMappedRange())[0];
-          blocksRead.unmap();
-          reading = false;
-          if (renderer.onStats) {
-            renderer.onStats(renderer.blocks);
+        if (!source || source.width !== canvas.width || source.height !== canvas.height) {
+          if (source) {
+            source.destroy();
           }
-        }).catch(() => {
-          reading = false;
-        });
-      }
-    };
+          source = device.createTexture({
+            size: [canvas.width, canvas.height],
+            format: 'rgba8unorm',
+            usage: GPUTextureUsage.TEXTURE_BINDING | GPUTextureUsage.COPY_DST | GPUTextureUsage.RENDER_ATTACHMENT,
+          });
+        }
+        device.queue.copyExternalImageToTexture({ source: canvas }, { texture: source }, [canvas.width, canvas.height]);
 
-    return renderer;
+        const bytes = columns * rows * CELL_FLOATS * 4;
+        if (!cells || cells.size < bytes) {
+          if (cells) {
+            cells.destroy();
+            readback.destroy();
+          }
+          cells = buffer(bytes, STORAGE | COPY_SRC);
+          readback = buffer(bytes, COPY_DST | MAP_READ);
+        }
+
+        const values = new ArrayBuffer(48);
+        new Uint32Array(values, 0, 4).set([columns, rows, stretch ? 1 : 0, markCount]);
+        new Float32Array(values, 16, 8).set(kernel);
+        device.queue.writeBuffer(params, 0, values);
+        device.queue.writeBuffer(info, 0, marks);
+
+        const encoder = device.createCommandEncoder();
+        if (stretch) {
+          encoder.clearBuffer(bins);
+          const histogram = encoder.beginComputePass();
+          histogram.setPipeline(histogramPipeline);
+          histogram.setBindGroup(0, group(histogramPipeline, [source, bins]));
+          histogram.dispatchWorkgroups(Math.ceil(canvas.width / 16), Math.ceil(canvas.height / 16));
+          histogram.end();
+          const range = encoder.beginComputePass();
+          range.setPipeline(levelsPipeline);
+          range.setBindGroup(0, group(levelsPipeline, [bins, levels]));
+          range.dispatchWorkgroups(1);
+          range.end();
+        }
+        const pass = encoder.beginComputePass();
+        pass.setPipeline(fitPipeline);
+        pass.setBindGroup(0, group(fitPipeline, [source, params, ink, info, levels, cells]));
+        pass.dispatchWorkgroups(columns, rows);
+        pass.end();
+        encoder.copyBufferToBuffer(cells, 0, readback, 0, bytes);
+        device.queue.submit([encoder.finish()]);
+
+        await readback.mapAsync(GPUMapMode.READ, 0, bytes);
+        const result = readback.getMappedRange(0, bytes).slice(0);
+        readback.unmap();
+        return result;
+      },
+    };
   }
 
-  window.AsciiLabGpu = { create, ATLAS_ROW };
+  window.AsciiLabGpu = { create, CELL_FLOATS };
 })();
