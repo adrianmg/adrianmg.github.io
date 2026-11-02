@@ -411,6 +411,27 @@ const { name, fallback, scripts = [] } = Astro.props;
     pointer-events: none;
   }
 
+  .playground-swatches label[hidden] {
+    display: none;
+  }
+
+  .playground-swatch-camera span[aria-hidden] {
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    border: 0.05rem solid rgba(var(--text-color-rgb), 0.4);
+    border-radius: 2px;
+    color: var(--text-color);
+    transition: border-color 120ms ease-out, color 120ms ease-out;
+  }
+
+  .playground-swatch-camera:hover span[aria-hidden],
+  .playground-swatch-camera input:checked + span[aria-hidden] {
+    border-color: var(--playground-accent);
+    color: var(--playground-accent);
+  }
+
   .playground-swatch-upload input {
     position: absolute;
     opacity: 0;
