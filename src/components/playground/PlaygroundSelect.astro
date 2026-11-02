@@ -1,0 +1,28 @@
+---
+// A native dropdown, for choices with more options than fit as buttons.
+interface Props {
+  name: string;
+  label: string;
+  options: { value: string; label: string }[];
+  value: string;
+  hint?: string;
+}
+
+const { name, label, options, value, hint } = Astro.props;
+---
+
+<label class="playground-control">
+  <span class="playground-label">{label}</span>
+  <span class="playground-select">
+    <select name={name}>
+      {
+        options.map((option) => (
+          <option value={option.value} selected={option.value === value}>
+            {option.label}
+          </option>
+        ))
+      }
+    </select>
+  </span>
+  {hint && <span class="playground-hint">{hint}</span>}
+</label>

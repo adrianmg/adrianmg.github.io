@@ -1,0 +1,18 @@
+---
+interface Props {
+  name: string;
+  label: string;
+  checked?: boolean;
+  hint?: string;
+}
+
+const { name, label, checked = false, hint } = Astro.props;
+---
+
+<div class="playground-control">
+  <label class="playground-toggle">
+    <input type="checkbox" name={name} checked={checked} />
+    <span>{label}</span>
+  </label>
+  {hint && <span class="playground-hint">{hint}</span>}
+</div>

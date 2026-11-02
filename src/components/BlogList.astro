@@ -1,0 +1,26 @@
+---
+import { formatBlogDate, formatXmlDate, postPath, type PostEntry } from "../lib/site";
+
+interface Props {
+  posts: PostEntry[];
+}
+
+const { posts } = Astro.props;
+---
+
+<ul class="blog-list">
+  {
+    posts.map((post) => (
+      <li class="blog-list-item">
+        <a href={postPath(post)}>
+          <span class="blog-list-item-date">
+            <time datetime={formatXmlDate(post.data.date)}>
+              {formatBlogDate(post.data.date)}
+            </time>
+          </span>
+          <span class="blog-list-item-title">{post.data.title}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

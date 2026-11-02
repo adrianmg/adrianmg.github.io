@@ -1,0 +1,26 @@
+---
+interface Props {
+  name: string;
+  label: string;
+  min: number;
+  max: number;
+  step?: number;
+  value: number;
+  unit?: string;
+  decimals?: number;
+  hint?: string;
+}
+
+const { name, label, min, max, step = 1, value, unit = "", decimals = 0, hint } = Astro.props;
+---
+
+<label class="playground-control">
+  <span class="playground-label">
+    {label}
+    <output data-for={name} data-unit={unit} data-decimals={decimals}>
+      {value.toFixed(decimals)}{unit}
+    </output>
+  </span>
+  <input type="range" name={name} min={min} max={max} step={step} value={value} />
+  {hint && <span class="playground-hint">{hint}</span>}
+</label>

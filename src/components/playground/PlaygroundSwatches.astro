@@ -1,0 +1,41 @@
+---
+// A row of picture thumbnails to pick from; each option's value is what the
+// demo receives, usually the full-size image's URL. With `upload`, a last tile
+// picks a local file instead (and takes files dropped on the stage with `drop`).
+interface Props {
+  name: string;
+  label: string;
+  // Hide the label when the thumbnails speak for themselves; it stays for screen readers.
+  hideLabel?: boolean;
+  options: { value: string; label: string; thumb: string }[];
+  value: string;
+  upload?: { name: string; label: string; accept?: string; drop?: boolean };
+  hint?: string;
+}
+
+const { name, label, hideLabel = false, options, value, upload, hint } = Astro.props;
+---
+
+<fieldset class="playground-control" data-fixed aria-label={hideLabel ? label : undefined}>
+  {!hideLabel && <legend class="playground-label">{label}</legend>}
+  <div class="playground-swatches">
+    {
+      options.map((option) => (
+        <label title={option.label}>
+          <input type="radio" name={name} value={option.value} checked={option.value === value} />
+          <img src={option.thumb} alt={option.label} width="96" height="96" loading="lazy" decoding="async" />
+        </label>
+      ))
+    }
+    {
+      upload && (
+        <label class="playground-swatch-upload" title={upload.label}>
+          <input type="file" name={upload.name} accept={upload.accept} data-drop={upload.drop ? "" : undefined} />
+          <span aria-hidden="true" />
+          <span class="playground-visually-hidden">{upload.label}</span>
+        </label>
+      )
+    }
+  </div>
+  {hint && <span class="playground-hint">{hint}</span>}
+</fieldset>

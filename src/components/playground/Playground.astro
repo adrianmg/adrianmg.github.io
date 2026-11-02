@@ -1,0 +1,620 @@
+---
+// A frame for interactive demos in posts. The stage starts as a static image,
+// which feed readers and visitors without JavaScript keep; the controls stay
+// hidden until /assets/js/playground.js connects a demo registered under `name`.
+interface Props {
+  name: string;
+  fallback: { src: string; alt: string; width: number; height: number };
+  scripts?: string[];
+}
+
+const { name, fallback, scripts = [] } = Astro.props;
+---
+
+<figure class="post-media playground" data-playground={name}>
+  <div class="playground-layout">
+    <div class="playground-view">
+      <div class="playground-stage" data-playground-stage>
+        <img
+          class="playground-fallback"
+          src={fallback.src}
+          alt={fallback.alt}
+          width={fallback.width}
+          height={fallback.height}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+    <form class="playground-controls" hidden>
+      <slot />
+    </form>
+  </div>
+</figure>
+<script is:inline src="/assets/js/playground.js" defer></script>
+{scripts.map((src) => <script is:inline src={src} defer></script>)}
+
+<style is:inline>
+  .playground {
+    --playground-line: rgba(var(--text-color-rgb), 0.15);
+    --playground-fill: rgba(var(--text-color-rgb), 0.08);
+    --playground-accent: var(--strong-color);
+    /* The frame's fill, and the same color as a solid for cut-outs and menus. */
+    --playground-surface: color-mix(in srgb, var(--background-color) 75%, #000);
+    --playground-radius: 2px;
+    --playground-pad: 0.8rem;
+    padding: var(--playground-pad);
+    background: rgba(0, 0, 0, 0.25);
+    border: 0.05rem solid var(--playground-line);
+    border-radius: var(--playground-radius);
+    container-type: inline-size;
+  }
+
+  .playground-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.4rem;
+  }
+
+  /* With room to spare, the controls sit beside the stage rather than under it. */
+  @container (min-width: 760px) {
+    .playground-layout {
+      grid-template-columns: minmax(0, 1fr) 24rem;
+      align-items: start;
+    }
+
+    /* The column is as tall as the stage and scrolls past that. */
+    .playground-layout .playground-controls {
+      grid-template-columns: minmax(0, 1fr);
+      align-content: start;
+      gap: 1.2rem;
+      /* As tall as the square stage: the container's width minus the column and gap. */
+      height: calc(100cqw - 24rem - 2.4rem);
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      /* Reach into the frame's padding so the scrollbar sits near its edge. */
+      margin-right: calc(0.4rem - var(--playground-pad));
+      padding: 0.4rem calc(var(--playground-pad) + 0.4rem) 0.4rem 0.4rem;
+    }
+
+    /* Chrome and Safari: a thin thumb on no track. Setting scrollbar-color
+       there would switch these styles off, so it's left to Firefox below. */
+    .playground-layout .playground-controls::-webkit-scrollbar {
+      width: 0.6rem;
+      background: transparent;
+    }
+
+    .playground-layout .playground-controls::-webkit-scrollbar-track,
+    .playground-layout .playground-controls::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+
+    .playground-layout .playground-controls::-webkit-scrollbar-thumb {
+      border: 0.1rem solid transparent;
+      border-radius: 2px;
+      background: rgba(var(--text-color-rgb), 0.22) padding-box;
+    }
+
+    @supports not selector(::-webkit-scrollbar) {
+      .playground-layout .playground-controls {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(var(--text-color-rgb), 0.22) transparent;
+      }
+
+      .playground-layout .playground-controls:hover {
+        scrollbar-color: rgba(var(--text-color-rgb), 0.4) transparent;
+      }
+    }
+
+    .playground-layout .playground-controls:hover::-webkit-scrollbar-thumb {
+      background: rgba(var(--text-color-rgb), 0.4) padding-box;
+    }
+  }
+
+  .playground-stage {
+    position: relative;
+    border-radius: var(--playground-radius);
+    overflow: hidden;
+    background: #000;
+  }
+
+  .playground-stage canvas,
+  .playground-stage img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .playground-stage.is-dropping::after {
+    content: "Drop to use this picture";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    border: 2px dashed var(--playground-accent);
+    background: rgba(0, 0, 0, 0.6);
+    color: var(--title-color);
+    font-size: 1.6rem;
+    pointer-events: none;
+  }
+
+  /* The static image stays until the demo has drawn its first frame, and comes
+     back if the demo never does. */
+  .playground:not(.is-ready) [data-playground-stage] canvas,
+  .playground.is-ready .playground-fallback {
+    display: none;
+  }
+  .playground-controls {
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+    gap: 1.2rem 3.2rem;
+    text-align: left;
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+
+  .playground-control {
+    display: grid;
+    gap: 0.8rem;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .playground-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding: 0;
+    color: var(--title-color);
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+  }
+
+  /* Values that differ from the defaults are tinted, so changes stand out. */
+  .playground-control.is-changed .playground-label output,
+  .playground-control.is-changed .playground-select select,
+  .playground-control.is-changed .playground-segmented input:checked + span,
+  .playground-control.is-changed .playground-toggle span {
+    color: var(--playground-accent);
+  }
+
+  .playground-control.is-changed .playground-select::after {
+    border-color: var(--playground-accent);
+  }
+
+  /* A changed control's name puts it back when clicked. */
+  .playground-control.is-changed .playground-label {
+    cursor: pointer;
+  }
+
+  .playground-control.is-changed .playground-label:hover {
+    color: var(--title-color);
+  }
+
+  /* Hovering a changed control's name offers to reset it. */
+  .playground-control.is-changed .playground-label:hover::after {
+    content: "Reset";
+    margin-left: auto;
+    color: var(--playground-accent);
+  }
+
+  .playground-control.is-changed .playground-label:hover output {
+    display: none;
+  }
+
+  .playground-label output {
+    color: var(--text-color);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .playground-hint {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+
+  /* Sliders: a hairline track, filled in the accent up to a small round thumb. */
+  .playground input[type="range"] {
+    --fill: 50%;
+    --track: rgba(var(--text-color-rgb), 0.2);
+    width: 100%;
+    height: 1.6rem;
+    margin: 0.2rem 0;
+    background: none;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .playground input[type="range"]::-webkit-slider-runnable-track {
+    height: 0.2rem;
+    border-radius: 0.1rem;
+    background: linear-gradient(to right, var(--playground-accent) var(--fill), var(--track) var(--fill));
+  }
+
+  .playground input[type="range"]::-moz-range-track {
+    height: 0.2rem;
+    border-radius: 0.1rem;
+    background: var(--track);
+  }
+
+  .playground input[type="range"]::-moz-range-progress {
+    height: 0.2rem;
+    border-radius: 0.1rem;
+    background: var(--playground-accent);
+  }
+
+  .playground input[type="range"]::-webkit-slider-thumb {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-top: -0.6rem;
+    border: 0.3rem solid var(--playground-surface);
+    border-radius: 50%;
+    background: var(--playground-accent);
+    box-shadow: 0 0 0 0.05rem var(--playground-accent);
+    appearance: none;
+    transition: transform 120ms ease-out;
+  }
+
+  .playground input[type="range"]::-moz-range-thumb {
+    width: 0.8rem;
+    height: 0.8rem;
+    border: 0.3rem solid var(--playground-surface);
+    border-radius: 50%;
+    background: var(--playground-accent);
+    box-shadow: 0 0 0 0.05rem var(--playground-accent);
+    transition: transform 120ms ease-out;
+  }
+
+  .playground input[type="range"]:hover::-webkit-slider-thumb,
+  .playground input[type="range"]:active::-webkit-slider-thumb {
+    transform: scale(1.15);
+  }
+
+  .playground input[type="range"]:hover::-moz-range-thumb,
+  .playground input[type="range"]:active::-moz-range-thumb {
+    transform: scale(1.15);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .playground input[type="range"]::-webkit-slider-thumb,
+    .playground input[type="range"]::-moz-range-thumb {
+      transition: none;
+    }
+  }
+
+  /* Choices sit on one soft track; the chosen one is raised out of it. */
+  .playground-segmented {
+    display: flex;
+    gap: 0.2rem;
+    padding: 0.3rem;
+    border-radius: 2px;
+    background: var(--playground-fill);
+  }
+
+  .playground-segmented label {
+    position: relative;
+    flex: 1 1 auto;
+  }
+
+  .playground-segmented input,
+  .playground-toggle input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .playground-segmented span {
+    display: block;
+    text-align: center;
+    white-space: nowrap;
+    padding: 0.3rem 0.6rem;
+    border-radius: 2px;
+    color: var(--text-color);
+    font: inherit;
+    cursor: pointer;
+    transition: background-color 150ms ease-out, color 150ms ease-out;
+  }
+
+  .playground-segmented span:hover {
+    color: var(--title-color);
+  }
+
+  .playground-segmented input:checked + span {
+    color: var(--title-color);
+    background: rgba(var(--text-color-rgb), 0.16);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 0 0 0.05rem rgba(255, 255, 255, 0.06);
+  }
+
+  .playground-options-row {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .playground-options-row .playground-segmented {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Icon squares as tall as the segmented track beside them. */
+  .playground-actions button {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    aspect-ratio: 1;
+    padding: 0;
+    border: 0;
+    border-radius: 2px;
+    color: var(--text-color);
+    background: var(--playground-fill);
+    cursor: pointer;
+    transition: background-color 150ms ease-out, color 150ms ease-out;
+  }
+
+  .playground-actions button:hover {
+    color: var(--title-color);
+    background: rgba(var(--text-color-rgb), 0.14);
+  }
+
+  .playground-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .playground-swatches label {
+    position: relative;
+    display: block;
+    cursor: pointer;
+  }
+
+  .playground-swatches input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .playground-swatches img {
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 2px;
+    outline: 0.05rem solid var(--playground-line);
+    outline-offset: 0;
+    opacity: 0.7;
+    transition: opacity 120ms ease-out, outline-color 120ms ease-out;
+  }
+
+  .playground-swatches label:hover img {
+    opacity: 1;
+  }
+
+  .playground-swatches input:checked + img {
+    opacity: 1;
+  }
+
+  /* The selection ring is its own frame so its corners stay at 2px. */
+  .playground-swatches label:has(input:checked)::after,
+  .playground-swatches label:has(input:focus-visible)::after,
+  .playground-swatches:not(:has(input[type="radio"]:checked)) .playground-swatch-upload::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--playground-accent);
+    border-radius: 2px;
+    box-shadow: inset 0 0 0 1px var(--playground-surface);
+    pointer-events: none;
+  }
+
+  .playground-swatch-upload input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  .playground-swatch-upload span[aria-hidden] {
+    position: relative;
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    border: 0.05rem dashed rgba(var(--text-color-rgb), 0.4);
+    border-radius: 2px;
+    background: center / cover no-repeat;
+    color: var(--text-color);
+    transition: border-color 120ms ease-out, color 120ms ease-out;
+  }
+
+  /* A plus until a picture is chosen, then the picture itself. */
+  .playground-swatch-upload span[aria-hidden]::before,
+  .playground-swatch-upload span[aria-hidden]::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.4rem;
+    height: 0.15rem;
+    background: currentColor;
+    transform: translate(-50%, -50%);
+  }
+
+  .playground-swatch-upload span[aria-hidden]::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .playground-swatch-upload span.has-picture {
+    border-style: solid;
+  }
+
+  .playground-swatch-upload span.has-picture::before,
+  .playground-swatch-upload span.has-picture::after {
+    display: none;
+  }
+
+  .playground-swatch-upload:hover span[aria-hidden] {
+    border-color: var(--playground-accent);
+    color: var(--playground-accent);
+  }
+
+  .playground-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .playground-select {
+    position: relative;
+    display: block;
+  }
+
+  .playground-select select {
+    width: 100%;
+    padding: 0.5rem 3rem 0.5rem 1rem;
+    border: 0;
+    border-radius: 2px;
+    color: var(--title-color);
+    background: var(--playground-fill);
+    transition: background-color 150ms ease-out;
+    font: inherit;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .playground-select::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 1.2rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-right: 0.15rem solid var(--text-color);
+    border-bottom: 0.15rem solid var(--text-color);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+  }
+
+  /* Where the browser allows it, the open menu matches the frame too. */
+  @supports (appearance: base-select) {
+    .playground-select select,
+    .playground-select select::picker(select) {
+      appearance: base-select;
+    }
+
+    .playground-select select::picker-icon {
+      display: none;
+    }
+
+    .playground-select select::picker(select) {
+      margin-top: 0.4rem;
+      padding: 0.4rem;
+      border: 0.05rem solid var(--playground-line);
+      border-radius: 2px;
+      background: var(--playground-surface);
+      color: var(--title-color);
+      box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.4);
+    }
+
+    .playground-select option {
+      padding: 0.6rem 1rem;
+      border-radius: 2px;
+    }
+
+    .playground-select option::checkmark {
+      display: none;
+    }
+
+    .playground-select option:hover,
+    .playground-select option:focus-visible {
+      background: var(--playground-fill);
+      outline: none;
+    }
+
+    .playground-select option:checked {
+      color: var(--playground-accent);
+    }
+  }
+
+  .playground-select select:hover {
+    background-color: rgba(var(--text-color-rgb), 0.14);
+  }
+
+  .playground-select select:focus-visible {
+    outline: 2px solid var(--playground-accent);
+    outline-offset: 2px;
+  }
+
+  /* Toggles sit in the same filled box as the dropdowns. */
+  .playground-toggle {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 2px;
+    color: var(--title-color);
+    background: var(--playground-fill);
+    cursor: pointer;
+    transition: background-color 150ms ease-out;
+  }
+
+  .playground-toggle:hover {
+    background: rgba(var(--text-color-rgb), 0.14);
+  }
+
+  .playground-toggle:has(input:focus-visible) {
+    outline: 1.5px solid var(--playground-accent);
+    outline-offset: 1px;
+  }
+
+  .playground-toggle span::before {
+    content: "";
+    display: inline-block;
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-right: 1rem;
+    vertical-align: -0.2rem;
+    border: 0.05rem solid var(--playground-line);
+    border-radius: 2px;
+  }
+
+  .playground-toggle input:checked + span::before {
+    background: var(--playground-accent);
+    border-color: var(--playground-accent);
+    box-shadow: inset 0 0 0 0.3rem var(--playground-surface);
+  }
+
+  .playground-file input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  .playground input:focus-visible + span,
+  .playground input[type="range"]:focus-visible,
+  .playground-actions button:focus-visible {
+    outline: 1.5px solid var(--playground-accent);
+    outline-offset: 1px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .playground-segmented span,
+    .playground-toggle,
+    .playground-actions button,
+    .playground-select select {
+      transition: none;
+    }
+  }
+
+  .playground-actions {
+    display: flex;
+    gap: 0.6rem;
+  }
+</style>

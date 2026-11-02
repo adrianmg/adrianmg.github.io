@@ -1,0 +1,105 @@
+---
+import Playground from "./playground/Playground.astro";
+import PlaygroundActions from "./playground/PlaygroundActions.astro";
+import PlaygroundOptions from "./playground/PlaygroundOptions.astro";
+import PlaygroundSelect from "./playground/PlaygroundSelect.astro";
+import PlaygroundSlider from "./playground/PlaygroundSlider.astro";
+import PlaygroundSwatches from "./playground/PlaygroundSwatches.astro";
+import PlaygroundToggle from "./playground/PlaygroundToggle.astro";
+const dir = "/assets/images/posts/2026/ascii-art";
+const samples = [
+  ["great-wave", "The Great Wave off Kanagawa, Hokusai"],
+  ["mona-lisa", "Mona Lisa, Leonardo da Vinci"],
+  ["starry-night", "The Starry Night, Van Gogh"],
+  ["scream", "The Scream, Munch"],
+  ["pearl-earring", "Girl with a Pearl Earring, Vermeer"],
+  ["the-kiss", "The Kiss, Klimt"],
+  ["venus", "The Birth of Venus, Botticelli"],
+  ["adam", "The Creation of Adam, Michelangelo"],
+  ["liberty", "Liberty Leading the People, Delacroix (the cover of Coldplay's Viva la Vida)"],
+].map(([file, label]) => ({ value: `${dir}/${file}.webp`, thumb: `${dir}/${file}-thumb.webp`, label }));
+---
+
+<Playground
+  name="ascii-cover"
+  fallback={{
+    src: "/assets/images/posts/2026/ascii-art/great-wave-ascii.webp",
+    alt: "The Great Wave off Kanagawa drawn in text characters and half blocks",
+    width: 1356,
+    height: 1356,
+  }}
+  scripts={["/assets/js/ascii-lab.js"]}
+>
+  <PlaygroundSwatches name="sample" label="Picture"
+    hideLabel
+    options={samples}
+    value={samples[0].value}
+    upload={{ name: "picture", label: "Use your own picture", accept: "image/*", drop: true }}
+  />
+  <PlaygroundOptions
+    name="view"
+    label="View"
+    fixed
+    hideLabel
+    value="ascii"
+    options={[
+      { value: "ascii", label: "ASCII art" },
+      { value: "original", label: "Original" },
+    ]}
+  >
+    <PlaygroundActions />
+  </PlaygroundOptions>
+  <PlaygroundSlider
+    name="columns"
+    label="Fidelity"
+    min={8}
+    max={120}
+    value={64}
+    unit=" columns"
+  />
+  <PlaygroundSelect
+    name="theme"
+    label="Theme"
+    value="original"
+    options={[
+      { value: "original", label: "Original color" },
+      { value: "amber", label: "Amber" },
+      { value: "phosphor", label: "Green phosphor" },
+      { value: "charcoal", label: "Charcoal" },
+      { value: "commodore", label: "Commodore 64" },
+    ]}
+  />
+  <PlaygroundSelect
+    name="marks"
+    label="Characters"
+    value="mixed"
+    options={[
+      { value: "mixed", label: "Strokes and half blocks" },
+      { value: "strokes", label: "Strokes only" },
+      { value: "blocks", label: "Half blocks only" },
+    ]}
+  />
+  <PlaygroundSlider
+    name="squint"
+    label="Squint"
+    min={0}
+    max={2}
+    step={0.1}
+    value={1}
+    decimals={1}
+    unit=" px"
+  />
+  <PlaygroundSlider
+    name="blockCost"
+    label="Half-block cost"
+    min={0}
+    max={20}
+    step={0.5}
+    value={4}
+    decimals={1}
+  />
+  <PlaygroundSlider name="crt" label="CRT scanlines" min={0} max={100} step={5} value={0} unit="%" />
+  <PlaygroundToggle name="stretch" label="Stretch contrast" checked />
+  <PlaygroundToggle name="grid" label="Show cells" />
+
+</Playground>

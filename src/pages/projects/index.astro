@@ -1,0 +1,220 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SIDE_PROJECTS } from "../../lib/projects";
+---
+
+<BaseLayout
+  pageTitle="Projects"
+  description="Small tools and creative experiments I've designed and built on the side."
+  canonicalPath="/projects/"
+  bodyClass="projects-page"
+>
+  <!--
+    THESIS: A small record of things built outside work, newest first.
+    OWN-WORLD: The site's dark ink, peach links, system type, and quiet separators.
+    STORY: Scan three projects, then visit the one that interests you.
+    FIRST VIEWPORT: Home link, Projects heading, intro, project grid.
+    FORM: Brief-pinned Linear Now gallery grid.
+  -->
+  <main class="projects">
+    <header class="projects-header">
+      <div class="post-meta"><a href="/">← Home</a></div>
+      <h1>Projects</h1>
+      <p>Some of the small tools and creative experiments I've built on the side.</p>
+    </header>
+
+    <ol class="projects-list" aria-label="Side projects, newest first">
+      {
+        SIDE_PROJECTS.map((project, index) => (
+          <li class="projects-entry">
+            <article aria-labelledby={project.id}>
+              <a
+                class="projects-image"
+                href={project.url}
+                tabindex="-1"
+                aria-hidden="true"
+                style={`--preview: url("${project.imagePreview}")`}
+              >
+                <img
+                  src={`${project.image}-960.webp`}
+                  srcset={[640, 960, 1280].map((w) => `${project.image}-${w}.webp ${w}w`).join(", ")}
+                  sizes="(max-width: 720px) calc(100vw - 48px), (max-width: 1008px) calc((100vw - 112px) / 3), 299px"
+                  alt={project.imageAlt}
+                  width={1280}
+                  height={720}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  fetchpriority={index === 0 ? "high" : undefined}
+                  decoding="async"
+                  onload="this.classList.add('is-loaded')"
+                />
+              </a>
+              <div class="projects-title">
+                <h2 id={project.id}><a href={project.url}>{project.name}</a></h2>
+                <div class="projects-date">
+                  <time datetime={project.datetime}>{project.year}</time>
+                </div>
+              </div>
+              <p>{project.description}</p>
+            </article>
+          </li>
+        ))
+      }
+    </ol>
+  </main>
+</BaseLayout>
+
+<style is:inline>
+  body.projects-page {
+    animation: none;
+    padding: 0 2.4rem;
+  }
+
+  .projects {
+    max-width: 96rem;
+    margin: 0 auto;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+  }
+
+  .projects a:focus-visible {
+    outline: 2px solid var(--brand-color);
+    outline-offset: 6px;
+    border-radius: 2px;
+  }
+
+  .projects-header {
+    margin: 6.4rem 0 4.8rem;
+  }
+
+  .projects h1 {
+    font-size: 3.8rem;
+    line-height: 4.8rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+
+  .projects-header p {
+    margin: 0;
+    max-width: 55ch;
+  }
+
+  .projects-list {
+    list-style: none;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3.2rem;
+  }
+
+  .projects-entry {
+    padding: 0 0 4.8rem;
+  }
+
+  .projects-image {
+    position: relative;
+    display: block;
+    margin-bottom: 2.4rem;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .projects-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    /* A light hairline drawn over the picture, so it shows on dark covers too. */
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .projects-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--preview) center / cover no-repeat;
+    filter: blur(16px);
+    transform: scale(1.15);
+  }
+
+  .projects-image img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  @media (scripting: enabled) {
+    .projects-image img:not(.is-loaded) {
+      opacity: 0;
+    }
+
+    .projects-image img {
+      transition: opacity 400ms ease-out;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .projects-image img {
+      transition: none;
+    }
+  }
+
+  .projects-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.6rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .projects h2 {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    margin: 0;
+    min-width: 0;
+  }
+
+  .projects h2 a {
+    color: var(--title-color);
+    text-decoration: none;
+    transition: all var(--base-trans-slow) ease-in-out;
+  }
+
+  .projects h2 a:hover {
+    color: var(--brand-color);
+  }
+
+  .projects article p {
+    max-width: 68ch;
+    margin-bottom: 0;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+  }
+
+  .projects-date {
+    flex: none;
+    font-size: 1.2rem;
+    line-height: 2.4rem;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 720px) {
+    .projects-header {
+      margin-bottom: 3.2rem;
+    }
+
+    .projects-list {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+    }
+
+    .projects-entry {
+      padding: 3.2rem 0;
+      border-top: 0.05rem solid rgba(var(--text-color-rgb), 0.15);
+    }
+  }
+</style>

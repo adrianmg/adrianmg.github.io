@@ -1,0 +1,51 @@
+---
+import { getCollection } from "astro:content";
+
+import BlogList from "../../components/BlogList.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+  categoryLabel,
+  categoryPaths,
+  postPath,
+  sortPostsNewestFirst,
+  type PostEntry,
+} from "../../lib/site";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return categoryPaths(posts).map((path) => ({
+    params: { category: path.slice("/blog/".length, -1) },
+    props: {
+      path,
+      posts: sortPostsNewestFirst(
+        posts.filter((post) => postPath(post).startsWith(path)),
+      ),
+    },
+  }));
+}
+
+interface Props {
+  path: string;
+  posts: PostEntry[];
+}
+
+const { path, posts } = Astro.props;
+const segments = path.split("/").filter(Boolean);
+const title = categoryLabel(segments.at(-1) ?? "");
+const parentPath = `/${segments.slice(0, -1).join("/")}/`;
+const parentLabel = segments.length > 2 ? categoryLabel(segments.at(-2) ?? "") : "Blog";
+---
+
+<BaseLayout
+  pageTitle={title}
+  description={`Posts about ${title.toLowerCase()} by Adrián Mato.`}
+  canonicalPath={path}
+>
+  <div class="post blog">
+    <div class="post-meta"><a href={parentPath}>← {parentLabel}</a></div>
+    <h1>{title}</h1>
+    <div class="blog-content">
+      <BlogList posts={posts} />
+    </div>
+  </div>
+</BaseLayout>

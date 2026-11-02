@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "renderer": "d942b6e689b6db2fafdf6c68797cdb69411678a74584bed996263d7ed9b0fb6f",
+  "images": {
+    "designer-dont-blame-the-client-its-your-fault": "1a36e49d6579646663f5d2f4d462764a9eacb383d63deb80b937d128140d9809",
+    "programa-vostok-iv-mission-accomplished": "d862768d523fab26ab321042295da6bf734ed0f9e9f07eb219bb5a880afc1892",
+    "fixing-myself-as-a-maker": "be33f37c7c0618e24e9fe4c361cf0dfb4a30ddd71f9de9125e209603fba08af9",
+    "race-calculator": "b1cfe49b32f555e43e133f1a6855cd086e016727060a4f0c878160f21fdfa65b",
+    "free-opportunities-become-software-developer": "e962f5b4d0ebdc9da01da1de532792beddc1ed0dc73f9368ffeb603fcd01065b",
+    "favorite-design-books": "c8c3a9cc5a8d5be767c9b372a2ea3f8f9c43a30eec3826a7ef6fac5771d910e0",
+    "server-status": "81a7d5cc4d84459cbf9fa1375df98b36e6df8eb4837f193f902341b2ad7422f6",
+    "2018-great-year": "63382b850d40edd702026ab8f971481ccbe5607ec5b6370c410599ca7365bac9",
+    "peeking-at-worklog": "7bde5a7654ed44ae8c84d82d22597f597e301c6d6a7456de6778011254f5e956",
+    "improving-experience-github-actions-logs": "7e4ccc229d5753055e817f8ad245c5a8c9fb0de74c780feb38f339b3027fd858",
+    "github-pewpew-cli-delete-github-unnecessary-repositories": "da638d67b8218ec218880a4d08d90b3bc0b03d31f499a59d42310fd151e63840",
+    "speeding-up-typescript-development-flow-instant-feedback": "bb790ae3d788cf5a6249a7ec1945e06f55792f096da6dc67b7b82dd497f115bc",
+    "bigger-isnt-better-companies-scale-dilemma": "c532e8851bbc12fdd0167555d3cf8ba2ad96037ed3d2abe7dc74c764850c8d04",
+    "software-engineering-daily-interview-github-copilot": "65dd31fba60967f4580378a02603eb8a6508ccdcb31c7a71925f04d86e5187b5",
+    "remote-work-is-blessing-competitive-edge": "8683f9634a6144a1830b7f90a17cf5d88450277f106af939d1ab5fdd6a4657ee",
+    "teaching-my-agents-to-work-alongside-me": "5e923a09a3a2ca7af11c015666aec6c6582a7ae4678ca52c584da7be3ef868bb",
+    "behind-the-scenes-of-xbox-labs": "c8517db25d67c2c15012fa51ece53e7ae007d4a35e48e3d01df63bb7ec8ac5be",
+    "noted-markdown-notes-app-inspired-by-the-80s": "4dd43b3ca025ca804a59be09601b8910bc62deb6a8e57db8e631c29f0f08d34f",
+    "turn-any-image-into-ascii-art": "8b09d2eaadc5ae3899ec35ed3a841d648236d1ffd3024829fe2b8a8eb9f9617c"
+  }
+}

@@ -1,0 +1,33 @@
+---
+interface Props {
+  name: string;
+  label: string;
+  options: { value: string; label: string }[];
+  value: string;
+  // Leave this control alone when the demo is randomized.
+  fixed?: boolean;
+  // Hide the label when the choices speak for themselves; it stays for screen readers.
+  hideLabel?: boolean;
+  hint?: string;
+}
+
+const { name, label, options, value, fixed = false, hideLabel = false, hint } = Astro.props;
+---
+
+<fieldset class="playground-control" data-fixed={fixed ? "" : undefined} aria-label={hideLabel ? label : undefined}>
+  {!hideLabel && <legend class="playground-label">{label}</legend>}
+  <div class="playground-options-row">
+  <div class="playground-segmented">
+    {
+      options.map((option) => (
+        <label>
+          <input type="radio" name={name} value={option.value} checked={option.value === value} />
+          <span>{option.label}</span>
+        </label>
+      ))
+    }
+  </div>
+  {Astro.slots.has("default") && <slot />}
+  </div>
+  {hint && <span class="playground-hint">{hint}</span>}
+</fieldset>
