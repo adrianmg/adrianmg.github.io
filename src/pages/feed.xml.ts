@@ -13,6 +13,19 @@ import {
   xmlEscape,
 } from "../lib/site";
 
+// Feed readers get the article as plain content: interactive demos fall back
+// to their static image, scripts and component styles are dropped, and local
+// links and media point at the live site.
+function feedHtml(html: string) {
+  return html
+    .replace(/<script\b[\s\S]*?<\/script>/gi, "")
+    .replace(/<style\b[\s\S]*?<\/style>/gi, "")
+    .replace(/<form\b[^>]*class="playground-controls"[\s\S]*?<\/form>/gi, "")
+    .replace(/\s(src|href|poster)="(\/(?!\/)[^"]*)"/g, (_, name, value) => ` ${name}="${absoluteUrl(value)}"`)
+    .replace(/\ssrcset="([^"]*)"/g, (_, value: string) =>
+      ` srcset="${value.replace(/(^|,\s*)(\/(?!\/)[^\s,]+)/g, (__, lead, url) => `${lead}${absoluteUrl(url)}`)}"`);
+}
+
 export async function GET() {
   const posts = sortPostsNewestFirst(await getCollection("posts")).slice(0, 10);
   // MDX posts render through their own renderer, so the container needs it too.
@@ -25,7 +38,7 @@ export async function GET() {
       const id = url.endsWith("/") ? url.slice(0, -1) : url;
       const published = formatXmlDate(post.data.date);
       const { Content } = await render(post);
-      const content = await container.renderToString(Content);
+      const content = feedHtml(await container.renderToString(Content));
 
       return `<entry><title type="html">${xmlEscape(xmlEscape(smartTypography(post.data.title.trim())))}</title><link href="${xmlEscape(url)}" rel="alternate" type="text/html" title="${xmlEscape(smartTypography(post.data.title.trim()))}" /><published>${published}</published><updated>${published}</updated><id>${xmlEscape(id)}</id><content type="html" xml:base="${xmlEscape(url)}">${xmlEscape(content)}</content><author><name>${xmlEscape(SITE.author)}</name></author></entry>`;
     }),

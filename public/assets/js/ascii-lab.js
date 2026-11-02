@@ -398,6 +398,7 @@
         context.fillRect(0, 0, cssWidth, cssHeight);
       }
 
+      figure.classList.add('is-ready');
       const blocks = cells.filter((cell) => BLOCKS.includes(cell.mark)).length;
       canvas.setAttribute('aria-label', `The picture drawn as ${columns} by ${rows} text cells, ${blocks} of them half blocks.`);
       return `${columns} × ${rows} cells · ${Math.round((blocks / cells.length) * 100)}% half blocks`;

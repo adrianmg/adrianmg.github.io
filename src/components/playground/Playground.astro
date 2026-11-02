@@ -139,7 +139,10 @@ const { name, fallback, scripts = [] } = Astro.props;
     pointer-events: none;
   }
 
-  .playground.is-interactive .playground-fallback {
+  /* The static image stays until the demo has drawn its first frame, and comes
+     back if the demo never does. */
+  .playground:not(.is-ready) [data-playground-stage] canvas,
+  .playground.is-ready .playground-fallback {
     display: none;
   }
   .playground-controls {

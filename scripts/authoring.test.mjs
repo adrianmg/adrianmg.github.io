@@ -227,7 +227,13 @@ Inline code: \`isn't changed -- ...\`.
     assert(entry, "New post missing from Atom feed");
     const content = decodeXml(entry.match(/<content\b[^>]*>([\s\S]*?)<\/content>/)[1]).trim();
     const article = innerHtmlByClass(html, "post-content");
-    assert.equal(serialize(parseFragment(content)).trim(), article);
+    // The feed carries the same article, with local links and media made absolute.
+    const absolute = article.replace(/\s(src|href)="\/(?!\/)/g, ' $1="https://adrianmato.com/');
+    assert.equal(serialize(parseFragment(content)).trim(), absolute);
+    for (const body of [...feed.matchAll(/<content\b[^>]*>([\s\S]*?)<\/content>/g)].map((match) => decodeXml(match[1]))) {
+      assert.doesNotMatch(body, /<(script|style|form)\b/i, "Feed entries must not carry scripts, styles, or forms");
+      assert.doesNotMatch(body, /\s(src|href|poster)="\/(?!\/)/, "Feed entries must use absolute local URLs");
+    }
     for (const part of [article, content, innerHtmlByClass(html, "post-summary")]) {
       const nodes = elements(parseFragment(part));
       assert(nodes.some((node) => node.tagName === "p" && text(node).includes("“Quoted text”")));
