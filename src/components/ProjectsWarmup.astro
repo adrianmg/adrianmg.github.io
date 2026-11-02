@@ -1,0 +1,35 @@
+---
+// Starts loading the project covers as soon as someone hovers, focuses or
+// touches a link to /projects/, so the page opens with its pictures in place.
+// Browsers that prerender the page from the speculation rules do this anyway.
+import { PROJECT_IMAGE_SIZES, projectImageSrcset, SIDE_PROJECTS } from "../lib/projects";
+
+const images = SIDE_PROJECTS.map((project) => projectImageSrcset(project.image));
+---
+
+<script is:inline define:vars={{ images, sizes: PROJECT_IMAGE_SIZES }}>
+  (() => {
+    const connection = navigator.connection;
+    if (connection && connection.saveData) {
+      return;
+    }
+    let warmed = false;
+    const warm = (event) => {
+      if (warmed || !event.target.closest || !event.target.closest('a[href="/projects/"]')) {
+        return;
+      }
+      warmed = true;
+      images.forEach((srcset) => {
+        const link = document.createElement("link");
+        link.rel = "preload";
+        link.as = "image";
+        link.setAttribute("imagesrcset", srcset);
+        link.setAttribute("imagesizes", sizes);
+        document.head.append(link);
+      });
+    };
+    ["pointerover", "focusin", "touchstart"].forEach((type) =>
+      document.addEventListener(type, warm, { passive: true }),
+    );
+  })();
+</script>
