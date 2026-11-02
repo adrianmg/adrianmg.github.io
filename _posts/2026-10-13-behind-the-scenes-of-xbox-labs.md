@@ -8,7 +8,9 @@ I want to share a little behind the scenes of [labs.xbox.com](https://labs.xbox.
 
 <figure class="post-media">
   <video data-autoplay-video controls loop muted playsinline preload="none" poster="/assets/images/posts/2026/xbox-labs/hero-poster.webp" width="1920" height="994" aria-label="The XBOX Labs homepage with interactive ASCII art over game footage and a panel for art-directing the shaders in real time">
+    <source src="/assets/images/posts/2026/xbox-labs/hero-mobile.av1.mp4" media="(max-width: 620px)" type="video/mp4; codecs=av01.0.08M.08">
     <source src="/assets/images/posts/2026/xbox-labs/hero-mobile.mp4" media="(max-width: 620px)" type="video/mp4">
+    <source src="/assets/images/posts/2026/xbox-labs/hero.av1.mp4" type="video/mp4; codecs=av01.0.09M.08">
     <source src="/assets/images/posts/2026/xbox-labs/hero.mp4" type="video/mp4">
   </video>
 </figure>
