@@ -1,7 +1,7 @@
 export const SIDE_PROJECTS = [
   {
     id: "noted",
-    name: "noted",
+    name: "noted.computer",
     year: "2026",
     datetime: "2026",
     description:

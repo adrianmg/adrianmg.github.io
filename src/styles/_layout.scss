@@ -378,7 +378,7 @@ pre {
 
 .post .post-content > .post-media {
   max-width: none;
-  margin: 3.2rem auto 4rem;
+  margin: 3.2rem auto;
   text-align: center;
 }
 
@@ -404,6 +404,17 @@ pre {
   font-size: var(--base-font-size);
   line-height: 2.8rem;
   margin-bottom: 2rem;
+}
+
+/* Section headings sit well clear of what came before and close to what they
+   introduce, so each one reads as the start of its section. */
+.post .post-content h2 {
+  margin-top: 5.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.post .post-content > h2:first-child {
+  margin-top: 0;
 }
 
 .post h3 {
