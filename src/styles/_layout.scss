@@ -150,20 +150,233 @@ pre {
   margin: 0 auto;
 }
 
+// With JS the nav stays on one line and folds extra links into "More".
+.home-navigation.is-enhanced ul {
+  white-space: nowrap;
+}
+
 .home-navigation li {
   display: inline-block;
 }
 
-.home-navigation a {
+.home-navigation-more {
+  display: none !important;
+}
+
+.home-navigation a,
+.home-navigation-more button {
   color: var(--text-color);
   text-decoration: none;
   padding: 2rem 1.4rem;
   position: relative;
-  transition: all var(--base-trans-slow) ease-in-out;
+  transition: color var(--base-trans-slow) ease-in-out;
 }
 
-.home-navigation a:hover {
+.home-navigation-more button {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.home-navigation a:hover,
+.home-navigation-more button:hover,
+.home-navigation-more button[aria-expanded="true"] {
   color: var(--brand-color);
+}
+
+.home-navigation a:focus-visible,
+.home-navigation-more button:focus-visible {
+  outline: 2px solid var(--brand-color);
+  outline-offset: -0.6rem;
+  border-radius: 2px;
+}
+
+/**
+ * HOME: "More" drawer, a bottom sheet for links the nav can't fit.
+ */
+
+html:has(.home-drawer[open]) {
+  overflow: hidden;
+}
+
+.home-drawer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-color);
+  overflow: hidden;
+}
+
+.home-drawer::backdrop {
+  background: transparent;
+}
+
+.home-drawer:focus {
+  outline: none;
+}
+
+.home-drawer-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 16, 0.72);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity 500ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.home-drawer-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: calc(100% - 4rem);
+  overflow-y: auto;
+  padding: 0.8rem 2.4rem calc(2.4rem + env(safe-area-inset-bottom));
+  background: rgb(26, 26, 36);
+  border-top: 0.05rem solid rgba(var(--text-color-rgb), 0.15);
+  border-radius: 1.6rem 1.6rem 0 0;
+  box-shadow: 0 -0.8rem 4rem rgba(0, 0, 0, 0.45);
+  touch-action: none;
+  transform: translateY(100%);
+  transition: transform 500ms cubic-bezier(0.32, 0.72, 0, 1);
+  will-change: transform;
+}
+
+.home-drawer.is-open .home-drawer-overlay {
+  opacity: 1;
+}
+
+.home-drawer.is-open .home-drawer-panel {
+  transform: translateY(0);
+}
+
+.home-drawer.is-instant .home-drawer-overlay,
+.home-drawer.is-instant .home-drawer-panel {
+  transition: none;
+}
+
+.home-drawer-handle {
+  width: 3.6rem;
+  height: 0.4rem;
+  margin: 0 auto 0.8rem;
+  border-radius: 0.2rem;
+  background: rgba(var(--text-color-rgb), 0.35);
+}
+
+.home-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.home-drawer-header h2 {
+  margin: 0;
+  @extend %font-xs;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+.home-drawer-close {
+  display: grid;
+  place-items: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  margin-right: -1.2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: none;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: color var(--base-trans-slow) ease-in-out;
+}
+
+.home-drawer-close svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.home-drawer-close:hover {
+  color: var(--title-color);
+}
+
+.home-drawer-list {
+  margin: 0;
+  list-style: none;
+}
+
+.home-drawer-list li + li {
+  border-top: 0.05rem solid rgba(var(--text-color-rgb), 0.15);
+}
+
+.home-drawer-list a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 1.8rem 0;
+  text-decoration: none;
+  @extend %font-s;
+  color: var(--text-color);
+}
+
+.home-drawer-list a span:first-child {
+  @extend %font-xs;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--title-color);
+}
+
+.home-drawer-list a span:last-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-drawer-list a:hover span,
+.home-drawer-list a:focus-visible span {
+  color: var(--brand-color);
+}
+
+.home-drawer-close:focus-visible,
+.home-drawer-list a:focus-visible {
+  outline: 2px solid var(--brand-color);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-drawer-panel {
+    transform: none;
+    opacity: 0;
+    transition: opacity 200ms ease-out;
+  }
+
+  .home-drawer.is-open .home-drawer-panel {
+    opacity: 1;
+  }
+
+  .home-drawer-overlay {
+    transition-duration: 200ms;
+  }
 }
 
 @keyframes home-intro-desc-animation {
@@ -626,9 +839,13 @@ pre {
  * MEDIA QUERIES:
  */
 
-@media screen and (max-width: 700px) {
-  .home-navigation .home-navigation-github {
+// With JS the home nav folds links into "More" so it always stays on one line.
+@media screen and (max-width: 720px) {
+  .home-navigation.is-enhanced .home-navigation-secondary {
     display: none;
+  }
+  .home-navigation.is-enhanced .home-navigation-more {
+    display: inline-block !important;
   }
 }
 @media screen and (max-width: 620px) {
@@ -642,7 +859,14 @@ pre {
   .home-intro-scroll.visible {
     display: none;
   }
-  .home-navigation .home-navigation-resume {
+}
+@media screen and (min-width: 541px) {
+  .home-drawer-portfolio {
+    display: none;
+  }
+}
+@media screen and (max-width: 540px) {
+  .home-navigation.is-enhanced .home-navigation-portfolio {
     display: none;
   }
 }
@@ -651,15 +875,13 @@ pre {
   body {
     --body-padding: 2.4rem;
   }
-  .home-navigation .home-navigation-x {
-    display: none;
-  }
 }
 @media screen and (max-width: 400px) {
   .home-navigation ul {
     left: -1rem;
   }
-  .home-navigation a {
+  .home-navigation a,
+  .home-navigation-more button {
     padding: 2rem 1rem;
   }
 }

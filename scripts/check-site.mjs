@@ -69,6 +69,15 @@ function attribute(node, name) {
   return node.attrs?.find((attr) => attr.name === name)?.value;
 }
 
+function hasClass(node, name) {
+  return (attribute(node, "class") ?? "").split(/\s+/).includes(name);
+}
+
+function textContent(node) {
+  if (node.nodeName === "#text") return node.value;
+  return (node.childNodes ?? []).map(textContent).join("").replace(/\s+/g, " ").trim();
+}
+
 function meta(nodes, name) {
   const matches = nodes.filter(
     (node) =>
@@ -167,6 +176,7 @@ const requiredRoutes = [
   "/robots.txt",
   "/sitemap.xml",
   "/redirects.json",
+  "/investments/",
   "/LICENSE.txt",
   ...redirectRoutes,
 ];
@@ -174,6 +184,61 @@ const requiredRoutes = [
 for (const route of requiredRoutes) {
   assert(await isFile(routeFile(route)), `Missing generated route ${route}`);
 }
+
+const investmentsHtml = await fs.readFile(routeFile("/investments/"), "utf8");
+const portfolioList = elements(parse(investmentsHtml)).find(
+  (node) => node.tagName === "ul" && attribute(node, "aria-label") === "Startup portfolio",
+);
+assert(portfolioList, "Investments page must expose its startup portfolio as a list");
+const investmentRows = portfolioList.childNodes.filter(
+  (node) => node.tagName === "li" && hasClass(node, "blog-list-item"),
+);
+const investmentNames = investmentRows.map((row) =>
+  textContent(elements(row).find((node) => hasClass(node, "blog-list-item-title")) ?? {}),
+);
+const expectedInvestments = ["Paper Design", "QuiverAI", "Mecha Corporation", "Proto", "Trama", "Mafer", "Mito", "Spencer"];
+assert(
+  JSON.stringify(investmentNames) === JSON.stringify(expectedInvestments),
+  `Investments must be listed in order: ${expectedInvestments.join(", ")}. Found: ${investmentNames.join(", ")}`,
+);
+for (const [index, row] of investmentRows.entries()) {
+  assert(
+    elements(row).some((node) => node.tagName === "p" && textContent(node)),
+    `Investment needs a one-line description: ${investmentNames[index]}`,
+  );
+}
+
+const homeNodes = elements(parse(await fs.readFile(routeFile("/"), "utf8")));
+const homeNavigation = homeNodes.find(
+  (node) => node.tagName === "nav" && hasClass(node, "home-navigation"),
+);
+assert(homeNavigation, "Home navigation is missing");
+const homeLinks = elements(homeNavigation)
+  .filter((node) => node.tagName === "a")
+  .map((node) => `${textContent(node)} ${attribute(node, "href")}`);
+const expectedHomeLinks = [
+  "Portfolio #home-work",
+  "Projects /projects/",
+  "Blog /blog/",
+  "Resume https://linkedin.com/in/adrianmg",
+  "Investments /investments/",
+  "X https://x.com/adrianmg",
+  "Contact mailto:hello@adrianmato.com",
+];
+assert(
+  JSON.stringify(homeLinks) === JSON.stringify(expectedHomeLinks),
+  `Home navigation changed. Expected: ${expectedHomeLinks.join(", ")}. Found: ${homeLinks.join(", ")}`,
+);
+// The "More" drawer repeats the links narrow screens fold away, in nav order.
+const moreDrawer = homeNodes.find((node) => node.tagName === "dialog" && attribute(node, "id") === "home-more");
+assert(moreDrawer, "Home navigation must include the More drawer");
+const drawerLinks = elements(moreDrawer)
+  .filter((node) => node.tagName === "a")
+  .map((node) => `${textContent(elements(node).find((child) => child.tagName === "span") ?? {})} ${attribute(node, "href")}`);
+assert(
+  JSON.stringify(drawerLinks) === JSON.stringify(expectedHomeLinks.filter((link) => /^(Portfolio|Resume|X|Contact) /.test(link))),
+  `More drawer links must mirror the folded nav links. Found: ${drawerLinks.join(", ")}`,
+);
 
 for (const post of posts) {
   const html = await fs.readFile(routeFile(postPath(post)), "utf8");

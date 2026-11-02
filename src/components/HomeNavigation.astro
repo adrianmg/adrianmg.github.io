@@ -2,20 +2,52 @@
 import { SITE } from "../lib/site";
 ---
 
-<nav class="home-navigation">
+<nav class="home-navigation" aria-label="Main">
   <ul>
-    <li><a href="#home-work">Portfolio</a></li>
+    <li class="home-navigation-portfolio"><a href="#home-work">Portfolio</a></li>
     <li><a href="/projects/">Projects</a></li>
     <li><a href="/blog/">Blog</a></li>
-    <li class="home-navigation-resume">
+    <li class="home-navigation-secondary">
       <a href={`https://linkedin.com/in/${SITE.linkedin}`}>Resume</a>
     </li>
-    <li class="home-navigation-github">
-      <a href={`https://github.com/${SITE.github}`}>GitHub</a>
-    </li>
-    <li class="home-navigation-x">
+    <li><a href="/investments/">Investments</a></li>
+    <li class="home-navigation-secondary">
       <a href={`https://x.com/${SITE.twitter}`}>X</a>
     </li>
-    <li><a href={`mailto:${SITE.email}`}>Contact</a></li>
+    <li class="home-navigation-secondary">
+      <a href={`mailto:${SITE.email}`}>Contact</a>
+    </li>
+    <li class="home-navigation-more">
+      <button type="button" aria-haspopup="dialog" aria-controls="home-more" aria-expanded="false">More</button>
+    </li>
   </ul>
 </nav>
+
+<dialog id="home-more" class="home-drawer" aria-labelledby="home-more-title" autofocus>
+  <div class="home-drawer-overlay"></div>
+  <div class="home-drawer-panel">
+    <div class="home-drawer-handle" aria-hidden="true"></div>
+    <div class="home-drawer-header">
+      <h2 id="home-more-title">More</h2>
+      <button type="button" class="home-drawer-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M3.5 3.5l9 9M12.5 3.5l-9 9"></path>
+        </svg>
+      </button>
+    </div>
+    <ul class="home-drawer-list">
+      <li class="home-drawer-portfolio">
+        <a href="#home-work"><span>Portfolio</span><span>Selected work</span></a>
+      </li>
+      <li>
+        <a href={`https://linkedin.com/in/${SITE.linkedin}`}><span>Resume</span><span>LinkedIn ↗</span></a>
+      </li>
+      <li>
+        <a href={`https://x.com/${SITE.twitter}`}><span>X</span><span>@{SITE.twitter} ↗</span></a>
+      </li>
+      <li>
+        <a href={`mailto:${SITE.email}`}><span>Contact</span><span>{SITE.email}</span></a>
+      </li>
+    </ul>
+  </div>
+</dialog>
