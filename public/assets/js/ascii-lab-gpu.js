@@ -231,7 +231,7 @@ struct View {
   high: vec4f,
   look: vec4f,   // themed, show cells, scanline opacity, scanline thickness
   glyph: vec4f,  // advance, atlas box width and height, left padding
-  marks: vec4f,  // the lower half block, the right half block, the blank
+  marks: vec4f,  // the lower half block, the right half block, the blank, the dark-on-light atlas's top
 };
 
 @group(0) @binding(0) var<uniform> view: View;
@@ -269,7 +269,7 @@ fn tint(t: f32) -> vec3f {
   return mix(view.low.rgb, view.mid.rgb, clamp((wanted - view.low.w) / max(view.mid.w - view.low.w, 1e-6), 0.0, 1.0));
 }
 
-fn coverage(mark: u32, local: vec2f, size: vec2f) -> f32 {
+fn coverage(mark: u32, local: vec2f, size: vec2f, light: f32) -> f32 {
   if (mark == u32(view.marks.z)) {
     return 0.0;
   }
@@ -289,7 +289,12 @@ fn coverage(mark: u32, local: vec2f, size: vec2f) -> f32 {
     return 0.0;
   }
   let box = vec2u(mark % ${ATLAS_ROW}u, mark / ${ATLAS_ROW}u) * vec2u(u32(view.glyph.y), u32(view.glyph.z));
-  return textureLoad(atlas, box + vec2u(u32(x), u32(local.y)), 0).a;
+  let at = box + vec2u(u32(x), u32(local.y));
+  // Light marks take their shape from light-on-dark text, dark marks from
+  // dark-on-light, and the shades between from a blend of the two.
+  let onDark = textureLoad(atlas, at, 0).r;
+  let onLight = 1.0 - textureLoad(atlas, at + vec2u(0u, u32(view.marks.w)), 0).r;
+  return mix(onLight, onDark, light);
 }
 
 @fragment
@@ -316,7 +321,7 @@ fn fragment(@builtin(position) position: vec4f) -> @location(0) vec4f {
         fg = tint(cell.fg.w);
         bg = tint(cell.bg.w);
       }
-      color = mix(bg, fg, coverage(cell.mark, p - corner, span));
+      color = mix(bg, fg, coverage(cell.mark, p - corner, span, dot(fg, LUMA)));
     }
     if (view.look.y > 0.5 && ((p.x == corner.x && index.x > 0.0) || (p.y == corner.y && index.y > 0.0))) {
       color = mix(color, vec3f(1.0), 0.18);
@@ -479,7 +484,7 @@ fn fragment(@builtin(position) position: vec4f) -> @location(0) vec4f {
         ...stop(stops && stops[2]),
         stops ? 1 : 0, options.grid ? 1 : 0, options.crt, options.line,
         options.glyph.advance, options.glyph.width, options.glyph.height, options.glyph.pad,
-        options.glyph.lower, options.glyph.right, options.glyph.blank, 0,
+        options.glyph.lower, options.glyph.right, options.glyph.blank, options.glyph.half,
       ]));
 
       const encoder = device.createCommandEncoder();

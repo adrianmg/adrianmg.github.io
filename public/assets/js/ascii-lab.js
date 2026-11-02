@@ -501,7 +501,9 @@
     }
 
     // Every mark drawn once at this size, as the canvas version would draw
-    // it in a cell, for the GPU to look up per pixel.
+    // it in a cell, for the GPU to look up per pixel. Browsers draw light text
+    // on dark a little heavier than dark text on light, so the atlas has both:
+    // light on black above, dark on white below, blended by the mark's color.
     function atlasFor(layout) {
       const size = Math.round(layout.cellHeight * 0.75);
       const scale = size / 30;
@@ -509,28 +511,34 @@
       const width = Math.ceil(layout.cellWidth) + 1 + pad * 2;
       const height = Math.ceil(layout.cellHeight) + 1;
       const row = window.AsciiLabGpu.ATLAS_ROW;
+      const half = height * Math.ceil(font.marks.length / row);
       const key = [size, width, height, font.ascent, font.descent].join('|');
       if (key !== atlasKey) {
         atlasCanvas.width = width * row;
-        atlasCanvas.height = height * Math.ceil(font.marks.length / row);
+        atlasCanvas.height = half * 2;
         const context = atlasCanvas.getContext('2d');
-        context.clearRect(0, 0, atlasCanvas.width, atlasCanvas.height);
+        context.fillStyle = '#000';
+        context.fillRect(0, 0, atlasCanvas.width, half);
+        context.fillStyle = '#fff';
+        context.fillRect(0, half, atlasCanvas.width, half);
         context.font = `${size}px ${FONT}`;
         context.textBaseline = 'alphabetic';
-        context.fillStyle = '#fff';
         const baseline = Math.round(((CELL_H * 2 - font.ascent - font.descent) / 2 + font.ascent) * scale);
-        font.marks.forEach((mark, i) => {
-          if (mark.block || mark.mark === ' ') {
-            return;
-          }
-          const x = (i % row) * width;
-          const y = Math.floor(i / row) * height;
-          context.save();
-          context.beginPath();
-          context.rect(x, y, width, height);
-          context.clip();
-          context.fillText(mark.mark, x + pad, y + baseline);
-          context.restore();
+        [['#fff', 0], ['#000', half]].forEach(([ink, offset]) => {
+          context.fillStyle = ink;
+          font.marks.forEach((mark, i) => {
+            if (mark.block || mark.mark === ' ') {
+              return;
+            }
+            const x = (i % row) * width;
+            const y = Math.floor(i / row) * height + offset;
+            context.save();
+            context.beginPath();
+            context.rect(x, y, width, height);
+            context.clip();
+            context.fillText(mark.mark, x + pad, y + baseline);
+            context.restore();
+          });
         });
         gpu.setAtlas(atlasCanvas);
         atlasKey = key;
@@ -544,6 +552,7 @@
         lower: index('▄'),
         right: index('▐'),
         blank: index(' '),
+        half,
       };
     }
 
