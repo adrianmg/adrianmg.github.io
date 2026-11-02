@@ -7,12 +7,12 @@ import { SITE } from "../lib/site";
     <li><a href="#home-work">Portfolio</a></li>
     <li><a href="/projects/">Projects</a></li>
     <li><a href="/blog/">Blog</a></li>
+    <li data-fold="investments"><a href="/investments/">Investments</a></li>
     <li data-fold="resume">
       <a href={`https://linkedin.com/in/${SITE.linkedin}`}>Resume</a>
     </li>
-    <li data-fold="investments"><a href="/investments/">Investments</a></li>
-    <li data-fold="x">
-      <a href={`https://x.com/${SITE.twitter}`}>X</a>
+    <li data-fold="twitter">
+      <a href={`https://twitter.com/${SITE.twitter}`}>Twitter</a>
     </li>
     <li data-fold="contact">
       <a href={`mailto:${SITE.email}`}>Contact</a>
@@ -35,14 +35,14 @@ import { SITE } from "../lib/site";
       </button>
     </div>
     <ul class="home-drawer-list">
-      <li data-fold="resume">
-        <a href={`https://linkedin.com/in/${SITE.linkedin}`}><span>Resume</span><span>LinkedIn ↗</span></a>
-      </li>
       <li data-fold="investments">
         <a href="/investments/"><span>Investments</span><span>Startups I've backed</span></a>
       </li>
-      <li data-fold="x">
-        <a href={`https://x.com/${SITE.twitter}`}><span>X</span><span>@{SITE.twitter} ↗</span></a>
+      <li data-fold="resume">
+        <a href={`https://linkedin.com/in/${SITE.linkedin}`}><span>Resume</span><span>LinkedIn ↗</span></a>
+      </li>
+      <li data-fold="twitter">
+        <a href={`https://twitter.com/${SITE.twitter}`}><span>Twitter</span><span>@{SITE.twitter} ↗</span></a>
       </li>
       <li data-fold="contact">
         <a href={`mailto:${SITE.email}`}><span>Contact</span><span>{SITE.email}</span></a>

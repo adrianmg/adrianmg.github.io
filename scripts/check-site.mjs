@@ -220,9 +220,9 @@ const expectedHomeLinks = [
   "Portfolio #home-work",
   "Projects /projects/",
   "Blog /blog/",
-  "Resume https://linkedin.com/in/adrianmg",
   "Investments /investments/",
-  "X https://x.com/adrianmg",
+  "Resume https://linkedin.com/in/adrianmg",
+  "Twitter https://twitter.com/adrianmg",
   "Contact mailto:hello@adrianmato.com",
 ];
 assert(
@@ -236,7 +236,7 @@ const drawerLinks = elements(moreDrawer)
   .filter((node) => node.tagName === "a")
   .map((node) => `${textContent(elements(node).find((child) => child.tagName === "span") ?? {})} ${attribute(node, "href")}`);
 assert(
-  JSON.stringify(drawerLinks) === JSON.stringify(expectedHomeLinks.filter((link) => /^(Resume|Investments|X|Contact) /.test(link))),
+  JSON.stringify(drawerLinks) === JSON.stringify(expectedHomeLinks.filter((link) => /^(Investments|Resume|Twitter|Contact) /.test(link))),
   `More drawer links must mirror the folded nav links. Found: ${drawerLinks.join(", ")}`,
 );
 

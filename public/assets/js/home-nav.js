@@ -18,7 +18,7 @@
   const moreItem = moreButton.closest('li');
   const DISMISS_VELOCITY = 0.11; // px/ms, a quick flick
   // Links that don't always fit claim spare room in this order.
-  const FOLD_PRIORITY = ['contact', 'investments', 'x', 'resume'];
+  const FOLD_PRIORITY = ['contact', 'investments', 'twitter', 'resume'];
   let closeTimer;
   let drag = null;
   let suppressClick = false;
