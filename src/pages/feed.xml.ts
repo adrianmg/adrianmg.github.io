@@ -21,6 +21,9 @@ function feedHtml(html: string) {
     .replace(/<script\b[\s\S]*?<\/script>/gi, "")
     .replace(/<style\b[\s\S]*?<\/style>/gi, "")
     .replace(/<form\b[^>]*class="playground-controls"[\s\S]*?<\/form>/gi, "")
+    // Posters wait for the page script on the site; readers need them up front.
+    .replace(/\sdata-poster=/g, " poster=")
+    .replace(/\sdata-autoplay-video\b/g, "")
     .replace(/\s(src|href|poster)="(\/(?!\/)[^"]*)"/g, (_, name, value) => ` ${name}="${absoluteUrl(value)}"`)
     .replace(/\ssrcset="([^"]*)"/g, (_, value: string) =>
       ` srcset="${value.replace(/(^|,\s*)(\/(?!\/)[^\s,]+)/g, (__, lead, url) => `${lead}${absoluteUrl(url)}`)}"`);

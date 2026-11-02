@@ -232,7 +232,7 @@ Inline code: \`isn't changed -- ...\`.
     assert.equal(serialize(parseFragment(content)).trim(), absolute);
     for (const body of [...feed.matchAll(/<content\b[^>]*>([\s\S]*?)<\/content>/g)].map((match) => decodeXml(match[1]))) {
       assert.doesNotMatch(body, /<(script|style|form)\b/i, "Feed entries must not carry scripts, styles, or forms");
-      assert.doesNotMatch(body, /\s(src|href|poster)="\/(?!\/)/, "Feed entries must use absolute local URLs");
+      assert.doesNotMatch(body, /[\s-](src|href|poster|srcset)="\/(?!\/)/, "Feed entries must use absolute local URLs");
     }
     for (const part of [article, content, innerHtmlByClass(html, "post-summary")]) {
       const nodes = elements(parseFragment(part));
