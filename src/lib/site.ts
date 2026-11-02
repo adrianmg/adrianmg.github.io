@@ -102,7 +102,7 @@ export function formatBlogDate(value: string): string {
     timeZone: SITE.timeZone,
     year: "numeric",
     month: "short",
-    day: "numeric",
+    day: "2-digit",
   }).formatToParts(parseLegacyDate(value));
   const byType = new Map(parts.map(({ type, value }) => [type, value]));
   return `${byType.get("month")} ${byType.get("day")} ${byType.get("year")}`;

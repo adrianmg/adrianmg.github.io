@@ -258,6 +258,15 @@ assert(
   `More drawer links must mirror the folded nav links. Found: ${drawerLinks.join(", ")}`,
 );
 
+// Blog list dates keep a fixed width: "Nov 01 2026", never "Nov 1 2026".
+const blogDates = elements(parse(await fs.readFile(routeFile("/blog/"), "utf8")))
+  .filter((node) => hasClass(node, "blog-list-item-date"))
+  .map(textContent);
+assert(blogDates.length === posts.length, "Every post needs a date in the blog list");
+for (const date of blogDates) {
+  assert(/^[A-Z][a-z]{2} \d{2} \d{4}$/.test(date), `Blog list date must use a two-digit day: ${date}`);
+}
+
 for (const post of posts) {
   const html = await fs.readFile(routeFile(postPath(post)), "utf8");
   const nodes = elements(parse(html));
