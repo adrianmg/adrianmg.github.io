@@ -14,11 +14,59 @@
 
   const panel = drawer.querySelector('.home-drawer-panel');
   const overlay = drawer.querySelector('.home-drawer-overlay');
-  const narrow = window.matchMedia('(max-width: 720px)');
+  const list = nav.querySelector('ul');
+  const moreItem = moreButton.closest('li');
   const DISMISS_VELOCITY = 0.11; // px/ms, a quick flick
+  // Links that don't always fit claim spare room in this order.
+  const FOLD_PRIORITY = ['contact', 'investments', 'x', 'resume'];
   let closeTimer;
   let drag = null;
   let suppressClick = false;
+
+  const width = (element) => element.getBoundingClientRect().width;
+
+  // Fit as many links as possible on one line; the rest move into "More".
+  function fitNavigation() {
+    const items = Array.from(list.children).filter((li) => li !== moreItem);
+    items.forEach((li) => li.classList.remove('is-folded'));
+    nav.classList.remove('has-more');
+
+    // Edge links may let their padding spill past the text column.
+    const padding = parseFloat(getComputedStyle(list.querySelector('a')).paddingLeft) || 0;
+    const budget = list.clientWidth + padding * 2 + 0.5;
+    const folded = new Set();
+
+    if (items.reduce((sum, li) => sum + width(li), 0) > budget) {
+      nav.classList.add('has-more');
+      let used = width(moreItem) + items
+        .filter((li) => !li.dataset.fold)
+        .reduce((sum, li) => sum + width(li), 0);
+      let full = false;
+
+      // Strict priority: once one link misses, everything after it folds too.
+      FOLD_PRIORITY.forEach((key) => {
+        const li = list.querySelector(`li[data-fold="${key}"]`);
+        if (!li) return;
+        const size = width(li);
+        if (!full && used + size <= budget) {
+          used += size;
+        } else {
+          full = true;
+          folded.add(key);
+        }
+      });
+    }
+
+    items.forEach((li) => li.classList.toggle('is-folded', folded.has(li.dataset.fold)));
+    drawer.querySelectorAll('.home-drawer-list li').forEach((li) => {
+      li.classList.toggle('is-visible', folded.has(li.dataset.fold));
+    });
+
+    if (!folded.size) {
+      nav.classList.remove('has-more');
+      closeDrawer(true);
+    }
+  }
 
   function finishClose() {
     clearTimeout(closeTimer);
@@ -144,10 +192,13 @@
   panel.addEventListener('pointerup', endDrag);
   panel.addEventListener('pointercancel', endDrag);
 
-  // The drawer only belongs to narrow layouts; widening the window dismisses it.
-  narrow.addEventListener('change', (event) => {
-    if (!event.matches) closeDrawer(true);
-  });
+  // Refit whenever the nav's available width changes (resize, rotation, zoom).
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(fitNavigation).observe(list);
+  } else {
+    window.addEventListener('resize', fitNavigation);
+  }
+  fitNavigation();
 
   // Returning from an external link via back/forward should not show a stale drawer.
   window.addEventListener('pageshow', (event) => {

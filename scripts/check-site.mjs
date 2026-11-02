@@ -236,7 +236,7 @@ const drawerLinks = elements(moreDrawer)
   .filter((node) => node.tagName === "a")
   .map((node) => `${textContent(elements(node).find((child) => child.tagName === "span") ?? {})} ${attribute(node, "href")}`);
 assert(
-  JSON.stringify(drawerLinks) === JSON.stringify(expectedHomeLinks.filter((link) => /^(Portfolio|Resume|X|Contact) /.test(link))),
+  JSON.stringify(drawerLinks) === JSON.stringify(expectedHomeLinks.filter((link) => /^(Resume|Investments|X|Contact) /.test(link))),
   `More drawer links must mirror the folded nav links. Found: ${drawerLinks.join(", ")}`,
 );
 

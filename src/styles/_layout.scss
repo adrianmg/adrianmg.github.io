@@ -159,8 +159,14 @@ pre {
   display: inline-block;
 }
 
-.home-navigation-more {
-  display: none !important;
+// JS measures the row and folds whatever doesn't fit into "More".
+.home-navigation .home-navigation-more,
+.home-navigation.is-enhanced li.is-folded {
+  display: none;
+}
+
+.home-navigation.has-more .home-navigation-more {
+  display: inline-block;
 }
 
 .home-navigation a,
@@ -276,17 +282,8 @@ html:has(.home-drawer[open]) {
 
 .home-drawer-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-bottom: 0.4rem;
-}
-
-.home-drawer-header h2 {
-  margin: 0;
-  @extend %font-xs;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: var(--text-color);
 }
 
 .home-drawer-close {
@@ -322,7 +319,12 @@ html:has(.home-drawer[open]) {
   list-style: none;
 }
 
-.home-drawer-list li + li {
+// The drawer shows only the links folded out of the nav.
+.home-drawer-list li:not(.is-visible) {
+  display: none;
+}
+
+.home-drawer-list li.is-visible ~ li.is-visible {
   border-top: 0.05rem solid rgba(var(--text-color-rgb), 0.15);
 }
 
@@ -839,15 +841,6 @@ html:has(.home-drawer[open]) {
  * MEDIA QUERIES:
  */
 
-// With JS the home nav folds links into "More" so it always stays on one line.
-@media screen and (max-width: 720px) {
-  .home-navigation.is-enhanced .home-navigation-secondary {
-    display: none;
-  }
-  .home-navigation.is-enhanced .home-navigation-more {
-    display: inline-block !important;
-  }
-}
 @media screen and (max-width: 620px) {
   // mobile-XXL
   body {
@@ -860,29 +853,20 @@ html:has(.home-drawer[open]) {
     display: none;
   }
 }
-@media screen and (min-width: 541px) {
-  .home-drawer-portfolio {
-    display: none;
-  }
-}
-@media screen and (max-width: 540px) {
-  .home-navigation.is-enhanced .home-navigation-portfolio {
-    display: none;
-  }
-}
 @media screen and (max-width: 480px) {
   // mobile-XL intermediate (yes… I know)
   body {
     --body-padding: 2.4rem;
   }
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 430px) {
+  // Tighter nav spacing on phones (up to the widest iPhones).
   .home-navigation ul {
-    left: -1rem;
+    left: -0.9rem;
   }
   .home-navigation a,
   .home-navigation-more button {
-    padding: 2rem 1rem;
+    padding: 2rem 0.9rem;
   }
 }
 @media screen and (max-width: 380px) {
