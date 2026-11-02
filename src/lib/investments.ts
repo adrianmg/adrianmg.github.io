@@ -20,6 +20,12 @@ export const INVESTMENTS: readonly Investment[] = [
     year: 2025,
   },
   {
+    name: "Spencer",
+    description: "An AI agent that runs influencer marketing campaigns end to end.",
+    url: "https://spenceragent.com/",
+    year: 2025,
+  },
+  {
     name: "Mecha Corporation",
     description: "Artificially intelligent autonomous robots.",
     url: "https://www.mechacorp.ai/",
@@ -48,11 +54,5 @@ export const INVESTMENTS: readonly Investment[] = [
     description: "A collaborative canvas for creating video with AI.",
     url: "https://mito.ai/",
     year: 2026,
-  },
-  {
-    name: "Spencer",
-    description: "An AI agent that runs influencer marketing campaigns end to end.",
-    url: "https://spenceragent.com/",
-    year: 2025,
   },
 ];

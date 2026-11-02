@@ -196,7 +196,7 @@ const investmentRows = portfolioList.childNodes.filter(
 const investmentNames = investmentRows.map((row) =>
   textContent(elements(row).find((node) => hasClass(node, "blog-list-item-title")) ?? {}),
 );
-const expectedInvestments = ["Paper Design", "QuiverAI", "Mecha Corporation", "Proto", "Trama", "Mafer", "Mito", "Spencer"];
+const expectedInvestments = ["Paper Design", "QuiverAI", "Spencer", "Mecha Corporation", "Proto", "Trama", "Mafer", "Mito"];
 assert(
   JSON.stringify(investmentNames) === JSON.stringify(expectedInvestments),
   `Investments must be listed in order: ${expectedInvestments.join(", ")}. Found: ${investmentNames.join(", ")}`,
@@ -211,6 +211,13 @@ for (const [index, row] of investmentRows.entries()) {
     `Investment needs a year: ${investmentNames[index]}`,
   );
 }
+const investmentYears = investmentRows.map((row) =>
+  Number(textContent(elements(row).find((node) => node.tagName === "time") ?? {})),
+);
+assert(
+  investmentYears.every((year, index) => index === 0 || year >= investmentYears[index - 1]),
+  `Investments must be ordered oldest first. Found years: ${investmentYears.join(", ")}`,
+);
 
 const homeNodes = elements(parse(await fs.readFile(routeFile("/"), "utf8")));
 const homeNavigation = homeNodes.find(

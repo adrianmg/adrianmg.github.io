@@ -33,7 +33,7 @@ dates rather than inventing exact launch dates. Project artwork lives under
 `public/assets/work/`.
 
 The `/investments/` page lists the startup portfolio from
-`src/lib/investments.ts` in its curated order. Add only verified company
+`src/lib/investments.ts`, oldest investment first. Add only verified company
 websites, a short `description`, and the investment `year` for each entry; omit
 `url` to show a company without a link. The listing shares the blog's layout
 and list styles.
