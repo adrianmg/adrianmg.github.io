@@ -247,6 +247,9 @@
         if (cameraTile && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
           cameraTile.hidden = false;
         }
+        if (fileInput) {
+          fileInput.accept = 'image/*,video/*';
+        }
       } else {
         useCpu();
       }
@@ -254,10 +257,18 @@
       startLoop();
     });
 
+    // If the GPU goes away or fails, carry on with the CPU fit. It can't
+    // keep up with a camera or video, so those give way to the first sample.
     function lost() {
+      if (!gpu) {
+        return;
+      }
       useCpu();
       if (picture && isLive(picture)) {
+        stopVideo(picture);
+        picture = null;
         pickDefault();
+        return;
       }
       refresh();
     }
@@ -313,7 +324,7 @@
         return video.play();
       }).then(() => {
         cameraOpening = false;
-        if (sampleUrl === CAMERA && !pictureFile) {
+        if (sampleUrl === CAMERA && !pictureFile && gpu) {
           // Mirrored, so it moves the way you do.
           setPicture(video, CAMERA, true);
         } else {
@@ -494,6 +505,7 @@
         info.set([mark.total, mark.squares, mark.block && !small ? cost : 0, allowed(mark, state.marks, small) ? 1 : 0], i * 4);
       });
       fitting = true;
+      const launched = fitKey;
       gpu.fit({
         source: paint(sourceCanvas, columns * CELL_W, rows * CELL_H),
         columns,
@@ -502,12 +514,16 @@
         kernel: kernelFor(state.squint),
         marks: info,
       }).then((result) => {
+        // A fit started before the picture or settings changed is already stale.
+        if (launched !== fitKey) {
+          return;
+        }
         fitted = { columns, rows, cells: unpack(result, columns * rows) };
         const line = draw();
         if (status) {
           status.textContent = line;
         }
-      }).catch(() => {}).finally(() => {
+      }).catch(lost).finally(() => {
         fitting = false;
         if (fitAgain && gpu) {
           fitAgain = false;
@@ -675,11 +691,15 @@
         const video = makeVideo();
         video.src = URL.createObjectURL(file);
         video.play().then(() => {
-          if (pictureFile === file) {
+          if (pictureFile === file && gpu) {
             uploads += 1;
             setPicture(video, `file:${uploads}`);
           } else {
             stopVideo(video);
+            if (pictureFile === file) {
+              pictureFile = null;
+              pickDefault();
+            }
           }
         }).catch(() => {
           stopVideo(video);

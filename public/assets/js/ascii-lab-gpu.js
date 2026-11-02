@@ -278,6 +278,10 @@ fn main(@builtin(workgroup_id) group: vec3u, @builtin(local_invocation_index) la
         if (lost) {
           throw new Error('The GPU was lost');
         }
+        const largest = device.limits.maxTextureDimension2D;
+        if (canvas.width > largest || canvas.height > largest) {
+          throw new Error('The picture is too large to fit on the GPU');
+        }
         if (!source || source.width !== canvas.width || source.height !== canvas.height) {
           if (source) {
             source.destroy();
